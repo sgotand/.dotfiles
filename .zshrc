@@ -90,7 +90,7 @@ setopt interactive_comments
 setopt auto_cd
 
 # cd したら自動的にpushdする
-setopt auto_pushd
+#setopt auto_pushd
 # 重複したディレクトリを追加しない
 setopt pushd_ignore_dups
 
@@ -119,11 +119,12 @@ bindkey '^R' history-incremental-pattern-search-backward
 # エイリアス
 
 alias la='ls -a'
-alias ll='ls -l'
+alias ll='ls -lh'
 
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+alias less='less -XF'
 
 alias mkdir='mkdir -p'
 
@@ -133,6 +134,7 @@ alias sudo='sudo '
 # グローバルエイリアス
 alias -g L='| less'
 alias -g G='| grep'
+
 
 # C で標準出力をクリップボードにコピーする
 # mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
@@ -168,5 +170,10 @@ esac
 # OPAM configuration
 . /Users/shotaro/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-alias ocaml='rlwrap ocaml'
+# alias ocaml='rlwrap ocaml'
+
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+export LESSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
+export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
 
