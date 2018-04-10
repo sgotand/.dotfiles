@@ -5,25 +5,30 @@
 ########################################
 # 環境変数
 export LANG=ja_JP.UTF-8
+export VIMRUNTIME='/usr/share/vim/vim80'
+
+
 
 
 # 色を使用出来るようにする
-autoload -Uz colors
-colors
+# -U :alias展開しない
+# -z :zsh形式で読み込み
+autoload -Uz colors; colors
 
-# emacs 風キーバインドにする
-bindkey -e
+# プロンプト
+#
+# PROMPT="%{${fg[green]}%}[%n]%{${reset_color}%} %~ 
+ PROMPT="${fg[green]}[%n]${reset_color} %~ 
+%# "
+
+
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-# プロンプト
-# 1行表示
-# PROMPT="%~ %# "
-# 2行表示
-PROMPT="%{${fg[green]}%}[%n]%{${reset_color}%} %~ %# "
+
 
 
 # 単語の区切り文字を指定する
@@ -128,6 +133,9 @@ alias less='less -XF'
 
 alias mkdir='mkdir -p'
 
+alias g++='g++-7'
+
+
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 
@@ -176,4 +184,15 @@ esac
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 export LESSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
 export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
+
+[[ -d ~/.rbenv  ]] && \
+  export PATH=${HOME}/.rbenv/bin:${PATH} && \
+    eval "$(rbenv init -)"
+
+[[ -s /Users/shotaro/.tmuxinator/scripts/tmuxinator ]] && source /Users/shotaro/.tmuxinator/scripts/tmuxinator
+export EDITOR='/usr/bin/vim'
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+
+# eval "$(pyenv virtualenv-init -)"
 
