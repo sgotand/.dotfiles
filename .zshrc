@@ -32,8 +32,8 @@ SAVEHIST=1000000
 
 
 # 単語の区切り文字を指定する
-autoload -Uz select-word-style
-select-word-style default
+autoload -Uz select-word-style; select-word-style default
+
 # ここで指定した文字は単語区切りとみなされる
 # / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
 zstyle ':zle:*' word-chars " /=;@:{},|"
@@ -42,8 +42,8 @@ zstyle ':zle:*' word-style unspecified
 ########################################
 # 補完
 # 補完機能を有効にする
-autoload -Uz compinit
-compinit
+autoload -Uz compinit; compinit
+
 
 # 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -61,6 +61,7 @@ zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
 ########################################
 # vcs_info
+# git 
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
 
@@ -70,6 +71,7 @@ zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
 function _update_vcs_info_msg() {
     LANG=en_US.UTF-8 vcs_info
     RPROMPT="${vcs_info_msg_0_}"
+    
 }
 add-zsh-hook precmd _update_vcs_info_msg
 
@@ -119,22 +121,18 @@ setopt extended_glob
 
 # ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
 bindkey '^R' history-incremental-pattern-search-backward
+bindkey -e
 
 ########################################
 # エイリアス
 
 alias la='ls -a'
 alias ll='ls -lh'
-
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias less='less -XF'
-
 alias mkdir='mkdir -p'
-
-alias g++='g++-7'
-
 
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
@@ -185,14 +183,18 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 export LESSOPEN='| /usr/local/bin/src-hilite-lesspipe.sh %s'
 export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
 
-[[ -d ~/.rbenv  ]] && \
-  export PATH=${HOME}/.rbenv/bin:${PATH} && \
-    eval "$(rbenv init -)"
+# [[ -d ~/.rbenv  ]] && \
+#   export PATH=${HOME}/.rbenv/bin:${PATH} && \
+#     eval "$(rbenv init -)"
 
-[[ -s /Users/shotaro/.tmuxinator/scripts/tmuxinator ]] && source /Users/shotaro/.tmuxinator/scripts/tmuxinator
+# [[ -s /Users/shotaro/.tmuxinator/scripts/tmuxinator ]] && source /Users/shotaro/.tmuxinator/scripts/tmuxinator
 export EDITOR='/usr/bin/vim'
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
 
-# eval "$(pyenv virtualenv-init -)"
+alias top=htop
 
+alias ws=/Users/shotaro/workspace/esolang/whitespace/whitespacers/c/ws
+
+export PATH=/usr/local/Cellar/gcc/8.1.0/bin:/usr/local/Cellar/llvm/6.0.0/bin:$PATH
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin
+alias g++='g++-8'
