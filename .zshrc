@@ -198,3 +198,4 @@ export PATH=/usr/local/Cellar/gcc/8.1.0/bin:/usr/local/Cellar/llvm/6.0.0/bin:$PA
 export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
 alias g++='g++-8'
+export PATH="/usr/local/bin:$PATH"
