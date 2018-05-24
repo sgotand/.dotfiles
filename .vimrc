@@ -12,60 +12,55 @@ nnoremap ; :
 nnoremap : ;
 inoremap jj <ESC>
 
-
-
-
+"-============file setting======================
 
 set fenc=utf-8 "file encording 
 set nobackup "~ファイルを作らない
-
 set noswapfile ".swpファイルを作らない
 "set autoread "reload automatically what is changed outside 
 set hidden "バッファを切り替える時に怒られなくなる
 set showcmd "入力中コマンドを表示する。
 
-"######表示設定#######
+
+
+
+"=============edit setting=====================
+set tabstop=2
+set smartindent
+set shiftwidth=4
+set autoindent
+set expandtab
+
+"=============view setting=====================
 
 syntax on
-
-set title				   "タイトル表示
-set number				   "行番号表示
-set ruler				   " カーソルが何行目の何列目に置かれているかを表示する
-
-colorscheme elflord 		"カラースキームをmolokaiに設定
-set cursorline 				"カーソル行をハイライト
-set cursorcolumn  			"カーソル列をハイライト
-
-set virtualedit=block  		"all "virtualモードで文字のない場所も選択可能に
-set showmatch 				"対応するカッコを強調表示
+colorscheme elflord
+set title 
+set number
+set ruler
+set cursorline 
+set cursorcolumn
+set virtualedit=block
+set showmatch
 set t_co=256
 set cmdheight=2
 set wildmode =list:longest
 set wildchar=<Tab>
-set tabstop=2				"画面上でtabが占める幅
-set smartindent
-set shiftwidth=4
-set autoindent				
-set noexpandtab				"
-set spell					"スペルチェックを有効化
-set spelllang=en,cjk 		"英語および漢字でスペルチェック
-set list 					"不可視文字を表示
-set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮ "不可視文字を指定。
-set scrolloff=4  "画面スクロール時に残す余白行数を指定
-
-"####検索設定########
-set hlsearch "検索した文字列をハイライト
-set incsearch "インクリメンタルなサーチ
-set ignorecase "ケースを無視
-set smartcase  "大文字のみケースを考慮
-set wrapscan  "検索時、最後まで行ったら上まで戻る
-
-"
+set spell
+set spelllang=en,cjk
+set list
+set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
+set scrolloff=4
+"====search setting============================
+set hlsearch 
+set incsearch
+set ignorecase
+set smartcase
+set wrapscan
 set clipboard=unnamed,unnamedplus
 set mouse=a
 
-"##########   dein.vim   ########
-
+"==========dein.vim============================
 if &compatible
   set nocompatible
 endif
