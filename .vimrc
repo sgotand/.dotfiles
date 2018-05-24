@@ -32,7 +32,9 @@ set autoindent
 set expandtab
 
 "=============view setting=====================
-
+"set termguicolors
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 syntax on
 colorscheme elflord
 set title 
@@ -47,7 +49,10 @@ set cmdheight=2
 set wildmode =list:longest
 set wildchar=<Tab>
 set spell
-set spelllang=en,cjk
+set spelllang=en
+if (v:version == 704 && has("patch88")) || v:version >= 705
+      set spelllang+=cjk
+endif
 set list
 set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
 set scrolloff=4
@@ -64,7 +69,21 @@ set mouse=a
 if &compatible
   set nocompatible
 endif
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+augroup MyAutoCmd
+      autocmd!
+  augroup END
+
+" dein settings {{{
+ " dein自体の自動インストール
+ let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.vim') : $XDG_CACHE_HOME
+ let s:dein_dir = s:cache_home . '/dein'
+ let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+ if !isdirectory(s:dein_repo_dir)
+   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+ endif
+ let &runtimepath = s:dein_repo_dir .",". &runtimepath
+
+   set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 
 call dein#begin(expand('~/.vim/dein'))
 
