@@ -1,9 +1,31 @@
 filetype off
 filetype plugin indent off
 
-
 "set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
 "=============key mapping=======================
+
+nnoremap s <Nop>
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap sh <C-w>h
+nnoremap sr <C-w>w
+
+nnoremap sJ <C-w>J
+nnoremap sK <C-w>K
+nnoremap sL <C-w>L
+nnoremap sH <C-w>H
+nnoremap sR <C-w>r
+
+nnoremap ss :<C-u>sp<CR>
+nnoremap sv :<C-u>vs<CR>
+nnoremap sq :<C-u>q<CR>
+nnoremap s= <C-w>=
+
+nnoremap st :<C-u>tabnew<CR>
+nnoremap sn gt
+nnoremap sp gT
+
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
@@ -20,7 +42,7 @@ set noswapfile ".swpファイルを作らない
 "set autoread "reload automatically what is changed outside 
 set hidden "バッファを切り替える時に怒られなくなる
 set showcmd "入力中コマンドを表示する。
-
+set backspace=indent,eol,start
 
 
 
