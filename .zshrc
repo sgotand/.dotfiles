@@ -257,7 +257,7 @@ alias ocaml='rlwrap ocaml'
 if source $ZPLUG_HOME/init.zsh; then
     # Make sure to use double quotes
     zplug "zsh-users/zsh-history-substring-search"
-    zplug "zsh-users/zsh-completions", defer:2
+    zplug "zsh-users/zsh-completions" 
 
     # Better history searching with arrow keys
     if zplug check "zsh-users/zsh-history-substring-search"; then
