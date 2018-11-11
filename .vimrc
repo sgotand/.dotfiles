@@ -1,3 +1,4 @@
+" vim:set nospell:
 filetype off
 filetype plugin indent off
 
