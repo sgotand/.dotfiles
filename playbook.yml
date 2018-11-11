@@ -1,0 +1,38 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+  - name: update apt repositories
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
+  - name: install packages
+    apt:
+      name: "{{ package }}"
+    var:
+      package:
+        - zsh
+        - git
+        - curl
+        - openssl
+        - language-pack-ja
+        - build-essential
+  - name: font setting 
+    echo: TODO
+  - name: shell settings
+    echo: TODO
+  - name: git settings
+    echo: TODO
+  - name: docker settings
+    echo: TODO
+  - name: c/c++ settings
+    echo: TODO
+  - name: python settings
+    echo: TODO
+  - name: ruby settings
+    echo: TODO
+  - name: rust settings
+    echo: TODO
+  - name: go settings
+    echo: TODO
+
