@@ -9,7 +9,7 @@
   - name: install packages
     apt:
       name: "{{ package }}"
-    var:
+    vars:
       package:
         - zsh
         - git
