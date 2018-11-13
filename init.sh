@@ -9,10 +9,10 @@ RESET="\e[0m"
 DOTDIR=$HOME/.dotfiles
 
 echo $GREEN [[start apt update]] $RESET
-sudo apt update
+sudo apt update 
 
 echo $GREEN [[installing ansible]] $RESET
-sudo apt install ansible git
+sudo apt install ansible git -y
 
 echo $GREEN [[clonning .dotfiels]] $RESET
 ansible localhost --connection=local -m git -a "repo=https://github.com/progrunner17/.dotfiles.git dest=${DOTDIR} update=no"
