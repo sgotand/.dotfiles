@@ -1,6 +1,8 @@
 - hosts: localhost
   connection: local
   gather_facts: no
+  vars:
+    local_home: "{{ lookup('env', 'HOME') }}"
   tasks:
   - name: update apt repositories
     apt:
@@ -17,6 +19,15 @@
         - openssl
         - language-pack-ja
         - build-essential
+  - name: symlink the dotfiles
+    file:
+      src: '{{ local_home }}/.dotfiles/{{ item }}'
+      dest: '{{ local_home }}/{{ item }}'
+      state: link
+    with_items:
+      - ".vimrc"
+      - ".zshrc"
+      - ".zprofile"
   - name: font setting 
     debug:
       msg: "TODO"
