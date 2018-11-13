@@ -18,21 +18,30 @@
         - language-pack-ja
         - build-essential
   - name: font setting 
-    echo: TODO
+    debug:
+      msg: "TODO"
   - name: shell settings
-    echo: TODO
+    debug:
+      msg: "TODO"
   - name: git settings
-    echo: TODO
+    debug:
+      msg: "TODO"
   - name: docker settings
-    echo: TODO
+    debug:
+      msg: "TODO"
   - name: c/c++ settings
-    echo: TODO
+    debug:
+      msg: "TODO"
   - name: python settings
-    echo: TODO
+    debug:
+      msg: "TODO"
   - name: ruby settings
-    echo: TODO
+    debug:
+      msg: "TODO"
   - name: rust settings
-    echo: TODO
+    debug:
+      msg: "TODO"
   - name: go settings
-    echo: TODO
+    debug:
+      msg: "TODO"
 
