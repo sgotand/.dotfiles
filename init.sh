@@ -9,7 +9,7 @@ RESET="\e[0m"
 DOTDIR=$HOME/.dotfiles
 
 echo $GREEN [[start apt update]] $RESET
-apt update
+sudo apt update
 
 echo $GREEN [[installing ansible]] $RESET
 sudo apt install ansible git
