@@ -37,6 +37,12 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
+" multi line paste
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+
 " swap ; and :
 nnoremap ; :
 nnoremap : ;
@@ -61,7 +67,7 @@ set modelines=5
 set tabstop=2
 set expandtab
 set smartindent
-set shiftwidth=4
+set shiftwidth=2
 set autoindent
 
 "=============view setting=====================
@@ -96,15 +102,20 @@ set wrapscan
 set clipboard=unnamed,unnamedplus
 set mouse=a
 
+"=============utility==========================
+"{{{
+command! InsertModeLine call s:insertModeLine()
 
-if v:version >= 800 
+function! s:insertModeLine()
+    put ='vim: set ft=' . &ft . ' :'
+endfunction
+"}}}
+
     "==========dein.vim============================
+if v:version >= 800 
     if &compatible
       set nocompatible
     endif
-    augroup MyAutoCmd
-          autocmd!
-    augroup END
 
  
     let s:cache_home = expand('~/.vim')
@@ -133,7 +144,18 @@ if v:version >= 800
     call dein#add('itchyny/lightline.vim')
     call dein#add('mattn/benchvimrc-vim')
     call dein#add('scrooloose/nerdtree')
+    call dein#add('nathanaelkane/vim-indent-guides')
     call dein#end()
+
+    "================vim-indent-guides================================    
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_start_level = 2
+    let g:indent_guitds_auto_colors=1
+    hi IndentGuidesEven ctermbg=darkgrey
+
+    "================quickrun============================
+    let g:quickrun_config = {}
+    let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++11'}
 
     "================lightline.vim============================
     set laststatus=2
