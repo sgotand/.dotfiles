@@ -2,9 +2,7 @@
 filetype off
 filetype plugin indent off
 
-"set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
-"=============key mapping=======================
-
+"set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p] "=============key mapping======================= 
 nnoremap s <Nop>
 
 "move among panes 
@@ -43,13 +41,46 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
-
 " swap ; and :
 nnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 
 inoremap jj <ESC>
 inoremap jk <ESC>
+
+" discard yank got with x(s)
+nnoremap x "_x
+nnoremap s "_s
+
+" delete highlight with double <ESC> or Ctrl-l
+nnoremap <silent> <ESC><ESC> :nohl<CR>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+" highlight the word under cursor with double space
+nnoremap <silent> HH  "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+
+
+"emacs keybinds for command 
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-d> <Del>
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-b> <Esc>bi
+inoremap <C-f> <Esc>ewi
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-d> <Del>
+
+"line join 
+nnoremap J <Nop>
+nnoremap <C-j> :join<CR>
+
 
 "============file setting======================
 
@@ -78,8 +109,8 @@ colorscheme iceberg
 set title
 set number
 set ruler
-set cursorline
-set cursorcolumn
+"set cursorline
+"set cursorcolumn
 set virtualedit=block
 set showmatch
 set matchtime=1
@@ -94,6 +125,12 @@ endif
 set list
 set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
 set scrolloff=4
+
+"====fold setting==============================
+
+set foldmethod=syntax
+
+
 "====search setting============================
 set hlsearch
 set incsearch
@@ -119,7 +156,7 @@ if v:version >= 800
     endif
 
  
-    let s:cache_home = expand('~/.vim')
+    let s:cache_home = expand('~/.cache')
     let s:dein_dir = s:cache_home . '/dein'
     let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
     if !isdirectory(s:dein_repo_dir)
@@ -127,18 +164,29 @@ if v:version >= 800
      endif
     let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
-    set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+    "set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+    set runtimepath+=s:deind_dir . '/repos/github.com/Shougo/dein.vim'
 
     call dein#begin(s:dein_dir)
 
     call dein#add('Shougo/dein.vim')
     call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 
-    call dein#add('Shougo/unite.vim')
+    if has('nvim')
+      call dein#add('Shougo/denite.nvim')
+    else
+      call dein#add('Shougo/unite.vim')
+    endif
     call dein#add('Shougo/neomru.vim')
-    call dein#add('Shougo/neocomplete.vim')
+    "call dein#add('Shougo/neocomplete.vim')
+    call dein#add('Shougo/deoplete.nvim')
+    if !has('nvim')
+      call dein#add('roxma/nvim-yarp')
+      call dein#add('roxma/vim-hug-neovim-rpc')
+    endif
+    let g:deoplete#enable_at_startup = 1
     call dein#add('Shougo/neomru.vim')
-    call dein#add('Shougo/neosnippet')
+    call dein#add('Shougo/neosnippet.vim')
     call dein#add('Shougo/neosnippet-snippets')
 
     call dein#add('thinca/vim-quickrun')
@@ -146,7 +194,41 @@ if v:version >= 800
     call dein#add('mattn/benchvimrc-vim')
     call dein#add('scrooloose/nerdtree')
     call dein#add('nathanaelkane/vim-indent-guides')
+    call dein#add('airblade/vim-gitgutter')
     call dein#end()
+
+
+
+    "================neosnippet================================    
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target) 
+
+    " SuperTab like snippets behavior.
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+    imap <expr><CR> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<CR>"
+
+ 
+    " For conceal markers.
+    if has('conceal')
+      set conceallevel=2 concealcursor=niv
+    endif
+    "================vim-indent-guides================================    
+
+    command! Db call s:deniteBuffer() 
+
+    function! s:deniteBuffer()
+        if has('nvim')
+          Denite buffer
+        else
+          Unite buffer
+        end
+    endfunction
 
     "================vim-indent-guides================================    
     let g:indent_guides_enable_on_vim_startup = 1
@@ -226,4 +308,8 @@ endif
 
 filetype on
 filetype plugin indent on
+
+if dein#check_install()
+  call dein#install()
+endif
 
