@@ -1,4 +1,4 @@
-# vim:set filetype=zsh:
+# vim:set filetype=zsh nospell :
 # 色を使用出来るようにする
 # -U :alias展開しない
 # -z :zsh形式で読み込み
@@ -7,6 +7,7 @@ autoload -Uz colors; colors
 # プロンプト
 PROMPT="${fg[green]}[%n]${reset_color} %~
 %# "
+
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
@@ -224,40 +225,32 @@ fi
 
 
 
-[[ -d ~/.rbenv  ]] && \
-  export PATH=${HOME}/.rbenv/bin:${PATH} && \
-    eval "$(rbenv init -)"
-
-# [[ -s /Users/shotaro/.tmuxinator/scripts/tmuxinator ]] && source /Users/shotaro/.tmuxinator/scripts/tmuxinator
 
 
-############GCP###################################
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/shotaro/workspace/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/shotaro/workspace/google-cloud-sdk/path.zsh.inc'; fi
 
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/shotaro/workspace/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/shotaro/workspace/google-cloud-sdk/completion.zsh.inc'; fi
 
 
 
 ###########各種言語設定##############
-# python
-eval "$(pyenv init -)"
 
-# ruby
-eval "$(rbenv init -)"
+if type pyenv >/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
 
-# OPAM configuration
-. /Users/shotaro/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-alias ocaml='rlwrap ocaml'
+if [[ -d ~/.rbenv  ]] ; then
+  export PATH=${HOME}/.rbenv/bin:${PATH}  
+  eval "$(rbenv init -)"
+fi
 
 
 
 ###########plugin###############
-if source $ZPLUG_HOME/init.zsh; then
+if [ -e  "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
     # Make sure to use double quotes
+
     zplug "zsh-users/zsh-history-substring-search"
     zplug "zsh-users/zsh-completions" 
+    zplug "kagamilove0707/moonline.zsh", from:github, defer:2
 
     # Better history searching with arrow keys
     if zplug check "zsh-users/zsh-history-substring-search"; then
@@ -269,7 +262,7 @@ if source $ZPLUG_HOME/init.zsh; then
         bindkey -M vicmd 'j' history-substring-search-down
     fi
 
-    zplug "kagamilove0707/moonline.zsh", from:github, defer:2
+    #zplug "kagamilove0707/moonline.zsh", from:github, defer:2 #above
     source $ZPLUG_HOME/repos/kagamilove0707/moonline.zsh/moonline.zsh
     moonline initialize
 
@@ -317,5 +310,22 @@ if source $ZPLUG_HOME/init.zsh; then
 
 else
     echo "zplug not found"
+    echo "Do you want to install zplug? (y or n :default: y)"
+    read ANSWER
+    case $ANSWER in
+        "" | "Y" |"y" ) 
+            echo "start installing zplug"
+           curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh 
+           ;;
+        *);;
+    esac
 fi
+
+
+
+
+
+
+
+
 

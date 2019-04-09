@@ -8,29 +8,10 @@ export LESS='-gj10 --no-init --quit-if-one-screen --RAW-CONTROL-CHARS'
 export EDITOR='/usr/bin/vim'
 export PATH=~/.local/bin/:$PATH
 
-##############language###################
-# rust
-export PATH="$HOME/.cargo/bin:$PATH"
+# TODO: check the vim directory structure !!
+if type vim > /dev/null 2>&1; then
+   VIM_VER=$(vim --version | head -n1 | awk 'match($0, /[0-9]+\.[0-9]/) {print substr($0, RSTART, RLENGTH)}' | sed 's/\.//')
+   export VIMRUNTIME="/usr/share/vim/vim$VIM_VER"
+fi 
 
-# python(pyenv)
-export PYENV_ROOT=$HOME/.pyenv
-export PATH="$PYENV_ROOT/bin:$PATH"
-
-# node(nodebrew)
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-
-# go
-export GOPATH=$HOME/.go
-export PATH=$PATH:$GOPATH/bin
-
-# c/c++(gcc)
-export PATH=/usr/local/Cellar/gcc/8.1.0/bin:/usr/local/Cellar/llvm/6.0.0/bin:$PATH
-
-###############terminal################
-
-# vim
-# TODO aliasを貼って、そこでなんとかすれば？
-export VIMRUNTIME="/usr/share/vim/vim80"
-
-# zsh(zplug)
-export ZPLUG_HOME=/usr/local/opt/zplug
+export ZPLUG_HOME="$HOME/.zplug"

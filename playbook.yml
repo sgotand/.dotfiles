@@ -1,0 +1,59 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    local_home: "{{ lookup('env', 'HOME') }}"
+  tasks:
+  - name: update apt repositories
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
+  - name: install packages
+    apt:
+      name: "{{ package }}"
+    vars:
+      package:
+        - zsh
+        - vim
+        - git
+        - curl
+        - openssl
+        - language-pack-ja
+        - build-essential
+  - name: symlink the dotfiles
+    file:
+      src: '{{ local_home }}/.dotfiles/{{ item }}'
+      dest: '{{ local_home }}/{{ item }}'
+      state: link
+    with_items:
+      - ".vimrc"
+      - ".zshrc"
+      - ".zprofile"
+  - name: font setting 
+    debug:
+      msg: "TODO"
+  - name: shell settings
+    debug:
+      msg: "TODO"
+  - name: git settings
+    debug:
+      msg: "TODO"
+  - name: docker settings
+    debug:
+      msg: "TODO"
+  - name: c/c++ settings
+    debug:
+      msg: "TODO"
+  - name: python settings
+    debug:
+      msg: "TODO"
+  - name: ruby settings
+    debug:
+      msg: "TODO"
+  - name: rust settings
+    debug:
+      msg: "TODO"
+  - name: go settings
+    debug:
+      msg: "TODO"
+
