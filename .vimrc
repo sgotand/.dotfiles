@@ -175,7 +175,7 @@ if v:version >= 800
     else
       call dein#add('Shougo/unite.vim')
     endif
-    call dein#add('Shougo/neomru.vim')
+    call dein#add('Shougo/neomru.vim') "recently used file
     "call dein#add('Shougo/neocomplete.vim')
     call dein#add('Shougo/deoplete.nvim')
     if !has('nvim')
@@ -183,15 +183,13 @@ if v:version >= 800
       call dein#add('roxma/vim-hug-neovim-rpc')
     endif
     let g:deoplete#enable_at_startup = 1
-    call dein#add('Shougo/neomru.vim')
     call dein#add('Shougo/neosnippet.vim')
     call dein#add('Shougo/neosnippet-snippets')
 
-    call dein#add('thinca/vim-quickrun')
+    call dein#add('thinca/vim-quickrun') 
     call dein#add('itchyny/lightline.vim')
-    call dein#add('mattn/benchvimrc-vim')
+    call dein#add('mattn/benchvimrc-vim') "Use with :BenchVimrc
     call dein#add('scrooloose/nerdtree')
-    call dein#add('nathanaelkane/vim-indent-guides')
     call dein#add('airblade/vim-gitgutter')
     call dein#end()
 
@@ -216,27 +214,21 @@ if v:version >= 800
     if has('conceal')
       set conceallevel=2 concealcursor=niv
     endif
-    "================vim-indent-guides================================    
-
-    command! Db call s:deniteBuffer() 
-
-    function! s:deniteBuffer()
-        if has('nvim')
-          Denite buffer
-        else
-          Unite buffer
-        end
-    endfunction
-
-    "================vim-indent-guides================================    
-    let g:indent_guides_enable_on_vim_startup = 1
-    let g:indent_guides_start_level = 2
-    let g:indent_guitds_auto_colors=1
-    hi IndentGuidesEven ctermbg=darkgrey
 
     "================quickrun============================
     let g:quickrun_config = {}
     let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++11'}
+    "================NERDTree============================
+    function s:MoveToFileAtStart()
+      call feedkeys("\<Space>")
+      call feedkeys("\s")
+      call feedkeys("\l")
+    endfunction
+    let g:NERDTreeShowBookmarks=1
+    
+    if !argc()
+      autocmd VimEnter *  NERDTree 
+    endif
 
     "================lightline.vim============================
     set laststatus=2
