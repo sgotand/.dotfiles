@@ -2,7 +2,7 @@
 filetype off
 filetype plugin indent off
 
-"set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p] "=============key mapping======================= 
+"=============key mapping======================= 
 nnoremap s <Nop>
 
 "move among panes 
@@ -159,13 +159,11 @@ if v:version >= 800
     let s:cache_home = expand('~/.cache')
     let s:dein_dir = s:cache_home . '/dein'
     let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+    " automatically download dein.vim repo when it doesn't exist in local
     if !isdirectory(s:dein_repo_dir)
        call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
      endif
     let &runtimepath = s:dein_repo_dir .",". &runtimepath
-
-    "set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
-    set runtimepath+=s:deind_dir . '/repos/github.com/Shougo/dein.vim'
 
     call dein#begin(s:dein_dir)
 
