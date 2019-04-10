@@ -1,8 +1,11 @@
 " vim:set nospell:
 filetype off
 filetype plugin indent off
+runtime! ftplugin/man.vim
 
 "=============key mapping======================= 
+set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
+
 nnoremap s <Nop>
 
 "move among panes 
@@ -80,6 +83,13 @@ inoremap <C-d> <Del>
 "line join 
 nnoremap J <Nop>
 nnoremap <C-j> :join<CR>
+nnoremap <space>h :Gtags -f %<CR>
+nnoremap <space>j :GtagsCursor<CR>
+nnoremap <space>d :<C-u>exe('Gtags '.expand('<cword>'))<CR>
+nnoremap <space>r :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
+nnoremap <space>n :cn<CR>
+nnoremap <space>p :cp<CR>
+nnoremap <space>o <C-o>
 
 
 "============file setting======================
@@ -155,14 +165,14 @@ if v:version >= 800
       set nocompatible
     endif
 
- 
+
     let s:cache_home = expand('~/.cache')
     let s:dein_dir = s:cache_home . '/dein'
     let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
     " automatically download dein.vim repo when it doesn't exist in local
     if !isdirectory(s:dein_repo_dir)
-       call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
-     endif
+      call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+    endif
     let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
     call dein#begin(s:dein_dir)
@@ -193,6 +203,11 @@ if v:version >= 800
     endif
     call dein#add('scrooloose/nerdtree')
     call dein#add('airblade/vim-gitgutter')
+    call dein#add('lighttiger2505/gtags.vim')
+    call dein#add('justmao945/vim-clang')
+    call dein#add('terryma/vim-multiple-cursors')
+    call dein#add('itchyny/vim-parenmatch')
+
     call dein#end()
 
 
@@ -211,7 +226,6 @@ if v:version >= 800
     imap <expr><CR> neosnippet#expandable_or_jumpable() ?
     \ "\<Plug>(neosnippet_expand_or_jump)" : "\<CR>"
 
- 
     " For conceal markers.
     if has('conceal')
       set conceallevel=2 concealcursor=niv
@@ -232,7 +246,23 @@ if v:version >= 800
       autocmd VimEnter *  NERDTree 
     endif
 
+    "================vim-clang================================
+    let g:clang_c_options = '-std=c90'
+    let g:clang_format_auto = 0
+    let g:clang_auto = 0
+    let g:clang_format_stylea ='Google'
+    let g:clang_check_syntax_auto = 0
+    "================gtags.vim================================
+    let g:Gtags_Auto_Map = 0
+    let g:Gtags_OpenQuickfixWindow = 1
+    nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
+    nmap <silent> R :<C-u>exe("Gtags -r".expand('<cword>'))<CR>
+    "================vim-parenmatch===========================
+    let g:loaded_matchparen = 1
+    highlight link ParenMatch MatchParen
+    let g:parenmatch_highlight = 0
     "================lightline.vim============================
+
     set laststatus=2
     if !has('gui_running')
       set t_Co=256
@@ -297,6 +327,33 @@ if v:version >= 800
       return winwidth(0) > 60 ? lightline#mode() : ''
     endfunction
 endif
+
+
+
+function! ProfileCursorMove() abort
+  let profile_file = expand('~/log/vim-profile.log')
+  if filereadable(profile_file)
+    call delete(profile_file)
+  endif
+
+  normal! gg
+  normal! zR
+
+  execute 'profile start ' . profile_file
+  profile func *
+  profile file *
+
+  augroup ProfileCursorMove
+    autocmd!
+    autocmd CursorHold <buffer> profile pause | q
+  augroup END
+
+  for i in range(100)
+    call feedkeys('j')
+  endfor
+endfunction
+
+
 
 filetype on
 filetype plugin indent on

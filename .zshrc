@@ -25,6 +25,7 @@ zstyle ':zle:*' word-style unspecified
 ################## Completion ######################
 # 補完
 # 補完機能を有効にする
+fpath+=~/.zfunc
 autoload -Uz compinit; compinit
 
 
@@ -142,7 +143,7 @@ setopt autonamedirs
 setopt cdable_vars
 hash -d pdf=$HOME/Documents/pdf
 
-
+################# History #######################
 # 同時に起動したzshの間でヒストリを共有する
 setopt share_history
 
@@ -157,6 +158,31 @@ setopt hist_reduce_blanks
 
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
+
+__record_command() {
+  typeset -g _LASTCMD=${1%%$'\n'}
+  return 1
+}
+zshaddhistory_functions+=(__record_command)
+
+__update_history() {
+  local last_status="$?"
+
+  # hist_ignore_space
+  if [[ ! -n ${_LASTCMD%% *} ]]; then
+    return
+  fi
+
+  # hist_reduce_blanks
+  local cmd_reduce_blanks=$(echo ${_LASTCMD} | tr -s ' ')
+
+  # Record the commands that have succeeded
+  if [[ ${last_status} == 0 ]]; then
+    print -sr -- "${cmd_reduce_blanks}"
+  fi
+}
+precmd_functions+=(__update_history)
+
 
 ##################### Key Bindings ###################
 # キーバインド
@@ -232,10 +258,11 @@ fi
 
 ###########各種言語設定##############
 
-if type pyenv >/dev/null 2>&1; then
+if [[ -d ~/.pyenv ]] ; then
+    export PATH="/home/progrunner/.pyenv/bin:$PATH"
     eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
 fi
-
 if [[ -d ~/.rbenv  ]] ; then
   export PATH=${HOME}/.rbenv/bin:${PATH}  
   eval "$(rbenv init -)"
@@ -292,6 +319,7 @@ if [ -e  "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
     fi
 
 
+    zplug "plugins/cargo", from:oh-my-zsh
 
     zplug "zsh-users/zaw"
     bindkey '^j' zaw
@@ -328,3 +356,6 @@ fi
 
 
 
+eval "$(direnv hook zsh)"
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
