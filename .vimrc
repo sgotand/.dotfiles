@@ -188,7 +188,9 @@ if v:version >= 800
 
     call dein#add('thinca/vim-quickrun') 
     call dein#add('itchyny/lightline.vim')
-    call dein#add('mattn/benchvimrc-vim') "Use with :BenchVimrc
+    if has('nvim')
+      call dein#add('mattn/benchvimrc-vim') "Use with :BenchVimrc
+    endif
     call dein#add('scrooloose/nerdtree')
     call dein#add('airblade/vim-gitgutter')
     call dein#end()
