@@ -8,7 +8,6 @@ autoload -Uz colors; colors
 PROMPT="${fg[green]}[%n]${reset_color} %~
 %# "
 
-
 # ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
@@ -17,22 +16,18 @@ SAVEHIST=1000000
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style; select-word-style default
 
-# ここで指定した文字は単語区切りとみなされる
-# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
+# set words delimitter
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
 ################## Completion ######################
-# 補完
-# 補完機能を有効にする
 fpath+=~/.zfunc
 autoload -Uz compinit; compinit
 
-
-# 補完で小文字でも大文字にマッチさせる
+# case insensitive
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-# ../ の後は今いるディレクトリを補完しない
+# ignore completion of curent dir after "./"
 zstyle ':completion:*' ignore-parents parent pwd ..
 
 # sudo の後ろでコマンド名を補完する
@@ -41,44 +36,39 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/s
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
-
-#########
-### 補完方法毎にグループ化する。
-# zstyle ':completion:*' format '%B%F{blue}%d%f%b'
-# zstyle ':completion:*' group-name ''
-### 補完侯補をメニューから選択する。
-### select=2: 補完候補を一覧から選択する。補完候補が2つ以上なければすぐに補完する。
+### group the candidates
+ zstyle ':completion:*' format '%B%F{blue}%d%f%b'
+ zstyle ':completion:*' group-name ''
+### select the candidate from list
+### but when only one candidate exists complete promptly
 zstyle ':completion:*:default' menu select=2
-### 補完候補に色を付ける。
+### colorize the completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 ### 補完候補がなければより曖昧に候補を探す。
 ### m:{a-z}={A-Z}: 小文字を大文字に変えたものでも補完する。
 ### r:|[._-]=*: 「.」「_」「-」の前にワイルドカード「*」があるものとして補完する。
-#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 zstyle ':completion:*' keep-prefix
 zstyle ':completion:*' recent-dirs-insert both
 
 ### 補完候補
-### _oldlist 前回の補完結果を再利用する。
-### _complete: 補完する。
-### _match: globを展開しないで候補の一覧から補完する。
-### _history: ヒストリのコマンドも補完候補とする。
-### _ignored: 補完候補にださないと指定したものも補完候補とする。
-### _approximate: 似ている補完候補も補完候補とする。
-### _prefix: カーソル以降を無視してカーソル位置までで補完する。
-#zstyle ':completion:*' completer _oldlist _complete _match _history _ignored _approximate _prefix
-zstyle ':completion:*' completer _complete _ignored
+### _oldlist: reuse the last completion result
+### _complete: complete
+### _match: complete from candidate rather than expand glob
+### _history: use commands in history as candidate
+### _ignored: use invalidated candidate
+### _approximate: use the approximate candidate
+### _prefix: complete according up to the cursor, or ignore afterwards
+zstyle ':completion:*' completer _oldlist _complete _match _ignored _approximate _prefix
 
 ## 補完候補をキャッシュする。
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path ~/.zsh/cache
-## 詳細な情報を使わない
-# zstyle ':completion:*' verbose no
 
-## sudo の時にコマンドを探すパス
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+zstyle ':completion:*' verbose yes
+
 
 #########
 
@@ -99,18 +89,12 @@ function _update_vcs_info_msg() {
 }
 add-zsh-hook precmd _update_vcs_info_msg
 
-
-
-
 ##################落ち穂拾い######################
 # オプション
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
-# beep を無効にする
 setopt no_beep
-
-# フローコントロールを無効にする
 setopt no_flow_control
 
 # Ctrl+Dでzshを終了しない
@@ -130,7 +114,7 @@ setopt auto_pushd
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 
-# cdr の設定
+# cdr
 zstyle ':completion:*' recent-dirs-insert both
 zstyle ':chpwd:*' recent-dirs-max 500
 zstyle ':chpwd:*' recent-dirs-default true
@@ -185,7 +169,6 @@ precmd_functions+=(__update_history)
 
 
 ##################### Key Bindings ###################
-# キーバインド
 
 # ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
 bindkey '^R' history-incremental-pattern-search-backward
@@ -200,9 +183,21 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias less='less -XF'
 alias mkdir='mkdir -p'
-# alias path="echo $PATH| tr ':' '\n'"
-path(){ echo $PATH | tr ':' '\n' }
 
+alias gs='git status'
+alias gd='git diff'
+alias ga='git add'
+alias gc='git commit'
+
+alias vs='vagrant status'
+alias vss='vagrant ssh'
+alias vssh='vagrant ssh'
+alias vu='vagrant up'
+alias vup='vagrant up'
+alias vd='vagrant destroy'
+
+path(){ echo $PATH | tr ':' '\n' }
+alias p=path
 
 if which htop >/dev/null 2>&1 ; then
     alias top=htop
@@ -210,18 +205,15 @@ fi
 
 case ${OSTYPE} in
     darwin*)
-        #Mac用の設定
+        #Mac
         export CLICOLOR=1
         alias ls='ls -G -F'
         ;;
     linux*)
-        #Linux用の設定
+        #Linux
         alias ls='ls -F --color=auto'
         ;;
 esac
-
-
-
 
 # global aliases
 alias -g L='| less'
@@ -229,6 +221,7 @@ alias -g G='| grep'
 alias -g P='| peco'
 alias -g H='| head'
 alias -g T='| tail'
+alias -g S='| sed'
 
 # cf. mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
 if which pbcopy >/dev/null 2>&1 ; then
@@ -243,39 +236,50 @@ elif which putclip >/dev/null 2>&1 ; then
 fi
 
 
+# expand the global alias when " " is inputted
+global_alias() {
+  if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+    zle _expand_alias
+    # zle expand-word
+  fi
+  zle self-insert
+}
+zle -N global_alias
+bindkey " " global_alias
+
+
+
+###########ENV DEPENDENT SETTINGS################################
 
 if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
 
-
-
-
-
-
-
-
-###########各種言語設定##############
-
-if [[ -d ~/.pyenv ]] ; then
-    export PATH="/home/progrunner/.pyenv/bin:$PATH"
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
-if [[ -d ~/.rbenv  ]] ; then
-  export PATH=${HOME}/.rbenv/bin:${PATH}  
-  eval "$(rbenv init -)"
-fi
-
-
-
 ###########plugin###############
+if [ -z ${ZPLUG_HOME:-""} ]; then
+  export ZPLUG_HOME = $HOME/.zplug
+fi
+
+
+if [ ! -e  "${ZPLUG_HOME}/init.zsh" ];then
+    echo "zplug not found"
+    echo "Do you want to install zplug? (y or n :default: y)"
+    read ANSWER
+    case $ANSWER in
+        "" | "Y" |"y" )
+            echo "start installing zplug"
+           curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
+           ;;
+        *);;
+    esac
+fi
+
 if [ -e  "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
     # Make sure to use double quotes
 
     zplug "zsh-users/zsh-history-substring-search"
-    zplug "zsh-users/zsh-completions" 
+    zplug "zsh-users/zsh-completions"
     zplug "kagamilove0707/moonline.zsh", from:github, defer:2
 
     # Better history searching with arrow keys
@@ -318,7 +322,6 @@ if [ -e  "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
         # bindkey '^x^e' anyframe-widget-insert-git-branch
     fi
 
-
     zplug "plugins/cargo", from:oh-my-zsh
 
     zplug "zsh-users/zaw"
@@ -335,27 +338,5 @@ if [ -e  "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
 
     zplug load --verbose
 
-else
-    echo "zplug not found"
-    echo "Do you want to install zplug? (y or n :default: y)"
-    read ANSWER
-    case $ANSWER in
-        "" | "Y" |"y" ) 
-            echo "start installing zplug"
-           curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh 
-           ;;
-        *);;
-    esac
 fi
 
-
-
-
-
-
-
-
-
-eval "$(direnv hook zsh)"
-
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
