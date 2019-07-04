@@ -1,0 +1,199 @@
+" vim:set nospell:
+filetype off
+filetype plugin indent off
+runtime! ftplugin/man.vim
+
+"============file setting======================
+
+set fileencoding=utf-8 
+set encoding=utf-8
+scriptencoding utf-8
+set nocompatible
+set nobackup 
+set noswapfile 
+set autoread 
+set hidden 
+set showcmd 
+set backspace=indent,eol,start
+set modeline
+set modelines=5
+
+"=============key mapping======================= 
+set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
+
+nnoremap s <Nop>
+
+"move among panes 
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap sh <C-w>h
+nnoremap sr <C-w>w
+
+" move the pane position
+nnoremap sJ <C-w>J
+nnoremap sK <C-w>K
+nnoremap sL <C-w>L
+nnoremap sH <C-w>H
+nnoremap sR <C-w>r
+
+" 
+nnoremap s= <C-w>=
+nnoremap s_ <C-w>_
+nnoremap s\|  <C-w>\|
+nnoremap sa <C-w>_<C-w>\|
+
+" split the pane
+nnoremap ss :<C-u>sp<CR>
+nnoremap sv :<C-u>vs<CR>
+nnoremap sq :<C-u>q<CR>
+
+" tab handling
+nnoremap st :<C-u>tabnew<CR>
+nnoremap sT <C-w>T
+nnoremap sn gt
+nnoremap sp gT
+
+nnoremap tn :<C-u>tabnew<CR>
+nnoremap tl gt
+nnoremap th gT
+
+" exchange line movement commands
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+" multi line paste
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+" swap ; and :
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
+inoremap jk <ESC>
+
+" discard yank got with x(s)
+nnoremap x "_x
+nnoremap s "_s
+
+" delete highlight with double <ESC> or Ctrl-l
+nnoremap <silent> <ESC><ESC> :nohl<CR>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+" highlight the word under cursor with double space
+nnoremap <silent> HH  "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+
+
+"emacs keybinds for command 
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-d> <Del>
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-b> <Esc>bi
+inoremap <C-f> <Esc>ewi
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-d> <Del>
+
+"line join 
+vnoremap J <Nop>
+vnoremap <C-j> :join<CR>
+
+nnoremap <space>h :Gtags -f %<CR>
+nnoremap <space>j :GtagsCursor<CR>
+nnoremap <space>d :<C-u>exe('Gtags '.expand('<cword>'))<CR>
+nnoremap <space>r :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
+nnoremap <space>n :cn<CR>
+nnoremap <space>p :cp<CR>
+nnoremap <space>o <C-o>
+
+if has('terminal') || has('nvim')
+
+  tnoremap <silent> <ESC> <C-\><C-n>
+  tnoremap jj <C-\><C-n>
+  tnoremap jk <C-\><C-n>
+
+  if has('nvim')
+    autocmd TermOpen * setlocal nonumber
+    autocmd TermOpen * setlocal nospell
+    autocmd TermOpen * startinsert
+  elseif v:version > 810
+    autocmd TerminalOpen * set nonumber
+    autocmd TerminalOpen * set nospell
+  endif
+endif
+
+"=============edit setting=====================
+set tabstop=2
+set expandtab
+set smartindent
+set shiftwidth=2
+set autoindent
+ 
+"=============view setting=====================
+syntax on
+
+set title
+set number
+set ruler
+"set cursorline
+"set cursorcolumn
+set virtualedit=block
+set showmatch
+set matchtime=1
+set cmdheight=2
+set wildmode=list:longest
+set wildchar=<Tab>
+set spell
+autocmd FileType man set nospell
+autocmd FileType c nnoremap FM :<C-u>ClangFormat<CR>:w<CR>
+autocmd FileType cpp nnoremap FM :<C-u>ClangFormat<CR>:w<CR>
+autocmd FileType go nnoremap FM :<C-u>GoFmt<CR>:w<CR>
+
+set spelllang=en
+if (v:version == 704 && has("patch88")) || v:version >= 705
+      set spelllang+=cjk
+endif
+set list
+set listchars=eol:↲
+set listchars=eol:$
+set listchars+=tab:>-,trail:~,extends:>,precedes:<,space:.
+set scrolloff=4
+
+"====fold setting==============================
+
+"set foldmethod=syntax
+
+"====search setting============================
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set wrapscan
+set clipboard&
+set clipboard^=unnamedplus
+set mouse=a
+
+"=============utility==========================
+"{{{
+command! InsertModeLine call s:insertModeLine()
+
+function! s:insertModeLine()
+    put ='vim: set ft=' . &ft . ' :'
+endfunction
+"}}}
+
+filetype on
+filetype plugin indent on
+
+
+
