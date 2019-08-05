@@ -257,8 +257,8 @@ fi
 
 
 ###########plugin###############
-if [ -z ${ZPLUG_HOME:-""} ]; then
-  export ZPLUG_HOME = $HOME/.zplug
+if [ -z "${ZPLUG_HOME}" ]; then
+    export ZPLUG_HOME=$HOME/.zplug
 fi
 
 
