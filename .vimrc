@@ -152,7 +152,7 @@ set virtualedit=block
 set showmatch
 set matchtime=1
 set cmdheight=2
-set wildmode =list:longest
+set wildmode=list:longest
 set wildchar=<Tab>
 set spell
 set spelllang=en
