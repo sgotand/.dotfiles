@@ -3,6 +3,21 @@ filetype off
 filetype plugin indent off
 runtime! ftplugin/man.vim
 
+"============file setting======================
+
+set fileencoding=utf-8 
+set encoding=utf-8
+scriptencoding utf-8
+set nocompatible
+set nobackup 
+set noswapfile 
+set autoread 
+set hidden 
+set showcmd 
+set backspace=indent,eol,start
+set modeline
+set modelines=5
+
 "=============key mapping======================= 
 set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
 
