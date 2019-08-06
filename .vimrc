@@ -75,7 +75,6 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-inoremap jj <ESC>
 inoremap jk <ESC>
 
 " discard yank got with x(s)
