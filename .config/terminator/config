@@ -1,0 +1,54 @@
+[global_config]
+  suppress_multiple_term_dialog = True
+  title_font = Ricty Diminished 13
+  title_hide_sizetext = True
+  title_use_system_font = False
+  use_custom_url_handler = True
+[keybindings]
+  close_term = <Alt>q
+  go_down = <Alt>j
+  go_left = <Alt>h
+  go_next = <Alt>n
+  go_prev = <Alt>p
+  go_right = <Alt>l
+  go_up = <Alt>k
+  layout_launcher = <Primary><Shift>l
+  move_tab_left = <Primary><Alt>l
+  move_tab_right = <Primary><Alt>h
+  new_tab = <Shift><Alt>t
+  next_tab = <Shift><Alt>l
+  prev_tab = <Shift><Alt>h
+  split_horiz = <Shift><Alt>d
+  split_vert = <Alt>d
+  toggle_zoom = <Alt>f
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#272a2e"
+    background_darkness = 0.84
+    copy_on_selection = True
+    cursor_color = "#aaaaaa"
+    font = Ricty Diminished 13
+    foreground_color = "#ffffff"
+    login_shell = True
+    scrollback_lines = 3000
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
+  [[iceberg]]
+    background_color = "#272a2e"
+    cursor_color = "#aaaaaa"
+    font = Ricty Diminished 13
+    foreground_color = "#ffffff"
+    palette = "#3f466b:#e77d7d:#8ebdc7:#e9af85:#89a5cb:#d6adb2:#b2c6d1:#cbcdd6:#596186:#e7a97d:#b9c387:#ddea9e:#4349a3:#6c4348:#6d74a0:#d9dae1"
+    show_titlebar = False
+    use_system_font = False
