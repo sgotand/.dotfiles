@@ -115,19 +115,22 @@ nnoremap <space>n :cn<CR>
 nnoremap <space>p :cp<CR>
 nnoremap <space>o <C-o>
 
+" vim as terminal multiplexer
+if has('terminal') || has('nvim')
 
-"============file setting======================
+  tnoremap <silent> <ESC> <C-\><C-n>
+  tnoremap jj <C-\><C-n>
+  tnoremap jk <C-\><C-n>
 
-set fenc=utf-8 
-set nobackup 
-set noswapfile 
-set autoread 
-set hidden 
-set showcmd 
-set backspace=indent,eol,start
-" vim modeline setting 
-set modeline
-set modelines=5
+  if has('nvim')
+    autocmd TermOpen * setlocal nonumber
+    autocmd TermOpen * setlocal nospell
+    autocmd TermOpen * startinsert
+  else
+    autocmd TerminalOpen * set nonumber
+    autocmd TerminalOpen * set nospell
+  endif
+endif
 
 "=============edit setting=====================
 set tabstop=2
