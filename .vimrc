@@ -37,16 +37,26 @@ nnoremap sL <C-w>L
 nnoremap sH <C-w>H
 nnoremap sR <C-w>r
 
+" pane size changer
+nnoremap s= <C-w>=
+nnoremap s_ <C-w>_
+nnoremap s\|  <C-w>\|
+nnoremap sa <C-w>_<C-w>\|
+
 " split the pane
 nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
-nnoremap s= <C-w>=
 
 " tab handling
 nnoremap st :<C-u>tabnew<CR>
+nnoremap sT <C-w>T "move pane to new tab
 nnoremap sn gt
 nnoremap sp gT
+
+nnoremap tn :<C-u>tabnew<CR>
+nnoremap tl gt
+nnoremap th gT
 
 " exchange line movement commands
 nnoremap j gj
