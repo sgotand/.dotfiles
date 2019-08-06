@@ -185,7 +185,7 @@ function! s:insertModeLine()
 endfunction
 "}}}
 
-    "==========dein.vim============================
+"==========dein.vim============================
 if v:version >= 800 
     let s:cache_home = expand('~/.cache')
     let s:dein_dir = s:cache_home . '/dein'
