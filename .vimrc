@@ -187,11 +187,6 @@ endfunction
 
     "==========dein.vim============================
 if v:version >= 800 
-    if &compatible
-      set nocompatible
-    endif
-
-
     let s:cache_home = expand('~/.cache')
     let s:dein_dir = s:cache_home . '/dein'
     let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
