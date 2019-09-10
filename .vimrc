@@ -105,8 +105,9 @@ inoremap <C-e> <End>
 inoremap <C-d> <Del>
 
 "line join 
-nnoremap J <Nop>
-nnoremap <C-j> :join<CR>
+vnoremap J <Nop>
+vnoremap <C-j> :join<CR>
+
 nnoremap <space>h :Gtags -f %<CR>
 nnoremap <space>j :GtagsCursor<CR>
 nnoremap <space>d :<C-u>exe('Gtags '.expand('<cword>'))<CR>
