@@ -15,6 +15,17 @@ if [[ -d $HOME/.cargo ]] ; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+#go
+export GOPATH=$HOME/go
+
+if [[ -d "/usr/local/go/bin" ]] ; then
+  export PATH="/usr/local/go/bin:$PATH" 
+fi
+
+if [[ -d "$GOPATH/bin" ]] ; then
+  export PATH="$GOPATH/bin:$PATH" 
+fi
+
 #direnv
 if type direnv 1> /dev/null 2>&1; then
  eval "$(direnv hook zsh)"
