@@ -187,24 +187,51 @@ alias vssh='vagrant ssh'
 alias vu='vagrant up'
 alias vup='vagrant up'
 alias vd='vagrant destroy'
+alias vh='vagrant halt'
+alias vhalt='vagrant halt'
 
-path(){ echo $PATH | tr ':' '\n' }
+alias m='make'
+alias mc='make clean'
+alias ma='make all'
+
+alias gtime='/usr/bin/time'
+
+path() {
+    echo $PATH | tr ':' '\n'
+}
 alias p=path
 
-if which htop >/dev/null 2>&1 ; then
+fpath() {
+    echo $FPATH | tr ':' '\n'
+}
+
+md2pdf () {
+  if ! [[ $1 =~ md$ ]] then
+    echo "the source should be .*.md" >2
+    return 1
+  fi
+  echo pandoc $1 -o ${1%md}pdf
+  pandoc $1 -o ${1%md}pdf
+}
+
+man2pdf () {
+man -t $1 | ps2pdf - ${1}.pdf
+}
+
+if which htop >/dev/null 2>&1; then
     alias top=htop
 fi
 
 case ${OSTYPE} in
-    darwin*)
-        #Mac
-        export CLICOLOR=1
-        alias ls='ls -G -F'
-        ;;
-    linux*)
-        #Linux
-        alias ls='ls -F --color=auto'
-        ;;
+darwin*)
+    #Mac
+    export CLICOLOR=1
+    alias ls='ls -G -F'
+    ;;
+linux*)
+    #Linux
+    alias ls='ls -F --color=auto'
+    ;;
 esac
 
 # global aliases
@@ -216,30 +243,27 @@ alias -g T='| tail'
 alias -g S='| sed'
 
 # cf. mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
-if which pbcopy >/dev/null 2>&1 ; then
+if which pbcopy >/dev/null 2>&1; then
     # Mac
     alias -g C='| pbcopy'
-elif which xsel >/dev/null 2>&1 ; then
+elif which xsel >/dev/null 2>&1; then
     # Linux
     alias -g C='| xsel --input --clipboard'
-elif which putclip >/dev/null 2>&1 ; then
+elif which putclip >/dev/null 2>&1; then
     # Cygwin
     alias -g C='| putclip'
 fi
 
-
 # expand the global alias when " " is inputted
 global_alias() {
-  if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
-    zle _expand_alias
-    # zle expand-word
-  fi
-  zle self-insert
+    if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+        zle _expand_alias
+        # zle expand-word
+    fi
+    zle self-insert
 }
 zle -N global_alias
 bindkey " " global_alias
-
-
 
 ###########ENV DEPENDENT SETTINGS################################
 
