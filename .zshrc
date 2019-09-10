@@ -2,16 +2,8 @@
 # 色を使用出来るようにする
 # -U :alias展開しない
 # -z :zsh形式で読み込み
-autoload -Uz colors; colors
-
-# プロンプト
-PROMPT="${fg[green]}[%n]${reset_color} %~
-%# "
-
-# ヒストリの設定
-HISTFILE=~/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
+autoload -Uz colors
+colors
 
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style; select-word-style default
@@ -128,45 +120,45 @@ setopt cdable_vars
 hash -d pdf=$HOME/Documents/pdf
 
 ################# History #######################
-# 同時に起動したzshの間でヒストリを共有する
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000000
+# setopt hist_ignore_dups
+# setopt hist_ignore_all_dups
+# setopt hist_ignore_space
+# setopt hist_reduce_blanks
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
 setopt share_history
 
-# 同じコマンドをヒストリに残さない
-setopt hist_ignore_all_dups
-
-# スペースから始まるコマンド行はヒストリに残さない
-# setopt hist_ignore_space
-
-# ヒストリに保存するときに余分なスペースを削除する
-setopt hist_reduce_blanks
 
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
 
-__record_command() {
-  typeset -g _LASTCMD=${1%%$'\n'}
-  return 1
-}
-zshaddhistory_functions+=(__record_command)
+# __record_command() {
+#    typeset -g _LASTCMD=${1%%$'\n'}
+#    return 1
+#}
+# zshaddhistory_functions+=(__record_command)
 
-__update_history() {
-  local last_status="$?"
-
-  # hist_ignore_space
-  if [[ ! -n ${_LASTCMD%% *} ]]; then
-    return
-  fi
-
-  # hist_reduce_blanks
-  local cmd_reduce_blanks=$(echo ${_LASTCMD} | tr -s ' ')
-
-  # Record the commands that have succeeded
-  if [[ ${last_status} == 0 ]]; then
-    print -sr -- "${cmd_reduce_blanks}"
-  fi
-}
-precmd_functions+=(__update_history)
-
+# __update_history() {
+#    local last_status="$?"
+#
+#    # hist_ignore_space
+#    if [[ ! -n ${_LASTCMD%% *} ]]; then
+#        return
+#    fi
+#
+#    # hist_reduce_blanks
+#    local cmd_reduce_blanks=$(echo ${_LASTCMD} | tr -s ' ')
+#
+#    # Record the commands that have succeeded
+#    if [[ ${last_status} == 0 ]]; then
+#        print -sr -- "${cmd_reduce_blanks}"
+#    fi
+#}
+#precmd_functions+=(__update_history)
 
 ##################### Key Bindings ###################
 
