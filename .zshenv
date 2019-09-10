@@ -37,3 +37,6 @@ export N_PREFIX="$HOME/n"
 
 #npm
 PATH=$PATH:./node_modules/.bin
+
+
+export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
