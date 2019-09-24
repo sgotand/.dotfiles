@@ -1,7 +1,7 @@
 
 if which nvim >/dev/null 2>&1; then
   export EDITOR=nvim
-else if which vim >/dev/null 2>&1; then
+elif which vim >/dev/null 2>&1; then
   export EDITOR=vim
 fi
 
@@ -132,8 +132,8 @@ fi
 export N_PREFIX="$HOME/n"
 [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
-#npm
-PATH=$PATH:./node_modules/.bin
-
-
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
+#npm
+export PATH=$PATH:./node_modules/.bin
+
+
