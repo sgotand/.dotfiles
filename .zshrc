@@ -6,7 +6,8 @@ autoload -Uz colors
 colors
 
 # 単語の区切り文字を指定する
-autoload -Uz select-word-style; select-word-style default
+autoload -Uz select-word-style
+select-word-style default
 
 # set words delimitter
 zstyle ':zle:*' word-chars " /=;@:{},|"
@@ -14,7 +15,8 @@ zstyle ':zle:*' word-style unspecified
 
 ################## Completion ######################
 fpath+=~/.zfunc
-autoload -Uz compinit; compinit
+autoload -Uz compinit
+compinit
 
 # case insensitive
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -29,13 +31,15 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/s
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
 ### group the candidates
- zstyle ':completion:*' format '%B%F{blue}%d%f%b'
- zstyle ':completion:*' group-name ''
+zstyle ':completion:*' format '%B%F{blue}%d%f%b'
+zstyle ':completion:*' group-name ''
 ### select the candidate from list
 ### but when only one candidate exists complete promptly
 zstyle ':completion:*:default' menu select=2
 ### colorize the completion
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+#export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+
+zstyle ':completion:*' list-colors "${LS_COLORS}"
 ### 補完候補がなければより曖昧に候補を探す。
 ### m:{a-z}={A-Z}: 小文字を大文字に変えたものでも補完する。
 ### r:|[._-]=*: 「.」「_」「-」の前にワイルドカード「*」があるものとして補完する。
@@ -60,26 +64,30 @@ zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
 zstyle ':completion:*' verbose yes
+zstyle ':completion:*:manuals' separate-sections true
 
+setopt always_last_prompt
+setopt magic_equal_subst
+setopt auto_menu
+setopt list_types
 
-#########
+################### PROMPT #####################
+if which starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+  RPROMPT="%{$fg[green]%} %D{%Y/%m/%d} %* %{$reset_color%}"
+else 
+  PROMPT="${fg[green]}[%n]${reset_color} %~\n%# "
+  autoload -Uz vcs_info
+  autoload -Uz add-zsh-hook
+  zstyle ':vcs_info:*' formats '%F{green}(%s)-[%b]%f'
+  zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
+  function _update_vcs_info_msg() {
+      LANG=en_US.UTF-8 vcs_info
+      RPROMPT="${vcs_info_msg_0_}"
 
-################### Version Control System (git) #####################
-# vcs_info
-# git
-
-autoload -Uz vcs_info
-autoload -Uz add-zsh-hook
-
-zstyle ':vcs_info:*' formats '%F{green}(%s)-[%b]%f'
-zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
-
-function _update_vcs_info_msg() {
-    LANG=en_US.UTF-8 vcs_info
-    RPROMPT="${vcs_info_msg_0_}"
-
-}
-add-zsh-hook precmd _update_vcs_info_msg
+  }
+  add-zsh-hook precmd _update_vcs_info_msg
+fi
 
 ##################落ち穂拾い######################
 # オプション
@@ -165,6 +173,39 @@ setopt extended_glob
 # ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey -e
+#bindkey -v
+#autoload -Uz colors; colors
+#autoload -Uz add-zsh-hook
+#autoload -Uz terminfo
+#
+#terminfo_down_sc=$terminfo[cud1]$terminfo[cuu1]$terminfo[sc]$terminfo[cud1]
+#left_down_prompt_preexec() {
+#    print -rn -- $terminfo[el]
+#}
+#add-zsh-hook preexec left_down_prompt_preexec
+#
+#function zle-keymap-select zle-line-init zle-line-finish
+#{
+#    case $KEYMAP in
+#        main|viins)
+#            PROMPT_2="$fg[cyan]-- INSERT --$reset_color"
+#            ;;
+#        vicmd)
+#            PROMPT_2="$fg[white]-- NORMAL --$reset_color"
+#            ;;
+#        vivis|vivli)
+#            PROMPT_2="$fg[yellow]-- VISUAL --$reset_color"
+#            ;;
+#    esac
+#
+#    PROMPT="%{$terminfo_down_sc$PROMPT_2$terminfo[rc]%}[%(?.%{${fg[green]}%}.%{${fg[red]}%})%n%{${reset_color}%}]%# "
+#    zle reset-prompt
+#}
+#
+#zle -N zle-line-init
+#zle -N zle-line-finish
+#zle -N zle-keymap-select
+#zle -N edit-command-line
 
 ################# Aliases #######################
 alias la='ls -a'
@@ -193,8 +234,10 @@ alias vhalt='vagrant halt'
 alias m='make'
 alias mc='make clean'
 alias ma='make all'
+alias mr='make run'
 
 alias gtime='/usr/bin/time'
+alias open='xdg-open'
 
 path() {
     echo $PATH | tr ':' '\n'
@@ -271,34 +314,29 @@ if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
     test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
-
 ###########plugin###############
 if [ -z "${ZPLUG_HOME}" ]; then
     export ZPLUG_HOME=$HOME/.zplug
 fi
 
-
-if [ ! -e  "${ZPLUG_HOME}/init.zsh" ];then
+if [ ! -e "${ZPLUG_HOME}/init.zsh" ]; then
     echo "zplug not found"
     echo "Do you want to install zplug? (y or n :default: y)"
     read ANSWER
     case $ANSWER in
-        "" | "Y" |"y" )
-            echo "start installing zplug"
-           curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
-           ;;
-        *);;
+    "" | "Y" | "y")
+        echo "start installing zplug"
+        curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+        ;;
+    *) ;;
     esac
 fi
 
-if [ -e  "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
-    # Make sure to use double quotes
+if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
+    # zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+    zplug "zsh-users/zsh-completions"
 
     zplug "zsh-users/zsh-history-substring-search"
-    zplug "zsh-users/zsh-completions"
-    zplug "kagamilove0707/moonline.zsh", from:github, defer:2
-
-    # Better history searching with arrow keys
     if zplug check "zsh-users/zsh-history-substring-search"; then
         bindkey '^[[A' history-substring-search-up
         bindkey '^[[B' history-substring-search-down
@@ -308,9 +346,10 @@ if [ -e  "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
         bindkey -M vicmd 'j' history-substring-search-down
     fi
 
+    zplug "kagamilove0707/moonline.zsh", from:github, defer:2
     #zplug "kagamilove0707/moonline.zsh", from:github, defer:2 #above
-    source $ZPLUG_HOME/repos/kagamilove0707/moonline.zsh/moonline.zsh
-    moonline initialize
+    #source $ZPLUG_HOME/repos/kagamilove0707/moonline.zsh/moonline.zsh
+    #moonline initialize
 
     zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
@@ -323,7 +362,6 @@ if [ -e  "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
         zstyle ":anyframe:selector:" use peco
         # zstyle ":anyframe:selector:peco:" command 'peco --no-ignore-case'
         alias cdrr='anyframe-widget-cdr'
-
         # bindkey '^xb' anyframe-widget-cdr
         # bindkey '^x^b' anyframe-widget-checkout-git-branch
         # bindkey '^xr' anyframe-widget-execute-history
@@ -348,11 +386,24 @@ if [ -e  "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
     if ! zplug check --verbose; then
         printf "Install? [y/N]: "
         if read -q; then
-            echo; zplug install
+            echo
+            zplug install
         fi
     fi
-
     zplug load --verbose
-
+    zplug list
 fi
 
+
+
+source '/usr/share/google-cloud-sdk/completion.zsh.inc'
+xrea(){
+
+  curl -X POST https://api.xrea.com/v1/tool/ssh_ip_allow \
+    -d 'api_secret_key=o9NapsoLA6ozKqLXANxoBHpbF9KV8urq'\
+    -d 'account=progrunner' \
+    -d 'server_name=s1008.xrea.com' \
+    -d "param[addr]=$(curl -sS ifconfig.me)"
+}
+
+echo "finish loading ~/.zshrc"
