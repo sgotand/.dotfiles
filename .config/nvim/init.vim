@@ -156,11 +156,17 @@ set cmdheight=2
 set wildmode=list:longest
 set wildchar=<Tab>
 set spell
+autocmd FileType man set nospell
+autocmd FileType c nnoremap FM :<C-u>ClangFormat<CR>:w<CR>
+autocmd FileType cpp nnoremap FM :<C-u>ClangFormat<CR>:w<CR>
+autocmd FileType go nnoremap FM :<C-u>GoFmt<CR>:w<CR>
+
 set spelllang=en
 if (v:version == 704 && has("patch88")) || v:version >= 705
       set spelllang+=cjk
 endif
 set list
+"set listchars+=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:.
 set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
 set scrolloff=4
 
@@ -174,7 +180,8 @@ set incsearch
 set ignorecase
 set smartcase
 set wrapscan
-set clipboard=unnamed,unnamedplus
+set clipboard&
+set clipboard^=unnamedplus
 set mouse=a
 
 "=============utility==========================
@@ -191,17 +198,14 @@ if v:version >= 800
     let s:cache_home = expand('~/.cache')
     let s:dein_dir = s:cache_home . '/dein'
     let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-    " automatically download dein.vim repo when it doesn't exist in local
     if !isdirectory(s:dein_repo_dir)
       call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
     endif
     let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
     call dein#begin(s:dein_dir)
-
     call dein#add('Shougo/dein.vim')
     call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-
     if has('nvim')
       call dein#add('Shougo/denite.nvim')
     else
@@ -217,10 +221,12 @@ if v:version >= 800
     let g:deoplete#enable_at_startup = 1
     call dein#add('Shougo/neosnippet.vim')
     call dein#add('Shougo/neosnippet-snippets')
+    let s:my_snippet_dir = s:cache_home . '/snippet/'
+    let g:neosnippet#snippets_directory = s:my_snippet_dir
 
     call dein#add('thinca/vim-quickrun') 
     call dein#add('itchyny/lightline.vim')
-    if has('nvim')
+    if !has('nvim')
       call dein#add('mattn/benchvimrc-vim') "Use with :BenchVimrc
     endif
     call dein#add('scrooloose/nerdtree')
@@ -229,7 +235,9 @@ if v:version >= 800
     call dein#add('justmao945/vim-clang')
     call dein#add('terryma/vim-multiple-cursors')
     call dein#add('itchyny/vim-parenmatch')
-
+    call dein#add('fatih/vim-go')
+    call dein#add('zchee/deoplete-go')
+    call dein#add('cespare/vim-toml')
     call dein#end()
 
 
@@ -257,15 +265,18 @@ if v:version >= 800
     let g:quickrun_config = {}
     let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++11'}
     "================NERDTree============================
-    function s:MoveToFileAtStart()
-      call feedkeys("\<Space>")
-      call feedkeys("\s")
-      call feedkeys("\l")
-    endfunction
+    if has("vim_starting")
+      function s:MoveToFileAtStart()
+        call feedkeys("\<Space>")
+        call feedkeys("\s")
+        call feedkeys("\l")
+      endfunction
+    endif
+
     let g:NERDTreeShowBookmarks=1
     
     if !argc()
-      autocmd VimEnter *  NERDTree 
+      "autocmd VimEnter *  NERDTree 
     endif
 
     "================vim-clang================================
@@ -277,12 +288,19 @@ if v:version >= 800
     "================gtags.vim================================
     let g:Gtags_Auto_Map = 0
     let g:Gtags_OpenQuickfixWindow = 1
-    nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
-    nmap <silent> R :<C-u>exe("Gtags -r".expand('<cword>'))<CR>
+    "nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
+    "nmap <silent> R :<C-u>exe("Gtags -r".expand('<cword>'))<CR>
     "================vim-parenmatch===========================
     let g:loaded_matchparen = 1
     highlight link ParenMatch MatchParen
     let g:parenmatch_highlight = 0
+    "================vim-go===================================
+    "let g:go_highlight_functions = 1
+    "let g:go_highlight_methods = 1
+    "let g:go_highlight_fields = 1
+    "let g:go_highlight_types = 1
+    "let g:go_highlight_operators = 1
+    "let g:go_highlight_build_constraints = 1
     "================lightline.vim============================
 
     set laststatus=2
@@ -350,8 +368,6 @@ if v:version >= 800
     endfunction
 endif
 
-
-
 function! ProfileCursorMove() abort
   let profile_file = expand('~/log/vim-profile.log')
   if filereadable(profile_file)
@@ -375,7 +391,12 @@ function! ProfileCursorMove() abort
   endfor
 endfunction
 
-
+" for esolang Function
+au BufEnter *.function set ft=function
+au BufEnter *.function nnoremap x x
+au BufEnter *.function unmap x
+au BufEnter *.function nnoremap s s
+au BufEnter *.function unmap s
 
 filetype on
 filetype plugin indent on
