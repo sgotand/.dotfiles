@@ -3,6 +3,7 @@ if [[ -d $HOME/.pyenv ]] ; then
     export PATH=$HOME/.pyenv/bin:$PATH
     eval "$(pyenv init -)"
 fi
+export PIPENV_VENV_IN_PROJECT=true
 
 #ruby
 if [[ -d $HOME/.rbenv  ]] ; then
