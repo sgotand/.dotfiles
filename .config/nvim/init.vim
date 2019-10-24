@@ -1,4 +1,4 @@
-" vim:set nospell:
+
 filetype off
 filetype plugin indent off
 runtime! ftplugin/man.vim
@@ -83,30 +83,30 @@ nnoremap s "_s
 
 " delete highlight with double <ESC> or Ctrl-l
 nnoremap <silent> <ESC><ESC> :nohl<CR>
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+"nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 " highlight the word under cursor with double space
 nnoremap <silent> HH  "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 
 
 "emacs keybinds for command 
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-cnoremap <C-d> <Del>
-inoremap <C-k> <Up>
-inoremap <C-j> <Down>
-inoremap <C-b> <Esc>bi
-inoremap <C-f> <Esc>ewi
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-inoremap <C-d> <Del>
+"cnoremap <C-p> <Up>
+"cnoremap <C-n> <Down>
+"cnoremap <C-b> <Left>
+"cnoremap <C-f> <Right>
+"cnoremap <C-a> <Home>
+"cnoremap <C-e> <End>
+"cnoremap <C-d> <Del>
+"inoremap <C-k> <Up>
+"inoremap <C-j> <Down>
+"inoremap <C-b> <Esc>bi
+"inoremap <C-f> <Esc>ewi
+"inoremap <C-a> <Home>
+"inoremap <C-e> <End>
+"inoremap <C-d> <Del>
 
 "line join 
 vnoremap J <Nop>
-vnoremap <C-j> :join<CR>
+"vnoremap <C-j> :join<CR>
 
 nnoremap <space>h :Gtags -f %<CR>
 nnoremap <space>j :GtagsCursor<CR>
@@ -142,7 +142,7 @@ set autoindent
 
 "=============view setting=====================
 syntax on
-colorscheme iceberg
+"colorscheme iceberg " setup at plugin
 
 set title
 set number
@@ -195,202 +195,84 @@ endfunction
 
 "==========dein.vim============================
 if v:version >= 800 
-    let s:cache_home = expand('~/.cache')
-    let s:dein_dir = s:cache_home . '/dein'
-    let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+    augroup MyAutoCmd
+      autocmd!
+    augroup END
+
+    let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+    let s:dein_cache_dir = s:cache_home . '/dein'
+    let s:dein_repo_dir = s:dein_cache_dir . '/repos/github.com/Shougo/dein.vim'
     if !isdirectory(s:dein_repo_dir)
       call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
     endif
     let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
-    call dein#begin(s:dein_dir)
-    call dein#add('Shougo/dein.vim')
-    call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-    if has('nvim')
-      call dein#add('Shougo/denite.nvim')
-    else
-      call dein#add('Shougo/unite.vim')
-    endif
-    call dein#add('Shougo/neomru.vim') "recently used file
-    "call dein#add('Shougo/neocomplete.vim')
-    call dein#add('Shougo/deoplete.nvim')
-    if !has('nvim')
-      call dein#add('roxma/nvim-yarp')
-      call dein#add('roxma/vim-hug-neovim-rpc')
-    endif
-    let g:deoplete#enable_at_startup = 1
-    call dein#add('Shougo/neosnippet.vim')
-    call dein#add('Shougo/neosnippet-snippets')
-    let s:my_snippet_dir = s:cache_home . '/snippet/'
-    let g:neosnippet#snippets_directory = s:my_snippet_dir
-
-    call dein#add('thinca/vim-quickrun') 
-    call dein#add('itchyny/lightline.vim')
-    if !has('nvim')
-      call dein#add('mattn/benchvimrc-vim') "Use with :BenchVimrc
-    endif
-    call dein#add('scrooloose/nerdtree')
-    call dein#add('airblade/vim-gitgutter')
-    call dein#add('lighttiger2505/gtags.vim')
-    call dein#add('justmao945/vim-clang')
-    call dein#add('terryma/vim-multiple-cursors')
-    call dein#add('itchyny/vim-parenmatch')
-    call dein#add('fatih/vim-go')
-    call dein#add('zchee/deoplete-go')
-    call dein#add('cespare/vim-toml')
-    call dein#end()
+    let s:config_home = empty($XDG_CONFIG_HOME) ? expand('~/.config') : $XDG_CONFIG_HOME
+    let s:dein_config_dir = s:config_home . '/nvim'
 
 
 
-    "================neosnippet================================    
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target) 
+    if dein#load_state(s:dein_cache_dir)
+        call dein#begin(s:dein_cache_dir)
 
-    " SuperTab like snippets behavior.
-    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+        call dein#load_toml(s:dein_config_dir . '/dein.toml', {'lazy': 0})
+        call dein#load_toml(s:dein_config_dir . '/dein_lazy.toml', {'lazy': 1})
 
-    imap <expr><CR> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<CR>"
-
-    " For conceal markers.
-    if has('conceal')
-      set conceallevel=2 concealcursor=niv
+        call dein#remote_plugins()
+        call dein#end()
+        call dein#save_state()
     endif
 
-    "================quickrun============================
-    let g:quickrun_config = {}
-    let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++11'}
-    "================NERDTree============================
-    if has("vim_starting")
-      function s:MoveToFileAtStart()
-        call feedkeys("\<Space>")
-        call feedkeys("\s")
-        call feedkeys("\l")
-      endfunction
-    endif
+   " call dein#begin(s:dein_dir)
+   " if has('nvim')
+   "   call dein#add('Shougo/denite.nvim')
+   " else
+   "   call dein#add('Shougo/unite.vim')
+   " endif
+   " call dein#add('Shougo/neomru.vim') "recently used file
+   "
+   " let s:my_snippet_dir = s:cache_home . '/snippet/'
+   " let g:neosnippet#snippets_directory = s:my_snippet_dir
 
-    let g:NERDTreeShowBookmarks=1
-    
-    if !argc()
-      "autocmd VimEnter *  NERDTree 
-    endif
+   " if !has('nvim')
+   "   call dein#add('mattn/benchvimrc-vim') "Use with :BenchVimrc
+   " endif
+   " call dein#add('scrooloose/nerdtree')
+   " call dein#add('airblade/vim-gitgutter')
+   " call dein#add()
+   " call dein#add()
+   " call dein#add('itchyny/vim-parenmatch')
+   " call dein#add('fatih/vim-go')
+   " call dein#add('zchee/deoplete-go')
+   " call dein#end()
 
-    "================vim-clang================================
-    let g:clang_c_options = '-std=c90'
-    let g:clang_format_auto = 0
-    let g:clang_auto = 0
-    let g:clang_format_stylea ='Google'
-    let g:clang_check_syntax_auto = 0
-    "================gtags.vim================================
-    let g:Gtags_Auto_Map = 0
-    let g:Gtags_OpenQuickfixWindow = 1
-    "nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
-    "nmap <silent> R :<C-u>exe("Gtags -r".expand('<cword>'))<CR>
-    "================vim-parenmatch===========================
-    let g:loaded_matchparen = 1
-    highlight link ParenMatch MatchParen
-    let g:parenmatch_highlight = 0
-    "================vim-go===================================
-    "let g:go_highlight_functions = 1
-    "let g:go_highlight_methods = 1
-    "let g:go_highlight_fields = 1
-    "let g:go_highlight_types = 1
-    "let g:go_highlight_operators = 1
-    "let g:go_highlight_build_constraints = 1
-    "================lightline.vim============================
 
-    set laststatus=2
-    if !has('gui_running')
-      set t_Co=256
-    endif
-    set noshowmode
-    let g:lightline = {
-            \ 'colorscheme': 'wombat',
-            \ 'mode_map': {'c': 'NORMAL'},
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-            \ },
-            \ 'component_function': {
-            \   'modified': 'LightlineModified',
-            \   'readonly': 'LightlineReadonly',
-            \   'fugitive': 'LightlineFugitive',
-            \   'filename': 'LightlineFilename',
-            \   'fileformat': 'LightlineFileformat',
-            \   'filetype': 'LightlineFiletype',
-            \   'fileencoding': 'LightlineFileencoding',
-            \   'mode': 'LightlineMode'
-            \ }
-            \ }
 
-    function! LightlineModified()
-      return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-    endfunction
-
-    function! LightlineReadonly()
-      return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
-    endfunction
-
-    function! LightlineFilename()
-      return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-            \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-            \  &ft == 'unite' ? unite#get_status_string() :
-            \  &ft == 'vimshell' ? vimshell#get_status_string() :
-            \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-            \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-    endfunction
-
-    function! LightlineFugitive()
-      if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-        return fugitive#head()
-      else
-        return ''
-      endif
-    endfunction
-
-    function! LightlineFileformat()
-      return winwidth(0) > 70 ? &fileformat : ''
-    endfunction
-
-    function! LightlineFiletype()
-      return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-    endfunction
-
-    function! LightlineFileencoding()
-      return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
-    endfunction
-
-    function! LightlineMode()
-      return winwidth(0) > 60 ? lightline#mode() : ''
-    endfunction
+"    "================NERDTree============================
+"    if has("vim_starting")
+"      function s:MoveToFileAtStart()
+"        call feedkeys("\<Space>")
+"        call feedkeys("\s")
+"        call feedkeys("\l")
+"      endfunction
+"    endif
+"
+"    let g:NERDTreeShowBookmarks=1
+"    
+"    if !argc()
+"      "autocmd VimEnter *  NERDTree 
+"    endif
+"
+"    "================gtags.vim================================
+"    let g:Gtags_Auto_Map = 0
+"    let g:Gtags_OpenQuickfixWindow = 1
+"    "nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
+"    "nmap <silent> R :<C-u>exe("Gtags -r".expand('<cword>'))<CR>
+"    "================vim-parenmatch===========================
+"    let g:loaded_matchparen = 1
+"    highlight link ParenMatch MatchParen
+"    let g:parenmatch_highlight = 0
 endif
-
-function! ProfileCursorMove() abort
-  let profile_file = expand('~/log/vim-profile.log')
-  if filereadable(profile_file)
-    call delete(profile_file)
-  endif
-
-  normal! gg
-  normal! zR
-
-  execute 'profile start ' . profile_file
-  profile func *
-  profile file *
-
-  augroup ProfileCursorMove
-    autocmd!
-    autocmd CursorHold <buffer> profile pause | q
-  augroup END
-
-  for i in range(100)
-    call feedkeys('j')
-  endfor
-endfunction
-
 " for esolang Function
 au BufEnter *.function set ft=function
 au BufEnter *.function nnoremap x x
