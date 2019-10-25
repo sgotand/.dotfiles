@@ -5,25 +5,25 @@ runtime! ftplugin/man.vim
 
 "============file setting======================
 
-set fileencoding=utf-8 
+set fileencoding=utf-8
 set encoding=utf-8
 scriptencoding utf-8
 set nocompatible
-set nobackup 
-set noswapfile 
-set autoread 
-set hidden 
-set showcmd 
+set nobackup
+set noswapfile
+set autoread
+set hidden
+set showcmd
 set backspace=indent,eol,start
 set modeline
 set modelines=5
 
-"=============key mapping======================= 
+"=============key mapping=======================
 set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!=''?&fenc:&enc}][%{&ff}][%3l,%3c,%3p]
 
 nnoremap s <Nop>
 
-"move among panes 
+"move among panes
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
 nnoremap sl <C-w>l
@@ -88,7 +88,10 @@ nnoremap <silent> <ESC><ESC> :nohl<CR>
 nnoremap <silent> HH  "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 
 
-"emacs keybinds for command 
+
+"" statusline
+"set statusline=%{anzu#search_status()}
+"emacs keybinds for command
 "cnoremap <C-p> <Up>
 "cnoremap <C-n> <Down>
 "cnoremap <C-b> <Left>
@@ -104,7 +107,7 @@ nnoremap <silent> HH  "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 "inoremap <C-e> <End>
 "inoremap <C-d> <Del>
 
-"line join 
+"line join
 vnoremap J <Nop>
 "vnoremap <C-j> :join<CR>
 
@@ -155,7 +158,7 @@ set matchtime=1
 set cmdheight=2
 set wildmode=list:longest
 set wildchar=<Tab>
-set spell
+set nospell
 autocmd FileType man set nospell
 autocmd FileType c nnoremap FM :<C-u>ClangFormat<CR>:w<CR>
 autocmd FileType cpp nnoremap FM :<C-u>ClangFormat<CR>:w<CR>
@@ -194,7 +197,7 @@ endfunction
 "}}}
 
 "==========dein.vim============================
-if v:version >= 800 
+if v:version >= 800
     augroup MyAutoCmd
       autocmd!
     augroup END
@@ -258,9 +261,9 @@ if v:version >= 800
 "    endif
 "
 "    let g:NERDTreeShowBookmarks=1
-"    
+"
 "    if !argc()
-"      "autocmd VimEnter *  NERDTree 
+"      "autocmd VimEnter *  NERDTree
 "    endif
 "
 "    "================gtags.vim================================
