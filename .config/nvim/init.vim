@@ -3,6 +3,8 @@ filetype off
 filetype plugin indent off
 runtime! ftplugin/man.vim
 
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:vim_dir = s:cache_home . '/vim'
 "============file setting======================
 
 set fileencoding=utf-8
@@ -143,6 +145,12 @@ set smartindent
 set shiftwidth=2
 set autoindent
 
+if has('persistent_undo')
+  let s:undo_dir = s:vim_dir . '/undo'
+  call mkdir(s:undo_dir, "p", 0755)
+  set undodir=s:undo_dir
+  set undofile
+endif
 "=============view setting=====================
 syntax on
 "colorscheme iceberg " setup at plugin
@@ -202,7 +210,6 @@ if v:version >= 800
       autocmd!
     augroup END
 
-    let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
     let s:dein_cache_dir = s:cache_home . '/dein'
     let s:dein_repo_dir = s:dein_cache_dir . '/repos/github.com/Shougo/dein.vim'
     if !isdirectory(s:dein_repo_dir)
