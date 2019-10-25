@@ -75,7 +75,7 @@ setopt list_types
 if which starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
   RPROMPT="%{$fg[green]%} %D{%Y/%m/%d} %* %{$reset_color%}"
-else 
+else
 PROMPT="${fg[green]}[%n]${reset_color}
 %~$ "
 autoload -Uz vcs_info
@@ -133,7 +133,7 @@ hash -d pdf=$HOME/Documents/pdf
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000000
-# setopt hist_ignore_dups
+setopt hist_ignore_dups
 # setopt hist_ignore_all_dups
 # setopt hist_ignore_space
 # setopt hist_reduce_blanks
@@ -209,6 +209,8 @@ bindkey -e
 #zle -N edit-command-line
 
 ################# Aliases #######################
+alias sudo='sudo -E '
+alias l='ls'
 alias la='ls -a'
 alias ll='ls -lh'
 alias l1='ls -1'
@@ -240,6 +242,11 @@ alias mr='make run'
 alias gtime='/usr/bin/time'
 alias open='xdg-open'
 
+alias apti='apt install'
+alias apts='apt search'
+alias aptu='apt update'
+alias aptug='apt upgrade'
+
 path() {
     echo $PATH | tr ':' '\n'
 }
@@ -261,6 +268,31 @@ md2pdf () {
 man2pdf () {
 man -t $1 | ps2pdf - ${1}.pdf
 }
+
+performance () {
+if which cpufreq-set >/dev/null 2>/dev/null ; then
+  for i in $(seq 0 7)
+  do
+  sudo cpufreq-set -c $i -g performance
+  done
+else
+  echo cpufreq is not installed
+  false
+fi
+}
+
+powersave () {
+if which cpufreq-set >/dev/null 2>/dev/null ; then
+  for i in $(seq 0 7)
+  do
+  sudo cpufreq-set -c $i -g powersave
+  done
+else
+  echo cpufreq is not installed
+  false
+fi
+}
+
 
 if which htop >/dev/null 2>&1; then
     alias top=htop

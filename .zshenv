@@ -114,13 +114,13 @@ fi
 
 #go
 export GOPATH=$HOME/go
-
+export GO111MODULE=on
 if [[ -d "/usr/local/go/bin" ]] ; then
-  export PATH="/usr/local/go/bin:$PATH" 
+  export PATH="/usr/local/go/bin:$PATH"
 fi
 
 if [[ -d "$GOPATH/bin" ]] ; then
-  export PATH="$GOPATH/bin:$PATH" 
+  export PATH="$GOPATH/bin:$PATH"
 fi
 
 #direnv
@@ -136,4 +136,8 @@ export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 #npm
 export PATH=$PATH:./node_modules/.bin
 
+export USE_CCACHE=1
+export CC='ccache gcc'
 
+export LIBVIRT_DEFAULT_URI="qemu:///system"
+export DOCKER_BUILDKIT=1
