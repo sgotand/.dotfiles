@@ -25,6 +25,9 @@ set statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h')}]%=\ %m%r%y%w[%{&fenc!='
 
 nnoremap s <Nop>
 
+
+
+
 "move among panes
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
@@ -147,8 +150,9 @@ set autoindent
 
 if has('persistent_undo')
   let s:undo_dir = s:vim_dir . '/undo'
-  call mkdir(s:undo_dir, "p", 0755)
-  set undodir=s:undo_dir
+  call mkdir( s:undo_dir , "p", 0755)
+  "set undodir= s:undo_dir
+  let &undodir= s:undo_dir
   set undofile
 endif
 "=============view setting=====================
