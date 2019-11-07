@@ -427,16 +427,4 @@ if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
     zplug list
 fi
 
-
-
-source '/usr/share/google-cloud-sdk/completion.zsh.inc'
-xrea(){
-
-  curl -X POST https://api.xrea.com/v1/tool/ssh_ip_allow \
-    -d 'api_secret_key=o9NapsoLA6ozKqLXANxoBHpbF9KV8urq'\
-    -d 'account=progrunner' \
-    -d 'server_name=s1008.xrea.com' \
-    -d "param[addr]=$(curl -sS ifconfig.me)"
-}
-
 echo "finish loading ~/.zshrc"
