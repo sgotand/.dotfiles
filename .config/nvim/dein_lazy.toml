@@ -129,6 +129,13 @@ on_ft = ['c', 'cpp']
 depends = ['deoplete.nvim']
 
 [[plugins]]
+repo = 'kana/vim-operator-user'
+
+[[plugins]]
+repo = 'rhysd/vim-clang-format'
+depends = ['vim-clang-format']
+
+[[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
