@@ -178,7 +178,9 @@ set scrolloff=4
 
 "====fold setting==============================
 
-"set foldmethod=syntax
+set foldmethod=syntax
+set foldcolumn=1
+set foldlevel=1
 
 "====search setting============================
 set hlsearch
