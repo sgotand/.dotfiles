@@ -115,15 +115,6 @@ nnoremap <silent> HH  "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 "line join
 vnoremap J <Nop>
 "vnoremap <C-j> :join<CR>
-
-nnoremap <space>h :Gtags -f %<CR>
-nnoremap <space>j :GtagsCursor<CR>
-nnoremap <space>d :<C-u>exe('Gtags '.expand('<cword>'))<CR>
-nnoremap <space>r :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
-nnoremap <space>n :cn<CR>
-nnoremap <space>p :cp<CR>
-nnoremap <space>o <C-o>
-
 " vim as terminal multiplexer
 if has('terminal') || has('nvim')
 
@@ -277,11 +268,6 @@ if v:version >= 800
 "      "autocmd VimEnter *  NERDTree
 "    endif
 "
-"    "================gtags.vim================================
-"    let g:Gtags_Auto_Map = 0
-"    let g:Gtags_OpenQuickfixWindow = 1
-"    "nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
-"    "nmap <silent> R :<C-u>exe("Gtags -r".expand('<cword>'))<CR>
 "    "================vim-parenmatch===========================
 "    let g:loaded_matchparen = 1
 "    highlight link ParenMatch MatchParen

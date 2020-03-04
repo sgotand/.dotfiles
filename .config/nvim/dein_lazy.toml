@@ -196,5 +196,39 @@ repo = 'thinca/vim-scouter'
 [[plugins]]
 repo = 'lighttiger2505/gtags.vim'
 on_ft = ['c', 'cpp']
+hook_add = '''
+echo "gtags.vim is imported"
+let g:Gtags_Auto_Map = 0
+let g:Gtags_Auto_Update = 1
+let g:Gtags_No_Auto_Jump = 1
+let g:Gtags_OpenQuickfixWindow = 1
 
+" show all definition in the opend file
+nnoremap <space>h :Gtags -f %<CR>
+" list definition & reference
+nnoremap <space>j :GtagsCursor<CR>
+"go to definition
+nnoremap <space>d :<C-u>exe('Gtags '.expand('<cword>'))<CR>
+"go to reference
+nnoremap <space>r :<C-u>exe('Gtags -r '.expand('<cword>'))<CR>
+nnoremap <space>n :cn<CR>
+nnoremap <space>p :cp<CR>
+" go back
+nnoremap <space>o <C-o>
+nnoremap <space>u :GtagsUpdate<CR>
+
+'''
+
+[[plugins]]
+repo = 'jsfaint/gen_tags.vim'
+hook_add = '''
+    let g:gen_tags#gtags_auto_gen = 1
+'''
+
+[[plugins]]
+repo = 'ruby-formatter/rufo-vim'
+on_ft = ['ruby']
+hook_add = '''
+let g:rufo_auto_formatting = 1
+'''
 
