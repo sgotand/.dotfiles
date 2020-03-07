@@ -76,7 +76,7 @@ if which starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
   RPROMPT="%{$fg[green]%} %D{%Y/%m/%d} %* %{$reset_color%}"
 else
-PROMPT="${fg[green]}[%n]${reset_color}
+PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%{${fg[cyan]}%}%m${reset_color}
 %~$ "
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
