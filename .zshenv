@@ -141,3 +141,5 @@ export CC='ccache gcc'
 
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DOCKER_BUILDKIT=1
+export ZPLUG_HOME=~/.zplug
+source $HOME/.cargo/env
