@@ -1,0 +1,103 @@
+# vim:  set :
+[[plugins]]
+repo = "Shougo/deoplete.nvim"
+hook_source = """
+set completeopt=menu,noinsert,preview
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('smart_case', v:true)
+let g:deoplete#enable_refresh_always = 1
+
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+set splitbelow
+"""
+
+
+on_ft = ['c', 'cpp', 'cmake']
+depends = ['deoplete.nvim']
+
+[[plugins]] # deoplete source for include headers
+repo = 'Shougo/neoinclude.vim'
+on_ft = ['c', 'cpp']
+depends = ['deoplete.nvim']
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]# deoplete source & snippetter
+repo = "Shougo/neosnippet.vim"
+on_i = 1
+on_event = 'InsertEnter'
+depends = ['neosnippet-snippets', 'deoplete.nvim']
+hook_source = "call deoplete#custom#source('neosnippet','rank', 2000)"
+
+source_add = '''
+    call deoplete#custom#option('candidate_marks',
+		      \ ['A', 'S', 'D', 'F', 'G'])
+		inoremap <expr>A       pumvisible() ?
+		\ deoplete#insert_candidate(0) : 'A'
+		inoremap <expr>S       pumvisible() ?
+		\ deoplete#insert_candidate(1) : 'S'
+		inoremap <expr>D       pumvisible() ?
+		\ deoplete#insert_candidate(2) : 'D'
+		inoremap <expr>F       pumvisible() ?
+		\ deoplete#insert_candidate(3) : 'F'
+		inoremap <expr>G       pumvisible() ?
+		\ deoplete#insert_candidate(4) : 'G'
+'''
+
+hook_add = '''
+
+" set user defined snippets dir
+let g:neosnippet#snippets_directory='~/.dotfiles/vim/snippets'
+let g:neosnippet#enable_completed_snippet=1
+"  let g:neosnippet#enable_auto_clear_markers=0
+
+  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+  " SuperTab like snippets behavior.
+  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"
+
+  " TODO 候補をenterで消さないようにする
+
+  " For conceal markers.
+  if has('conceal')
+  set conceallevel=2 concealcursor=niv
+  endif
+  '''
+
+  [[plugins]]
+  repo = 'zchee/deoplete-zsh'
+  on_ft = ['zsh', 'sh']
+
+  [[plugins]]
+  repo = 'zchee/deoplete-jedi'
+  on_ft = 'python'
+  hook_add = '''
+  let g:deoplete#sources#jedi#python_path = '/home/progrunner/.pyenv/shims/python'
+  '''
+
+  [[plugins]]  # go completion
+  repo = 'zchee/deoplete-go'
+  build = 'make'
+  on_ft = 'go'
+  depends = ['deoplete.nvim']
+  hook_source = '''
+  let g:deoplete#sources#go#gocode_binary = $GOPATH . '/bin/gocode'
+  '''
+
+#  [[plugins]]
+#  repo = 'zchee/deoplete-clang'
+#  hook_source = '''
+#  let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-7/lib/libclang-7.so.1'
+#  let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-7/lib/clang/7.0.0/include'
+#  let g:deoplete#sources#clang#sort_algo = 'priority'
+#  let g:deoplete#sources#clang#clang_complete_database="./build/"
+#  '''
