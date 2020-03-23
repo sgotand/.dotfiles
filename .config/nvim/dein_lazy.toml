@@ -1,204 +1,23 @@
+# vim: set nospell:
 
+#[[plugins]]
+#repo = 'Shougo/defx.nvim'
 
-[[plugins]]
-repo = 'Shougo/defx.nvim'
-hook_add = '''
-nnoremap <silent>  <space>f
-\ :<C-u>Defx -listed -resume -buffer-name=tab`tabpagenr()`<CR>
-'''
-hook_source = '''
-call defx#custom#column('mark', {
-      \ 'directory_icon': '▸',
-      \ 'opened_icon': '▾',
-      \ 'readonly_icon': '✗',
-      \ 'root_icon': ' ',
-      \ 'selected_icon': '✓',
-      \ })
-'''
-[plugins.ftplugin]
-defx = '''
-" Define mappings
-nnoremap <silent><buffer><expr> <CR>
-\ defx#async_action('drop')
-nnoremap <silent><buffer><expr> c
-\ defx#do_action('copy')
-nnoremap <silent><buffer><expr> !
-\ defx#do_action('execute_command')
-nnoremap <silent><buffer><expr> m
-\ defx#do_action('move')
-nnoremap <silent><buffer><expr> p
-\ defx#do_action('paste')
-nnoremap <silent><buffer><expr> l
-\ defx#async_action('open')
-nnoremap <silent><buffer><expr> E
-\ defx#do_action('open', 'vsplit')
-nnoremap <silent><buffer><expr> P
-\ defx#do_action('open', 'pedit')
-nnoremap <silent><buffer><expr> o
-\ defx#async_action('open_tree')
-nnoremap <silent><buffer><expr> K
-\ defx#do_action('new_directory')
-nnoremap <silent><buffer><expr> N
-\ defx#do_action('new_file')
-nnoremap <silent><buffer><expr> M
-\ defx#do_action('new_multiple_files')
-nnoremap <silent><buffer><expr> C
-\ defx#do_action('toggle_columns', 'mark:filename:type:size:time')
-nnoremap <silent><buffer><expr> S
-\ defx#do_action('toggle_sort', 'Time')
-nnoremap <silent><buffer><expr> d
-\ defx#do_action('remove_trash')
-nnoremap <silent><buffer><expr> r
-\ defx#do_action('rename')
-nnoremap <silent><buffer><expr> x
-\ defx#do_action('execute_system')
-nnoremap <silent><buffer><expr> >
-\ defx#do_action('toggle_ignored_files')
-nnoremap <silent><buffer><expr> .
-\ defx#do_action('repeat')
-nnoremap <silent><buffer><expr> yy
-\ defx#do_action('yank_path')
-nnoremap <silent><buffer><expr> h
-\ defx#do_action('cd', ['..'])
-nnoremap <silent><buffer><expr> ~
-\ defx#do_action('cd')
-nnoremap <silent><buffer><expr> \
-\ defx#do_action('cd', getcwd())
-nnoremap <silent><buffer><expr> q
-\ defx#do_action('quit')
-nnoremap <silent><buffer><expr> <Space>
-\ defx#do_action('toggle_select') . 'j'
-nnoremap <silent><buffer><expr> *
-\ defx#do_action('toggle_select_all')
-nnoremap <silent><buffer><expr> j
-\ line('.') == line('$') ? 'gg' : 'j'
-nnoremap <silent><buffer><expr> k
-\ line('.') == 1 ? 'G' : 'k'
-nnoremap <silent><buffer><expr> <C-l>
-\ defx#do_action('redraw')
-nnoremap <silent><buffer><expr> <C-g>
-\ defx#do_action('print')
-nnoremap <silent><buffer><expr> <Tab> winnr('$') != 1 ?
-\ ':<C-u>wincmd w<CR>' :
-\ ':<C-u>Defx -buffer-name=temp -split=vertical<CR>'
-'''
-
-
-[[plugins]]
-repo = 'zchee/deoplete-zsh'
-on_ft = ['zsh', 'sh']
-
-[[plugins]]
-repo = "Shougo/deoplete.nvim"
-on_i = 1
-on_event = "InsertCharPre"
-hook_source = """
-  set completeopt=menu,noinsert,preview
-  let g:deoplete#enable_at_startup = 1
-	call deoplete#custom#option('smart_case', v:true)
-"  let g:deoplete#auto_complete = 1
-"  let g:deoplete#auto_complete_delay = 1
-"  let g:deoplete#auto_refresh_delay= 1 "ms  "added
-"  let g:deoplete#auto_complete_start_length = 1 " removed 
-"  let g:deoplete#enable_camel_case = 0
-"  let g:deoplete#enable_ignore_case = 0
-"  let g:deoplete#enable_refresh_always = 1
-"  let g:deoplete#enable_smart_case = 1
-"  let g:deoplete#file#enable_buffer_path = 1
-"  let g:deoplete#max_list = 10000
-"  " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-  set splitbelow
-"""
-
-[[plugins]]
-repo = 'justmao945/vim-clang'
-on_ft = ['c', 'cpp']
-depends = ['deoplete.nvim']
-hook_add = '''
-let g:clang_c_options = '-std=c90'
-let g:clang_format_auto = 0
-let g:clang_auto = 0
-let g:clang_format_stylea ='Google'
-let g:clang_check_syntax_auto = 0
-'''
-
-
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
-on_ft = ['c', 'cpp']
-depends = ['deoplete.nvim']
 
 [[plugins]]
 repo = 'kana/vim-operator-user'
 
 [[plugins]]
 repo = 'rhysd/vim-clang-format'
-depends = ['vim-clang-format']
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = "Shougo/neosnippet.vim"
-on_i = 1
-depends = ['neosnippet-snippets']
-hook_add = '''
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-
-" imap <expr><TAB>
-"  \ pumvisible() ? "\<C-n>" :
-imap <expr><TAB>
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-'''
-
-[[plugins]]
-repo = 'zchee/deoplete-clang'
-hook_source = '''
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-7/lib/libclang-7.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
-    let g:deoplete#sources#clang#sort_algo = 'priority'
-    let g:deoplete#sources#clang#clang_complete_database="./build/"
-'''
-
-on_ft = ['c', 'cpp', 'cmake']
-depends = ['deoplete.nvim']
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-on_ft = 'python'
-hook_add = '''
-    let g:deoplete#sources#jedi#python_path = '/home/progrunner/.pyenv/shims/python'
-'''
+depends = ['vim-operator-user']
 
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
 hook_add = '''
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
+call Source_rc("plugin-settings/vim-go.vim")
 '''
 
-
-[[plugins]]
-repo = 'thinca/vim-scouter'
 
 [[plugins]]
 repo = 'lighttiger2505/gtags.vim'

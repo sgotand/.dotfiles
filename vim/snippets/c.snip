@@ -1,0 +1,74 @@
+
+
+# #include <...>
+snippet     inc
+options     head
+alias       #inc, #include
+    #include <${1:stdio}.h>
+    ${0}
+
+# #include "..."
+snippet     inc2
+options     head
+alias       #inc2, #include2
+    #include "${1}.h"
+    ${0}
+
+snippet     #if
+options     head
+    #if ${1}
+    ${0}
+    #endif
+
+snippet def_eprintf
+  #define eprintf(...) fprintf(stderr, __VA_ARGS__)
+  ${0}
+
+snippet def_SYSCALL_CHECK
+  #define SYSCALL_CHECK(var, exp)                                \
+    do {                                                         \
+      var = exp;                                                 \
+      if (var < 0) {                                             \
+        fprintf(stderr, "%s:%d error: %s\n", __FILE__, __LINE__, \
+            strerror(errno));                                    \
+        fprintf(stderr, "\t%s\n", #exp);                         \
+        exit(EXIT_FAILURE);                                      \
+      }                                                          \
+    } while (0)
+    ${0}
+
+snippet open
+  open(${1:path}, ${2:flags}${3:#:mode})
+  ${0}
+
+
+snippet   socket_tcp
+alias     sock_tcp
+  int ${1:sfd};
+  ${1} = socket(AF_INET, SOCK_STREAM, 0);
+  if ( ${1} < 0 ){
+    fprintf(stderr, "%s:%d error: %s\n",
+                  __FILE__, __LINE__, strerror(errno));
+    exit(EXIT_FAILURE);
+  }
+  ${0}
+
+snippet   socket_udp
+alias     sock_udp
+  socket(AF_INET, SOCK_STREAM, 0)
+  ${0}
+
+snippet bind
+  struct sockaddr_in *${1:sa};
+  if(bind(${2:sfd}, ${1}, sizeof(sa))<0){
+    fprintf(stderr, "%s:%d error: %s\n",
+                  __FILE__, __LINE__, strerror(errno));
+    exit(EXIT_FAILURE);
+  }
+
+
+
+
+snippet     exit
+  exit(EXIT_FAILURE);
+  ${0}

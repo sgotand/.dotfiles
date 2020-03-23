@@ -136,10 +136,19 @@ export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 #npm
 export PATH=$PATH:./node_modules/.bin
 
-export USE_CCACHE=1
-export CC='ccache gcc'
+
+#haskell
+# PATH=$PATH:$HOME/.local/bin # bellow
+# set stack ghc aliases
+#alias ghci='stack ghci'
+#alias ghc='stack ghc --'
+#alias runghc='stack runghc --'
+
+#export USE_CCACHE=1
+#export CC='ccache gcc'
 
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DOCKER_BUILDKIT=1
 export ZPLUG_HOME=~/.zplug
 source $HOME/.cargo/env
+PATH=$PATH:$HOME/.local/bin

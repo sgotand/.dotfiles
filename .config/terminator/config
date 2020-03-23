@@ -1,4 +1,7 @@
 [global_config]
+  dbus = True #default
+  focus = click #default
+  handle_size = -1 #default
   suppress_multiple_term_dialog = True
   title_font = Ricty Diminished 13
   title_hide_sizetext = True
@@ -8,66 +11,59 @@
   broadcast_all = Unbound # <Alt>a
   broadcast_group = Unbound #<Alt>g
   broadcast_off = Unbound #<Alt>o
-  close_term = Unbound # Unbound
-#  close_term = Unbound # <Ctrl><Shift>W
-  edit_tab_title = Unbound #<Ctrl><Alt>a
-  edit_terminal_title = Unbound #<Ctrl><Alt>x
-  edit_window_title = Unbound #<Ctrl><Alt>w
-  go_down = Unbound # <Alt>j
-  go_left = Unbound # <Alt>h
+  go_up = Unbound # <Alt>k # <Alt>Up
+  go_down = Unbound # <Alt>j # <Alt>Down
+  go_left = Unbound # <Alt>h # <Alt>Left
+  go_right = Unbound # <Alt>l #<Alt>Right
   go_next = Unbound # <Alt>n
-  go_prev = Unbound # <Alt>p
-  go_right = Unbound # <Alt>l
-  go_up = Unbound # <Alt>k
-#  go_prev = Unbound # <Ctrl><Shift>P
-#  go_up = Unbound # <Alt>Up
-#  go_down = Unbound # <Alt>Down
-#  go_left = Unbound # <Alt>Left
-#  go_right = Unbound #<Alt>Right
-  insert_number = Unbound # <Super>1
-  insert_padded = Unbound # <Super>0
-  layout_launcher = Unbound # <Primary><Shift>l # no default?
+  go_prev = Unbound # <Alt>p # <Ctrl><Shift>P
+###### TAB SETTINGS #####
+  edit_tab_title = Unbound #<Ctrl><Alt>a
   move_tab_left = Unbound # <Super><Alt>l #<Primary><Alt>l
   move_tab_right = Unbound #  <Super><Alt>h #<Primary><Alt>h
-  new_tab = Unbound # <Shift><Alt>t # <Ctrl><Shift>T
-  next_tab = Unbound # <Shift><Alt>l
-  prev_tab = Unbound # <Shift><Alt>h
-##  next_tab = Unbound # <Ctrl>Page_Down
-##  prev_tab = Unbound # <Ctrl>Page_Up
-##  switch_to_tab_1 - switch_to_tab_10 = Unbound # Unbound
-  split_horiz = Unbound # <Shift><Alt>d
-  split_vert = Unbound # <Alt>d
-#  split_horiz = Unbound # <Ctrl><Shift>O
-#  split_vert = Unbound # <Ctrl><Shift>E
-  toggle_zoom = Unbound # <Alt>f
-##  toggle_zoom = Unbound # <Ctrl><Shift>X
-  zoom_in = Unbound # <Ctrl>plus
-  zoom_out = Unbound # <Ctrl>minus
-  zoom_normal = Unbound # <Ctrl>0
+  new_tab = <Shift><Alt>t # <Ctrl><Shift>T
+  next_tab = <Shift><Alt>n # <Ctrl>Page_Down
+  prev_tab = <Shift><Alt>p # <Ctrl>Page_Up
+  ##  switch_to_tab_1 - switch_to_tab_10 = Unbound # Unbound
   cycle_next = Unbound # <Ctrl>Tab
   cycle_prev = Unbound # <Ctrl><Shift>N
   rotate_cw = Unbound # <Super>R
   rotate_ccw = Unbound # <Super><Shift>R
-  copy = <Ctrl><Shift>C
-  paste = <Ctrl><Shift>V
-  toggle_scrollbar = Unbound # <Ctrl><Shift>S
-  search = Unbound # <Ctrl><Shift>F
-  close_window = Unbound # <Ctrl><Shift>Q
+  split_horiz = Unbound # <Shift><Alt>d # <Ctrl><Shift>O
+  split_vert = Unbound # <Alt>d # <Ctrl><Shift>E
+  group_tab = Unbound # <Super>t
+  ungroup_tab = Unbound # <Super><Shift>T
   resize_up = Unbound # <Ctrl><Shift>Up
   resize_down = Unbound # <Ctrl><Shift>Down
   resize_left = Unbound # <Ctrl><Shift>Left
   resize_right = Unbound # <Ctrl><Shift>Right
+##### ZOOM SETTINGS #####
+  toggle_zoom = Unbound # <Alt>f # <Ctrl><Shift>X
   scaled_zoom = Unbound # <Ctrl><Shift>Z
-  full_screen = Unbound # F11
+  zoom_in = Unbound # <Ctrl>plus
+  zoom_out = Unbound # <Ctrl>minus
+  zoom_normal = Unbound # <Ctrl>0
+##### EDIT SETTINGS #####
+  copy = <Ctrl><Shift>C
+  paste = <Ctrl><Shift>V
+  toggle_scrollbar = Unbound # <Ctrl><Shift>S
+  search = Unbound # <Ctrl><Shift>F
   reset = Unbound # <Ctrl><Shift>R
   reset_clear = Unbound # <Ctrl><Shift>G
-  hide_window = Unbound # <Ctrl><Shift><Alt>a
   group_all = Unbound # <Super>g
   ungroup_all = Unbound # <Super><Shift>G
-  group_tab = Unbound # <Super>t
-  ungroup_tab = Unbound # <Super><Shift>T
+  edit_terminal_title = Unbound #<Ctrl><Alt>x
+  edit_window_title = Unbound #<Ctrl><Alt>w
+  close_window = Unbound # <Ctrl><Shift>Q
+  close_term = Unbound # <Ctrl><Shift>W
+  full_screen = F11
+  hide_window = Unbound # <Ctrl><Shift><Alt>a
   new_window = Unbound # <Ctrl><Shift>I
   new_terminator = Unbound # <Super>i
+##### OTHER SETTINGS #####
+  insert_number = Unbound # <Super>1
+  insert_padded = Unbound # <Super>0
+  layout_launcher = Unbound # <Primary><Shift>l # no default?
 [layouts]
   [[default]]
     [[[child1]]]
@@ -98,8 +94,4 @@
     foreground_color = "#ffffff"
     palette = "#3f466b:#e77d7d:#8ebdc7:#e9af85:#89a5cb:#d6adb2:#b2c6d1:#cbcdd6:#596186:#e7a97d:#b9c387:#ddea9e:#4349a3:#6c4348:#6d74a0:#d9dae1"
     show_titlebar = False
-    use_system_font = False
-  [[新しいプロファイル]]
-    cursor_color = "#aaaaaa"
-    font = Ricty Diminished with Fira Code 10
     use_system_font = False
