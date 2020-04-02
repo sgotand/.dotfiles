@@ -8,7 +8,7 @@ if v:version >= 800
   let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
   let s:config_home = empty($XDG_CONFIG_HOME) ? expand('~/.config') : $XDG_CONFIG_HOME
-  let s:dein_config_dir = s:config_home . '/nvim'
+  let s:dein_config_dir = '~/.dotfiles/vim/toml'
 
   if dein#load_state(s:dein_cache_dir)
     call dein#begin(s:dein_cache_dir)
