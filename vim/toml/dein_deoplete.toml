@@ -1,19 +1,16 @@
 # vim:  set :
 [[plugins]]
 repo = "Shougo/deoplete.nvim"
+on_event = 'InsertEnter'
 hook_source = """
-set completeopt=menu,noinsert,preview
+set completeopt=menu,preview
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('smart_case', v:true)
 let g:deoplete#enable_refresh_always = 1
-
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-set splitbelow
+"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+"set splitbelow
+echom deoplete.vim hook_source
 """
-
-
-on_ft = ['c', 'cpp', 'cmake']
-depends = ['deoplete.nvim']
 
 [[plugins]] # deoplete source for include headers
 repo = 'Shougo/neoinclude.vim'
@@ -29,7 +26,6 @@ on_i = 1
 on_event = 'InsertEnter'
 depends = ['neosnippet-snippets', 'deoplete.nvim']
 hook_source = "call deoplete#custom#source('neosnippet','rank', 2000)"
-
 source_add = '''
     call deoplete#custom#option('candidate_marks',
 		      \ ['A', 'S', 'D', 'F', 'G'])
@@ -44,7 +40,6 @@ source_add = '''
 		inoremap <expr>G       pumvisible() ?
 		\ deoplete#insert_candidate(4) : 'G'
 '''
-
 hook_add = '''
 
 " set user defined snippets dir
@@ -52,6 +47,7 @@ let g:neosnippet#snippets_directory='~/.dotfiles/vim/snippets'
 let g:neosnippet#enable_completed_snippet=1
 "  let g:neosnippet#enable_auto_clear_markers=0
 
+  echom 'neosnippet hook_add'
   " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
   smap <C-k>     <Plug>(neosnippet_expand_or_jump)

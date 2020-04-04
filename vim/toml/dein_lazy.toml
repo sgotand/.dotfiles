@@ -3,7 +3,6 @@
 #[[plugins]]
 #repo = 'Shougo/defx.nvim'
 
-
 [[plugins]]
 repo = 'kana/vim-operator-user'
 
@@ -11,13 +10,16 @@ repo = 'kana/vim-operator-user'
 repo = 'rhysd/vim-clang-format'
 depends = ['vim-operator-user']
 
+[[plugins]] # toml syntax
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
 hook_add = '''
 call Source_rc("plugin-settings/vim-go.vim")
 '''
-
 
 [[plugins]]
 repo = 'lighttiger2505/gtags.vim'

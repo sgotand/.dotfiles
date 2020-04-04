@@ -6,10 +6,6 @@ repo = 'Shougo/dein.vim'
 repo = 'Shougo/vimproc.vim'
 build = 'make'
 
-[[plugins]] # toml syntax
-repo = 'cespare/vim-toml'
-on_ft = 'toml'
-
 [[plugins]] # show :help in japanese
 repo = 'vim-jp/vimdoc-ja'
 
@@ -128,3 +124,9 @@ repo = 'jiangmiao/auto-pairs'
 
 [[plugins]]
 repo = 'thinca/vim-scouter'
+
+[[plugins]]
+repo = 'tyru/capture.vim'
+hook_add = '''
+echom 'add capture.vim'
+'''

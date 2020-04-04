@@ -1,3 +1,4 @@
+echom "start importing map.vim"
 let mapleader = ","
 
 nnoremap s <Nop>
@@ -59,11 +60,11 @@ inoremap jj <ESC>
 inoremap <C-c> <Esc>
 noremap <S-h> ^
 noremap <S-l> $
-inoremap <C-j>  <down>
-inoremap <C-k>  <up>
-inoremap <C-h>  <left>
-inoremap <C-l>  <right>
-
+"inoremap <C-j>  <down>
+"inoremap <C-k>  <up>
+"inoremap <C-h>  <left>
+"inoremap <C-l>  <right>
+"
 "format indent
 nnoremap == gg=G
 

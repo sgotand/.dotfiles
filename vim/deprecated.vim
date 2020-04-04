@@ -1,5 +1,4 @@
 
-
 " setup at plugin
 " colorscheme iceberg
 " setup at plugin as lightline.vim
