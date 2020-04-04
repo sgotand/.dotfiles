@@ -94,21 +94,6 @@ repo = 'tpope/vim-fugitive'
 repo = 'airblade/vim-gitgutter'
 
 
-#[[plugins]]
-#repo = 'junegunn/fzf'
-#build = './install --bin'
-#merged = '0'
-#
-#[[plugins]]
-#repo = 'junegunn/fzf.vim'
-#depends = 'fzf'
-#hook_add = '''
-#command! -bang -nargs=* Rg
-#\ call fzf#vim#grep(
-#    \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
-#    \   fzf#vim#with_preview({'options': '--exact --reverse'}, 'right:50%:wrap'))
-#'''
-
 
 [[plugins]]
 repo = 'preservim/nerdcommenter'
@@ -129,4 +114,18 @@ repo = 'thinca/vim-scouter'
 repo = 'tyru/capture.vim'
 hook_add = '''
 echom 'add capture.vim'
+'''
+[[plugins]]
+repo = 'simnalamburt/vim-mundo'
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+
+hook_add = '''
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 '''
