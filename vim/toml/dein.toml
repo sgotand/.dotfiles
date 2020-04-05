@@ -135,3 +135,9 @@ repo = 'kshenoy/vim-signature'
 [[plugins]]
 repo = 'mhinz/vim-startify'
 
+[[plugins]]
+repo = 'kshenoy/vim-signature'
+
+[[plugins]]
+repo = 'Dimercel/todo-vim'
+
