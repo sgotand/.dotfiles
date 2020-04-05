@@ -72,7 +72,7 @@ nnoremap == gg=G
 nnoremap x "_x
 nnoremap s "_s
 
-nnoremap <silent> <ESC><ESC> :nohighlight<CR>
+nnoremap <silent> <ESC><ESC> :nohlsearch<CR>
 
 " vim as terminal multiplexer
 if has('terminal') || has('nvim')
