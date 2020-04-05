@@ -140,6 +140,10 @@ repo = 'kshenoy/vim-signature'
 
 [[plugins]]
 repo = 'Dimercel/todo-vim'
+hook_add = '''
+nnoremap <leader>t :<C-u>TODOToggle<CR>
+xnoremap <leader>t :<C-u>TODOToggle<CR>
+'''
 
 [[plugins]]
 repo = 'unblevable/quick-scope'
@@ -157,8 +161,8 @@ xnoremap <leader>. ;
 
 augroup qs_colors
   autocmd!
-  autocmd ColorScheme * highlight QuickScopePrimary  ctermbg=233 ctermfg=161 cterm=underline,bold
-  autocmd ColorScheme * highlight QuickScopeSecondary ctermbg=233 ctermfg=34 cterm=underline,bold
+  autocmd ColorScheme * highlight QuickScopePrimary  ctermbg=232 ctermfg=161 cterm=underline,bold
+  autocmd ColorScheme * highlight QuickScopeSecondary ctermbg=232 ctermfg=34 cterm=underline,bold
 augroup END
 '''
 
