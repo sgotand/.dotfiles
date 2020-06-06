@@ -60,7 +60,7 @@ set modeline          " use modeline
 set modelines=5       " parse modeline to line 5
 "=============view setting=====================
 set title
-set number
+set nonumber
 set ruler
 "set cursorline
 "set cursorcolumn

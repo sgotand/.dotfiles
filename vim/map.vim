@@ -3,6 +3,8 @@ let mapleader = ","
 
 nnoremap s <Nop>
 
+nnoremap <leader><S-n> :<C-u>set relativenumber!<CR>
+nnoremap <leader>n :<C-u>set number!<CR>
 " go to
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
