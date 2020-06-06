@@ -57,7 +57,6 @@ vnoremap ; :
 vnoremap : ;
 
 inoremap jk <ESC>
-inoremap jj <ESC>
 
 inoremap <C-c> <Esc>
 noremap <S-h> ^
