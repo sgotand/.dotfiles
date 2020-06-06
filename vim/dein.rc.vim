@@ -9,7 +9,7 @@ if v:version >= 800
   let s:dein_config_dir = '~/.dotfiles/vim/toml'
   let g:dein#install_log_filename = s:dein_cache_dir . '/dein_install_log.txt'
 
-"  if dein#load_state(s:dein_cache_dir)
+  if dein#load_state(s:dein_cache_dir)
     call dein#begin(s:dein_cache_dir)
 
     call dein#load_toml(s:dein_config_dir . '/dein.toml', {'lazy': 0})
@@ -19,10 +19,28 @@ if v:version >= 800
 
     call dein#remote_plugins()
     call dein#end()
-    " call dein#save_state()
-  " endif
+    call dein#save_state()
+  endif
 endif
 
 if dein#check_install()
   call dein#install()
 endif
+
+function! Reflesh() abort
+	call map(dein#check_clean(), "delete(v:val, 'rf')")
+	call dein#recache_runtimepath()
+endfunction
+
+function! EchoDisabledPlugins()
+  let dls =  dein#check_clean()
+  if len(dls) == 0
+   echom "no plugin was expired"
+  else
+  for plgs in dls
+    echom plgs
+  endfor
+  endif
+endfunction
+
+

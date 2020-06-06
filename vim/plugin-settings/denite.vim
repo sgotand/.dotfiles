@@ -1,20 +1,20 @@
 
 " show current dir & buffers
-nnoremap <silent><C-d>a :<C-u>Denite file buffer -split=floating file:new<CR>
+nnoremap <silent><C-p>a :<C-u>Denite file buffer -split=floating file:new<CR>
 " show current buffers
-nnoremap <silent><C-d>b :<C-u>Denite buffer -split=floating file:new<CR>
+nnoremap <silent><C-p>b :<C-u>Denite buffer -split=floating file:new<CR>
 " show current dir
-nnoremap <silent><C-d>f :<C-u>Denite file -split=floating file:new<CR>
+nnoremap <silent><C-p>f :<C-u>Denite file -split=floating file:new<CR>
 " show current dir recursively
-nnoremap <silent><C-d>r :<C-u>Denite file/rec -split=floating file:new<CR>
+nnoremap <silent><C-p>r :<C-u>Denite file/rec -split=floating file:new<CR>
 " 【Ctrl + d + gr】 カレントディレクトリ以下のファイルから指定した文字列を検索
-nnoremap <silent><C-d>gr :<C-u>Denite grep -buffer-name=search<CR>
+nnoremap <silent><C-p>gr :<C-u>Denite grep -buffer-name=search<CR>
 " 【Ctrl + d + ,】 カレントディレクトリ以下のファイルからカーソル下の文字列を検索
-nnoremap <silent><C-d>, :<C-u>DeniteCursorWord grep -buffer-name=search line<CR>
+nnoremap <silent><C-p>, :<C-u>DeniteCursorWord grep -buffer-name=search line<CR>
 " 【Ctrl + d + gs】 grepした結果を再表示
-nnoremap <silent><C-d>gs :<C-u>Denite -resume -buffer-name=search<CR>
+nnoremap <silent><C-p>gs :<C-u>Denite -resume -buffer-name=search<CR>
 " 【Ctrl + d + c】 Neovim内で実行したコマンドを表示
-nnoremap <silent><C-d>c :<C-u>Denite command_history -split=floating<CR>
+nnoremap <silent><C-p>c :<C-u>Denite command_history -split=floating<CR>
 
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort

@@ -8,7 +8,7 @@ let g:lightline = {
       \ 'mode_map': {'c': 'NORMAL'},
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'fugitive', 'filename' ],
+      \             [ 'fugitive', 'filename' , 'modified', 'anzu'],
       \           ]
       \ },
       \ 'component_function': {
@@ -19,9 +19,10 @@ let g:lightline = {
       \   'fileformat': 'LightlineFileformat',
       \   'filetype': 'LightlineFiletype',
       \   'fileencoding': 'LightlineFileencoding',
-      \   'mode': 'LightlineMode'
+      \   'mode': 'LightlineMode',
+      \   'anzu': 'anzu#search_status'
       \ }
-      \ }
+    \ }
 
 function! LightlineModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'

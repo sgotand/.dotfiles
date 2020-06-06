@@ -17,6 +17,7 @@ on_ft = 'toml'
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
+build = 'GoInstallBinaries'
 hook_add = '''
 call Source_rc("plugin-settings/vim-go.vim")
 '''

@@ -1,0 +1,15 @@
+#  log.Fatal(err)
+snippet  iffatal
+options head
+  if err != nil {
+    log.Fatal(err)
+  }
+  ${0}
+
+
+snippet main
+options head
+  func main () {
+  ${0}
+  }
+
