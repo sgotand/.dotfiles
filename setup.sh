@@ -1,14 +1,34 @@
 #!/bin/bash
+set -eux
+
+DOTFILES_ROOT=$HOME/.dotfiles
 
 mkdir -p $HOME/.config/
-if ! [ -e $HOME/.config/nvim ];then
-  ln -s $(realpath $HOME/.dotfiles/.config/nvim) $HOME/.config/nvim
-fi
-if ! [ -e $HOME/.vimrc ]; then
-  ln -s $(realpath $HOME/.dotfiles/.config/nvim/init.vim) $HOME/.vimrc
+[ -e $HOME/.config/nvim ] || mkdir -p $HOME/.config/nvim
+[ -e $HOME/.config/nvim/init.vim ] || ln -s ${DOTFILES_ROOT}/vimrc $HOME/.config/nvim/init.vim
+[ -e $HOME/.vimrc ] || ln -s ${DOTFILES_ROOT}/vimrc $HOME/.vimrc
+
+VIM=vim
+if which nvim > /dev/null 2>/dev/null; then
+  VIM=nvim
 fi
 
-if ! [ -e $HOME/.tmux/plugins/tpm ];then
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+${VIM} -N -u ${DOTFILES_ROOT}/vimrc -c \
+	"try | call dein#update() | finally | qall! | endtry" -V1 -es
+
+
+[ -e $HOME/.tmux/plugins/tpm ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+[ -e $HOME/.tmux.conf ] || ln -s ${DOTFILES_ROOT}/tmux.conf $HOME/.tmux.conf
+
+if ! [ -e $HOME/.zshrc ] ; then
+cat > $HOME/.zshrc <<EOF
+source ${DOTFILES_ROOT}/zshrc
+EOF
 fi
+
+if ! [ -e $HOME/.zshenv ]; then
+cat > $HOME/.zshenv <<EOF
+source ${DOTFILES_ROOT}/zshenv
+fi
+EOF
 
