@@ -29,6 +29,6 @@ fi
 if ! [ -e $HOME/.zshenv ]; then
 cat > $HOME/.zshenv <<EOF
 source ${DOTFILES_ROOT}/zshenv
-fi
 EOF
+fi
 
