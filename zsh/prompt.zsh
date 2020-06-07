@@ -1,4 +1,5 @@
 autoload -Uz colors; colors
+autoload -Uz add-zsh-hook
 if which starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
   RPROMPT="%{$fg[green]%} %D{%Y/%m/%d} %* %{$reset_color%}"
