@@ -31,7 +31,9 @@ alias ma='make all'
 alias mr='make run'
 
 alias gtime='/usr/bin/time'
+if [[ $(uname -s) =~ Linux ]]; then
 alias open='xdg-open'
+fi
 
 alias apti='apt install'
 alias apts='apt search'
