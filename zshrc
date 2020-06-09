@@ -38,7 +38,7 @@ export FZF_COMPLETION_TRIGGER=';'
 #bindkey '^I' fzf-completion
 #bindkey '^O' $fzf_default_completion
 #
-
+agent="$HOME/.ssh/agent"
 if [ -S "$SSH_AUTH_SOCK" ]; then
     case $SSH_AUTH_SOCK in
     /tmp/*/agent.[0-9]*)
