@@ -1,9 +1,7 @@
 # vim:set filetype=zsh nospell :
-# 色を使用出来るようにする
-# -U :alias展開しない
-# -z :zsh形式で読み込み
-# 単語の区切り文字を指定する
-#
+
+[[ "$-" =~ i ]] || return
+
 ZSH_RC_DIR=$(dirname $0)/zsh/
 bindkey -e
 autoload -Uz colors

@@ -1,4 +1,7 @@
 
+# return eary for non-interactive mode (e.g scp/rsync)
+[[ "$-" =~ i ]] || return
+
 if which nvim >/dev/null 2>&1; then
   export EDITOR=nvim
 elif which vim >/dev/null 2>&1; then
