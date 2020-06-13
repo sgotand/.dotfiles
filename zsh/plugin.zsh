@@ -37,14 +37,16 @@ if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
     zplug "zsh-users/zsh-autosuggestions", defer:2 # 履歴を薄く表示
 
 
-#    zplug "plugins/cargo", from:oh-my-zsh, defer:2
-#    zplug "plugins/fd", from:oh-my-zsh, defer:2
-#    zplug "plugins/ripgrep", from:oh-my-zsh, defer:2
-#    zplug "plugins/ansible", from:oh-my-zsh, defer:2
-#    zplug "plugins/systemd", from:oh-my-zsh, defer:2
-#    zplug "plugins/sudo", from:oh-my-zsh, defer:2
-#
-#    # zplug "plugins/colored-man-pages", from:oh-my-zsh
+    zplug "plugins/cargo", from:oh-my-zsh, defer:2
+    zplug "plugins/fd", from:oh-my-zsh, defer:2
+    zplug "plugins/ripgrep", from:oh-my-zsh, defer:2
+    zplug "plugins/ansible", from:oh-my-zsh, defer:2
+    zplug "plugins/systemd", from:oh-my-zsh, defer:2
+    zplug "plugins/sudo", from:oh-my-zsh, defer:2
+    zplug "plugins/rsync", from:oh-my-zsh, defer:2
+    zplug "plugins/git", from:oh-my-zsh, defer:2
+    zplug "plugins/history", from:oh-my-zsh, defer:2
+    zplug "plugins/colored-man-pages", from:oh-my-zsh
 #
     # Install plugins if there are plugins that have not been installed
     if ! zplug check --verbose; then

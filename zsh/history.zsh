@@ -1,9 +1,9 @@
 
 ################# History #######################
 
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000000
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=100
+export SAVEHIST=1000000
 setopt hist_ignore_dups
 # setopt hist_ignore_all_dups
 # setopt hist_ignore_space
