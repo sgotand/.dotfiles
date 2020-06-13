@@ -6,7 +6,7 @@ hook_source = """
 set completeopt=menu ",preview
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('smart_case', v:true)
-let g:deoplete#enable_refresh_always = 1
+"let g:deoplete#enable_refresh_always = 1
 "autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 "set splitbelow
 echom deoplete.vim hook_source
