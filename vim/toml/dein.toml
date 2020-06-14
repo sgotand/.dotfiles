@@ -31,6 +31,7 @@ depends = ['context_filetype.vim']
 
 [[plugins]] # plugin for colorscheme iceberg
 repo = 'cocopon/iceberg.vim'
+merged = 0
 hook_add = '''
 au MyAutoCmd VimEnter * nested colorscheme iceberg
 '''
