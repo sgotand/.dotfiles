@@ -14,6 +14,9 @@
 # deoplete [link](https://github.com/Shougo/deoplete.nvim/blob/master/doc/deoplete.txt)
 # neosnippet
 - ~/.dotfiles/vim/snippets に置いてある
+# vim-mundo
+- :MundoToggle
+- <leader>u
 
 # デフォルトの機能
 - `/<検索キーワード>` で検索を書けたあと、 `:%s//<replace_word>/g`とすればそのまま置換できる

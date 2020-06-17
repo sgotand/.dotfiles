@@ -59,6 +59,7 @@ repo = 'reireias/vim-cheatsheet'
 hook_source = '''
 let g:cheatsheet#cheat_file = '~/.dotfiles/vim/cheatsheet.md'
 '''
+# :Cheat
 
 [[plugins]] # plugin for lightline
 repo = 'itchyny/lightline.vim'
@@ -121,14 +122,26 @@ repo = 'airblade/vim-gitgutter'
 
 
 
-[[plugins]]
-repo = 'preservim/nerdcommenter'
+#[[plugins]]
+#repo = 'preservim/nerdcommenter'
+#hook_add = '''
+#let g:NERDSpaceDelims = 1
+#let g:NERDCommentEmptyLines = 1
+#let g:NERDTrimTrailingWhitespace = 1
+#" let g:NERDCreateDefaultMappings = 0
+#'''
+#
+[[plugins]] # comment/uncomment
+repo = 'tyru/caw.vim'
 hook_add = '''
-let g:NERDSpaceDelims = 1
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-" let g:NERDCreateDefaultMappings = 0
+"nmap <C-_> <Plug>(caw:hatpos:toggle)
+"vmap <C-_> <Plug>(caw:hatpos:toggle)
+nmap <C-_> <Plug>(caw:zeropos:toggle)
+vmap <C-_> <Plug>(caw:zeropos:toggle)
 '''
+
+
+
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
 
@@ -141,8 +154,11 @@ repo = 'tyru/capture.vim'
 hook_add = '''
 echom 'add capture.vim'
 '''
-[[plugins]]
+[[plugins]] # :MundoToggle
 repo = 'simnalamburt/vim-mundo'
+hook_add = '''
+nnoremap <leader>u :<C-u>MundoToggle<CR>
+'''
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
@@ -195,3 +211,6 @@ xnoremap <leader>t :<C-u>TODOToggle<CR>
 #augroup END
 #'''
 
+[[plugins]]
+repo = 'junegunn/fzf'
+hook_post_update  = 'fzf#install()'

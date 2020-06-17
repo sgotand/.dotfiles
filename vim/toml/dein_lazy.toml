@@ -26,7 +26,6 @@ call Source_rc("plugin-settings/vim-go.vim")
 repo = 'lighttiger2505/gtags.vim'
 on_ft = ['c', 'cpp']
 hook_add = '''
-echo "gtags.vim is imported"
 let g:Gtags_Auto_Map = 0
 let g:Gtags_Auto_Update = 1
 let g:Gtags_No_Auto_Jump = 1
@@ -45,7 +44,6 @@ nnoremap <space>p :cp<CR>
 " go back
 nnoremap <space>o <C-o>
 nnoremap <space>u :GtagsUpdate<CR>
-
 '''
 
 [[plugins]]
@@ -64,6 +62,5 @@ let g:rufo_auto_formatting = 1
 [[plugins]]
 repo = 'iamcco/markdown-preview.nvim'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']
-on_build = 'sh -c "cd app & yarn install"'
 build = 'sh -c "cd app & yarn install"'
 
