@@ -55,7 +55,7 @@ setopt list_types
 
 if [ -f ~/.fzf.zsh ]; then
   source ~/.fzf.zsh
-#   export FZF_DEFAULT_OPTS='--height 40% --reverse --border' #  --preview "[ -f {} ] && head -80 {}"'
+  export FZF_DEFAULT_OPTS='--height 40% --reverse --border' #  --preview "[ -f {} ] && head -80 {}"'
   #     export FZF_TMUX=1
   if (which fd >/dev/null 2>/dev/null);then
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
