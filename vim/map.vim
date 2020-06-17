@@ -89,3 +89,6 @@ if has('terminal') || has('nvim')
     autocmd TerminalOpen * set nospell
   endif
 endif
+
+vnoremap / "zy:let @/ = @z<CR>n
+
