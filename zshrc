@@ -28,17 +28,6 @@ source ${ZSH_RC_DIR}/completion.zsh
 source ${ZSH_RC_DIR}/alias.zsh
 source ${ZSH_RC_DIR}/history.zsh
 
-if [ -f ~/.fzf.zsh ]; then
-  source ~/.fzf.zsh
-  export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
-
-  bindkey '^D' fzf-file-widget
-  bindkey '^R' fzf-history-widget
-  export FZF_COMPLETION_TRIGGER=';'
-  #bindkey '^I' fzf-completion
-  #bindkey '^O' $fzf_default_completion
-fi
-
 agent="$HOME/.ssh/agent"
 if [ -S "$SSH_AUTH_SOCK" ]; then
     case $SSH_AUTH_SOCK in

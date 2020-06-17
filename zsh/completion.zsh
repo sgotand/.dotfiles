@@ -52,3 +52,21 @@ setopt always_last_prompt
 setopt magic_equal_subst
 setopt auto_menu
 setopt list_types
+
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+#   export FZF_DEFAULT_OPTS='--height 40% --reverse --border' #  --preview "[ -f {} ] && head -80 {}"'
+  #     export FZF_TMUX=1
+  if (which fd >/dev/null 2>/dev/null);then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  fi
+
+  export FZF_CTRL_T_OPTS="--preview  'head -200 {}'"
+  bindkey '^D' fzf-file-widget
+  bindkey '^R' fzf-history-widget
+  export FZF_COMPLETION_TRIGGER=','
+  bindkey '^J' fzf-completion
+  bindkey '^O' $fzf_default_completion
+  #     bindkey '^I' fzf-completion
+  #     bindkey '^O' fzf_default_completion
+fi

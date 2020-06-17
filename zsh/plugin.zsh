@@ -35,6 +35,9 @@ if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
 
     zplug "zsh-users/zsh-syntax-highlighting", defer:2
     zplug "zsh-users/zsh-autosuggestions", defer:2 # 履歴を薄く表示
+    if [ -f ~/.fzf.zsh ]; then
+      zplug "kwhrtsk/docker-fzf-completion", defer:2
+    fi
 
 
     zplug "plugins/cargo", from:oh-my-zsh, defer:2
