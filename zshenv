@@ -1,4 +1,3 @@
-
 # return eary for non-interactive mode (e.g scp/rsync)
 [[ "$-" =~ i ]] || return
 
@@ -91,20 +90,29 @@ exit status:               %x
 EOF
 )
 
+
+unsetopt global_rcs # avoid sourceing path_helper in /etc/z*
+# PATH=/usr/bin:/bin:/usr/sbin:/sbin
+export PATH="/usr/local/bin:$PATH"
 # local
 if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
 
 #python
+# git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 if [[ -d $HOME/.pyenv ]] ; then
-    export PATH=$HOME/.pyenv/bin:$PATH
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
 fi
-export PIPENV_VENV_IN_PROJECT=true
+if (which pipenv >/dev/null 2>/dev/null); then
+    export PIPENV_VENV_IN_PROJECT=true
+fi
 
-#ruby
+# ruby
+# git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 if [[ -d $HOME/.rbenv  ]] ; then
   export PATH=$HOME/.rbenv/bin:$PATH
   eval "$(rbenv init -)"
@@ -154,4 +162,3 @@ export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DOCKER_BUILDKIT=1
 export ZPLUG_HOME=~/.zplug
 source $HOME/.cargo/env
-PATH=$PATH:$HOME/.local/bin

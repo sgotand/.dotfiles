@@ -20,6 +20,7 @@ setopt ignore_eof
 setopt interactive_comments
 setopt auto_cd
 setopt auto_pushd
+[[ "$(locale LC_CTYPE)" == "UTF-8" ]] && setopt COMBINING_CHARS
 
 
 source ${ZSH_RC_DIR}/prompt.zsh
