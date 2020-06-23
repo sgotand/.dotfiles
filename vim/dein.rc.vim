@@ -14,8 +14,8 @@ if v:version >= 800
 
     call dein#load_toml(s:dein_config_dir . '/dein.toml', {'lazy': 0})
     call dein#load_toml(s:dein_config_dir . '/dein_lazy.toml', {'lazy': 1})
-    call dein#load_toml(s:dein_config_dir . '/dein_deoplete.toml', {'lazy': 1})
-    "call dein#load_toml(s:dein_config_dir . '/dein_coc.toml', {'lazy': 1})
+"     call dein#load_toml(s:dein_config_dir . '/dein_deoplete.toml', {'lazy': 1})
+    call dein#load_toml(s:dein_config_dir . '/dein_coc.toml', {'lazy': 1})
 
     call dein#remote_plugins()
     call dein#end()
