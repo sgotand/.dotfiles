@@ -144,6 +144,9 @@ export N_PREFIX="$HOME/n"
 [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
+if [[ -d "$HOME/.nodebrew" ]] ; then
+  export PATH="$HOME/.nodebrew/current/bin:$PATH"
+fi
 #npm
 export PATH=$PATH:./node_modules/.bin
 
