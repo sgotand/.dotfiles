@@ -213,4 +213,4 @@ xnoremap <leader>t :<C-u>TODOToggle<CR>
 
 [[plugins]]
 repo = 'junegunn/fzf'
-hook_post_update  = 'fzf#install()'
+hook_post_update  = 'call fzf#install()'
