@@ -1,17 +1,19 @@
-
-################# History #######################
+# vim: set ft=zsh:
 
 export HISTFILE=$HOME/.zsh_history
-export HISTSIZE=100
-export SAVEHIST=1000000
+export HISTSIZE=10000     # memory上のhistoryサイズ これを小さくすると、fzfで読み込めなくなるので注意
+export SAVEHIST=10000000
 setopt hist_ignore_dups
 # setopt hist_ignore_all_dups
 # setopt hist_ignore_space
 # setopt hist_reduce_blanks
-setopt EXTENDED_HISTORY
-setopt HIST_FIND_NO_DUPS
+setopt hist_save_by_copy
+setopt hist_save_no_dups
+setopt hist_allow_clobber
+setopt extended_history
+setopt hist_find_no_dups
 setopt share_history
-
+setopt inc_append_history
 
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
