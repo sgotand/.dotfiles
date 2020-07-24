@@ -214,3 +214,34 @@ xnoremap <leader>t :<C-u>TODOToggle<CR>
 [[plugins]]
 repo = 'junegunn/fzf'
 hook_post_update  = 'call fzf#install()'
+merged = 0
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+merged = 0
+on_cmd = [
+    'Files',
+    'ProjectFiles',
+    'Buffers',
+    'BLines',
+    'History',
+    'Tags',
+    'BTags',
+    'GFiles',
+    'Ag',
+    'Rg',
+]
+hook_add = '''
+nnoremap <silent> ,a :<C-u>Ag<CR>
+nnoremap <silent> ,f :<C-u>ProjectFiles<CR>
+nnoremap <silent> ,b :<C-u>Buffers<CR>
+nnoremap <silent> ,m :<C-u>History<CR>
+set rtp+=$XDG_CACHE_HOME/fzf "$XDG_CACHE_HOMEの下にインストールした場合
+'''
+hook_source='call Source_rc("plugin-settings/fzf_vim_hook_source.vim")'
+
+
+# [[plugins]]
+# repo = 'jremmen/vim-ripgrep'
+
+

@@ -92,3 +92,14 @@ endif
 
 vnoremap / "zy:let @/ = @z<CR>n
 
+
+function! HasQuickFix()
+  echom "check quickfix"
+  let s:ret = len(filter(getwininfo(), 'v:val.quickfix && !v:val.loclist'))
+  echom s:ret > 0
+  return s:ret > 0
+endfunction
+
+nnoremap  <silent><expr> n HasQuickFix() ? ':<C-u>cn<CR>': 'n'
+nnoremap  <silent><expr> N HasQuickFix() ? ':<C-u>cp<CR>': 'N'
+

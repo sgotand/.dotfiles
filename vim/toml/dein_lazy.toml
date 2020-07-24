@@ -16,6 +16,7 @@ on_ft = 'toml'
 
 [[plugins]]
 repo = 'fatih/vim-go'
+merged = 0
 on_ft = 'go'
 build = 'GoInstallBinaries'
 hook_add = '''
@@ -64,3 +65,7 @@ repo = 'iamcco/markdown-preview.nvim'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 build = 'sh -c "cd app & yarn install"'
 
+[[plugins]]
+repo = 'fszymanski/fzf-quickfix'
+on_ft = 'qf'
+hook_add = 'nnoremap <Leader>q :Quickfix<CR>'
