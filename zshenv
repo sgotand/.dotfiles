@@ -121,6 +121,7 @@ fi
 #rust
 if [[ -d $HOME/.cargo ]] ; then
   export PATH="$HOME/.cargo/bin:$PATH"
+  source $HOME/.cargo/env
 fi
 
 #go
@@ -164,4 +165,3 @@ export PATH=$PATH:./node_modules/.bin
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DOCKER_BUILDKIT=1
 export ZPLUG_HOME=~/.zplug
-source $HOME/.cargo/env
