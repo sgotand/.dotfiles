@@ -6,6 +6,7 @@ if which nvim >/dev/null 2>&1; then
 elif which vim >/dev/null 2>&1; then
   export EDITOR=vim
 fi
+export SHELL=/usr/bin/zsh
 
 # Colors
 default=$(tput sgr0)

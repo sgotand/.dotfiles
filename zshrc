@@ -20,6 +20,7 @@ setopt ignore_eof
 setopt interactive_comments
 setopt auto_cd
 setopt auto_pushd
+setopt noclobber #履歴が何故か変更されて>|になる
 [[ "$(locale LC_CTYPE)" == "UTF-8" ]] && setopt COMBINING_CHARS
 
 
