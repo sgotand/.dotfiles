@@ -5,21 +5,14 @@ if [ -z "${ZPLUG_HOME}" ]; then
     export ZPLUG_HOME=$HOME/.zplug
 fi
 
-if [ ! -e "${ZPLUG_HOME}/init.zsh" ]; then
-    echo "zplug not found"
-    echo "Do you want to install zplug? (y or n :default: y)"
-    read ANSWER
-    case $ANSWER in
-    "" | "Y" | "y")
-        echo "start installing zplug"
-        curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-        ;;
-    *) ;;
-    esac
+if [ ! -e "${ZPLUG_HOME}" ]; then
+    git clone https://github.com/zplug/zplug $ZPLUG_HOME
 fi
 
 if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
+    echo zplug init
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+    source $ZPLUG_HOME/init.zsh
     # additional completions
     zplug "zsh-users/zsh-completions"
 
@@ -39,7 +32,6 @@ if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
       zplug "kwhrtsk/docker-fzf-completion", defer:2
     fi
 
-
     zplug "plugins/cargo", from:oh-my-zsh, defer:2
     zplug "plugins/fd", from:oh-my-zsh, defer:2
     zplug "plugins/ripgrep", from:oh-my-zsh, defer:2
@@ -50,15 +42,8 @@ if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
     zplug "plugins/git", from:oh-my-zsh, defer:2
     zplug "plugins/history", from:oh-my-zsh, defer:2
     zplug "plugins/colored-man-pages", from:oh-my-zsh
-#
-    # Install plugins if there are plugins that have not been installed
-    if ! zplug check --verbose; then
-        printf "Install? [y/N]: "
-        if read -q; then
-            echo
-            zplug install
-        fi
-    fi
+
+    zplug check --verbose || zplug install
     zplug load --verbose
     zplug list
 fi
