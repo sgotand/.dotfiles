@@ -3,14 +3,9 @@ let g:neosnippet#snippets_directory='~/.dotfiles/vim/snippets'
 let g:neosnippet#enable_completed_snippet=1
 "  let g:neosnippet#enable_auto_clear_markers=0
 
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-inoremap <expr> <Plug>(skip_signs)
 
 function! Jumpable_to_right()
   echom "checking"
