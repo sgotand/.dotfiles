@@ -30,14 +30,20 @@ source ${ZSH_RC_DIR}/completion.zsh
 source ${ZSH_RC_DIR}/alias.zsh
 source ${ZSH_RC_DIR}/history.zsh
 
+USE_AGENT=true
 agent="$HOME/.ssh/agent"
-if [ -S "$SSH_AUTH_SOCK" ]; then
-  case $SSH_AUTH_SOCK in
-    /tmp/*/agent.[0-9]*)
-      ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
-  esac
-elif [ -S $agent ]; then
+if [ -S $agent ]; then
   export SSH_AUTH_SOCK=$agent
+elif [ -S "$SSH_AUTH_SOCK" ]; then
+    if [[ $SSH_AUTH_SOCK =~ /tmp/.*/agent.[0-9]* ]]  then
+      # reuse existing agent
+    elif [[ $SSH_AUTH_SOCK = ${XDG_RUNTIME_DIR}* ]]  then
+      if [[ $USE_AGENT = true ]];then
+      eval $(ssh-agent)
+      fi
+    fi
+    echo "ssh auth sock:" $SSH_AUTH_SOCK
+    ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
 else
   echo "no ssh-agent"
 fi
