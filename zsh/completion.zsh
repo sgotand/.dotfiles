@@ -53,8 +53,9 @@ setopt magic_equal_subst
 setopt auto_menu
 setopt list_types
 
-if [ -f ~/.fzf.zsh ]; then
-  source ~/.fzf.zsh
+if (which fzf >/dev/null 2>/dev/null ); then
+  source ./fzf/completion.zsh
+  source ./fzf/key-bindings.zsh
   export FZF_DEFAULT_OPTS='--height 40% --reverse --border' #  --preview "[ -f {} ] && head -80 {}"'
   #     export FZF_TMUX=1
   if (which fd >/dev/null 2>/dev/null);then
