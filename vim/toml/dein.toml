@@ -240,8 +240,9 @@ set rtp+=$XDG_CACHE_HOME/fzf "$XDG_CACHE_HOMEの下にインストールした�
 '''
 hook_source='call Source_rc("plugin-settings/fzf_vim_hook_source.vim")'
 
-
 # [[plugins]]
 # repo = 'jremmen/vim-ripgrep'
 
 
+[[plugins]]
+repo = 'tpope/vim-surround'
