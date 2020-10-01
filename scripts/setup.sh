@@ -6,6 +6,7 @@ DOTFILES_ROOT=$HOME/.dotfiles
 mkdir -p $HOME/.config/
 [ -e $HOME/.config/nvim ] || mkdir -p $HOME/.config/nvim
 [ -e $HOME/.config/nvim/init.vim ] || ln -s ${DOTFILES_ROOT}/vimrc $HOME/.config/nvim/init.vim
+[ -e $HOME/.config/nvim/coc-settings.json ] || ln -s ${DOTFILES_ROOT}/vim/plugin-settings/coc-settings.json $HOME/.config/nvim/coc-settings.json
 [ -e $HOME/.vimrc ] || ln -s ${DOTFILES_ROOT}/vimrc $HOME/.vimrc
 
 VIM=vim
