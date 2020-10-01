@@ -35,6 +35,8 @@ nnoremap st :<C-u>tabnew<CR>
 nnoremap sT <C-w>T "move pane to new tab
 nnoremap sn gt
 nnoremap sp gT
+nnoremap sN :<C-u>tabmove +1<CR>
+nnoremap sP :<C-u>tabmove -1<CR>
 
 nnoremap tn :<C-u>tabnew<CR>
 nnoremap tl gt
