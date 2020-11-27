@@ -171,8 +171,6 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 '''
-[[plugins]]
-repo = 'kshenoy/vim-signature'
 
 [[plugins]]
 repo = 'mhinz/vim-startify'
