@@ -1,0 +1,5 @@
+#!/bin/bash
+# 全ブランチのコミットログをいい感じにツリー表示してくれる
+# パスに置けば git tree で実行できる
+set -eu
+git log --graph $(git branch -a |sed s/\*//g | sed -E 's/->.*//')
