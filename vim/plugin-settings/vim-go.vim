@@ -78,16 +78,16 @@ autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 "
 "" :GoDef使用時に使うコマンド ['guru', 'godef'] guru使えないときはgodefに切り替える
 "" Default->'guru
-"" let g:go_def_mode = 'guru'
+let g:go_def_mode = 'guru'
 "
 "" :GoDeclsはデフォルトで関数と型を表示する Default->"func,type"
 "" 型だけにしたいときは"func"だけを指定
 "" let g:go_decls_includes = "func,type"
 "
 "" カーソル上のワードに対して:GoInfo実行
-"let g:go_auto_type_info = 1
+let g:go_auto_type_info = 1
 "" :GoInfo更新時間 Default->800
-"autocmd FileType go set updatetime=100
+autocmd FileType go set updatetime=500
 "" または:GoInfoのキーバインドを設定
 "" autocmd FileType go nmap <Leader>i <Plug>(go-info)
 "
@@ -120,3 +120,15 @@ autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 " GoGenarate: コード生成
 " GoImpl: インターフェースを実装するメソッドスタブの生成
 " GoPlay: コードをGo Playground に公開する(リンクはバッファかクリップボードにコピーされる)
+function! SwitchRepo()
+  let toplevel = trim(system('git rev-parse --show-toplevel'))
+  if toplevel =~# '^fatal'
+    return
+  endif
+
+  " GOPATHをリポジトリ直下に変更する
+  execute 'GoPath ' . toplevel
+
+  " リポジトリ名をgoimportsの'-local'フラグに渡す
+  let g:go_fmt_options = { 'goimports': '-local ' . fnamemodify(toplevel, ':t') }
+endfunction

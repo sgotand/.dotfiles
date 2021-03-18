@@ -245,3 +245,11 @@ hook_source='call Source_rc("plugin-settings/fzf_vim_hook_source.vim")'
 # repo = 'jremmen/vim-ripgrep'
 
 
+# syntax for ansible
+[[plugins]]
+repo = 'pearofducks/ansible-vim'
+
+# register helper
+[[plugins]]
+repo = 'junegunn/vim-peekaboo'
+

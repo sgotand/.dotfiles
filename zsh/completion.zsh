@@ -54,8 +54,8 @@ setopt auto_menu
 setopt list_types
 
 if (which fzf >/dev/null 2>/dev/null ); then
-  source ./fzf/completion.zsh
-  source ./fzf/key-bindings.zsh
+  source ${ZSH_RC_DIR}/fzf/completion.zsh
+  source ${ZSH_RC_DIR}/fzf/key-bindings.zsh
   export FZF_DEFAULT_OPTS='--height 40% --reverse --border' #  --preview "[ -f {} ] && head -80 {}"'
   #     export FZF_TMUX=1
   if (which fd >/dev/null 2>/dev/null);then
