@@ -3,14 +3,17 @@ repo = 'neoclide/coc.nvim'
 rev = 'release'
 on_event = 'InsertEnter'
 merged = '0'
-
+hook_add = '''
+inoremap FM <Plug>(coc-format)
+'''
+#
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
-
+#
 [[plugins]]# deoplete source & snippetter
 repo = "Shougo/neosnippet.vim"
 on_event = 'InsertEnter'
 depends = ['neosnippet-snippets']
-# hook_source = "call deoplete#custom#source('neosnippet','rank', 2000)"
-# source_add = 'call Source_rc("plugin-settings/neosnippet_source_add.vim")'
+hook_source = "call deoplete#custom#source('neosnippet','rank', 2000)"
+source_add = 'call Source_rc("plugin-settings/neosnippet_source_add.vim")'
 hook_add = 'call Source_rc("plugin-settings/neosnippet_hook_add.vim")'

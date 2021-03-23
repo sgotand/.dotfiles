@@ -244,3 +244,8 @@ hook_source='call Source_rc("plugin-settings/fzf_vim_hook_source.vim")'
 
 [[plugins]]
 repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'junegunn/vim-peekaboo'
+
+

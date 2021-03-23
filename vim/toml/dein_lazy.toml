@@ -19,9 +19,7 @@ repo = 'fatih/vim-go'
 merged = 0
 on_ft = 'go'
 build = 'GoInstallBinaries'
-hook_add = '''
-call Source_rc("plugin-settings/vim-go.vim")
-'''
+hook_add = 'call Source_rc("plugin-settings/vim-go.vim") '
 
 [[plugins]]
 repo = 'lighttiger2505/gtags.vim'
@@ -69,3 +67,7 @@ build = 'sh -c "cd app & yarn install"'
 repo = 'fszymanski/fzf-quickfix'
 on_ft = 'qf'
 hook_add = 'nnoremap <Leader>q :Quickfix<CR>'
+
+[[plugins]]
+repo = 'adie/BlockDiff'
+on_event = 'InsertEnter'
