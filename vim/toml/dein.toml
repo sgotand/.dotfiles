@@ -11,6 +11,7 @@ repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]] # provides syntax/indent for multiple
 repo = 'sheerun/vim-polyglot'
+merged = 0
 hook_add = '''
 let g:polyglot_disabled = []
 '''
@@ -171,8 +172,6 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 '''
-[[plugins]]
-repo = 'kshenoy/vim-signature'
 
 [[plugins]]
 repo = 'mhinz/vim-startify'
