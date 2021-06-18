@@ -100,6 +100,9 @@ if [ -d "$HOME/.local/bin" ] ; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -e ~/.fzf ]; then
+  export PAHT=$PATH:~/.fzf/bin
+fi
 
 #python
 # git clone https://github.com/pyenv/pyenv.git ~/.pyenv

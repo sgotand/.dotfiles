@@ -53,6 +53,7 @@ setopt magic_equal_subst
 setopt auto_menu
 setopt list_types
 
+
 if (which fzf >/dev/null 2>/dev/null ); then
   source ${ZSH_RC_DIR}/fzf/completion.zsh
   source ${ZSH_RC_DIR}/fzf/key-bindings.zsh
@@ -70,4 +71,13 @@ if (which fzf >/dev/null 2>/dev/null ); then
   bindkey '^O' $fzf_default_completion
   #     bindkey '^I' fzf-completion
   #     bindkey '^O' fzf_default_completion
+fi
+
+
+if (which gcloud >/dev/null 2>/dev/null ); then
+    source /usr/share/google-cloud-sdk/completion.zsh.inc
+fi
+
+if (which pip3 >/dev/null 2>/dev/null); then
+  source <(pip3 completion --zsh)
 fi
