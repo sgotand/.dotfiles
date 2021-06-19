@@ -1,4 +1,4 @@
-
+echom "start importing " . expand('<sfile>:p')
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_fields = 1
@@ -132,3 +132,4 @@ function! SwitchRepo()
   " リポジトリ名をgoimportsの'-local'フラグに渡す
   let g:go_fmt_options = { 'goimports': '-local ' . fnamemodify(toplevel, ':t') }
 endfunction
+echom "finish importing " . expand('<sfile>:p')

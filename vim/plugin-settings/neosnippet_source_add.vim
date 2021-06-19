@@ -1,3 +1,4 @@
+echom "start importing " . expand('<sfile>:t')
 call deoplete#custom#option('candidate_marks',
       \ ['A', 'S', 'D', 'F', 'G'])
 inoremap <expr>A       pumvisible() ?
@@ -10,3 +11,4 @@ inoremap <expr>F       pumvisible() ?
       \ deoplete#insert_candidate(3) : 'F'
 inoremap <expr>G       pumvisible() ?
       \ deoplete#insert_candidate(4) : 'G'
+echom "finish importing " . expand('<sfile>:t')

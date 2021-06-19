@@ -1,4 +1,4 @@
-
+echom "start importing " . expand('<sfile>:t')
 set backspace=indent,eol,start "backspaceを有効にする
 set tabstop=2
 set shiftwidth=2
@@ -7,6 +7,8 @@ set smartindent
 set autoindent
 set virtualedit+=block
 
+autocmd BufWritePre * :%s/\s\+$//ge
+
 if has('persistent_undo')
   let s:undo_dir = g:vim_dir . '/undo'
   call mkdir( s:undo_dir , "p", 0755)
@@ -14,3 +16,4 @@ if has('persistent_undo')
   let &undodir= s:undo_dir
   set undofile
 endif
+echom "finish importing " . expand('<sfile>:t')

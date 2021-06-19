@@ -1,3 +1,4 @@
+echom "start importing " . expand('<sfile>:p')
 set laststatus=2
 if !has('gui_running')
   set t_Co=256
@@ -65,3 +66,4 @@ function! LightlineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
+echom "finish importing " . expand('<sfile>:p')

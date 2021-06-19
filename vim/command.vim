@@ -1,3 +1,4 @@
+echom "start importing " . expand('<sfile>:t')
 command! InsertModeLine call s:insertModeLine()
 command! EchoRuntimePath call s:echoRuntimePath()
 command! EchoPackPath call s:echoPackPath()
@@ -63,4 +64,4 @@ endfunction
 
 
 " インポート済みのプラグイン一覧の表示
-"
+echom "finish importing " . expand('<sfile>:t')

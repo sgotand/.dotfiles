@@ -69,6 +69,7 @@ set matchtime=1
 set cmdheight=2
 set list
 "set listchars+=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:.
+" TODO: use listchars when utf-8 is not supported
 set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
 set scrolloff=4
 "====spell setting==============================
@@ -82,7 +83,6 @@ set foldmethod=syntax
 set foldcolumn=1
 "set foldlevel=0
 set foldlevel=100
-
 "====search setting============================
 set hlsearch
 set incsearch
@@ -97,7 +97,6 @@ set clipboard&
 set clipboard^=unnamedplus
 " TODO: paste mode control
 "================================
-
 call Source_rc("map.vim")
 call Source_rc("command.vim")
 call Source_rc("edit.vim")

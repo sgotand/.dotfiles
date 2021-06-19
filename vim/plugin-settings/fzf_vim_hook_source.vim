@@ -1,3 +1,4 @@
+echom "start importing " . expand('<sfile>:p')
 function! s:find_git_root()
   " プロジェクトルートで開く
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
@@ -52,3 +53,5 @@ if has('nvim')
 
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endif
+
+echom "finish importing " . expand('<sfile>:p')

@@ -1,5 +1,5 @@
+echom "start importing " . expand('<sfile>:t')
 if v:version >= 800
-  echom "start importing dein.rc.vim"
   let s:dein_cache_dir = g:cache_home . '/dein'
   let s:dein_repo_dir = s:dein_cache_dir . '/repos/github.com/Shougo/dein.vim'
   if !isdirectory(s:dein_repo_dir)
@@ -44,3 +44,4 @@ function! EchoDisabledPlugins()
 endfunction
 
 
+echom "finish importing " . expand('<sfile>:t')

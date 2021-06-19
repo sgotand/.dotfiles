@@ -1,4 +1,3 @@
-autocmd FileType c nnoremap FM :<C-u>ClangFormat<CR>:w<CR>
-
-iabbrev incldue include
-iabbrev itn int
+autocmd FileType c nnoremap  <buffer> FM :<C-u>ClangFormat<CR>:w<CR>
+iabbrev <buffer> incldue include
+iabbrev <buffer> itn int

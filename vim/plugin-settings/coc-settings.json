@@ -1,0 +1,65 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "json",
+    "vim",
+    "python", //coc-pyright
+    "sh",     //coc-sh
+    "bash",   //coc-sh
+    "c",      //coc-clangd
+  ],
+  "suggest.noselect": false,
+  "suggest.preferCompleteThanJumpPlaceholder": true,
+  "python.linting.enabled": true, // coc-pyright, coc-python
+  "python.linting.mypyEnabled": true, // coc-pyright, coc-python
+  "python.linting.flake8Enabled": true, // coc-pyright, coc-python
+  "python.formatting.provider": "autopep8", // coc-pyright, coc-python
+  "python.formatting.autopep8Args": ["--ignore=E501"], // coc-pyright, coc-python
+  "coc.source.neosnippet.enable": true,
+  "coc.source.file.enable": true,
+  "coc.source.around.enable": true,
+  "coc.source.buffer.enable": true,
+//  "python.linting.pydocstyleEnabled": true,
+  "languageserver": {
+    // rust coc-rust-analyzer
+    /*
+    // use coc-pyright instead
+    // https://github.com/fannheyward/coc-pyright
+    "python" : {
+      "command" : "pyls",
+      "filetypes": ["py"],
+      "settings": {
+      }
+    },
+    */
+    /*
+    // use coc-go instead
+    // https://github.com/josa42/coc-go
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": [
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": [
+        "go"
+      ]
+    },
+    */
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    }
+  }
+}

@@ -16,7 +16,18 @@
 - ~/.dotfiles/vim/snippets に置いてある
 # vim-mundo
 - :MundoToggle
-- <leader>u
+- `<leader>u`で編集履歴をトグル
 
+# todo
+- `<leader>t`でTODOをトグルしてくれる
+
+# register
+- insert modeで<C-r>{レジスタ} でペースト #peekabooで表示
+- "<レジスタ><コマンド><オペレータ>
+- `"ay$` # aレジスタに、行末まで保存
+- `"ap`  # aレジスタの内容をペースト
 # デフォルトの機能
-- `/<検索キーワード>` で検索を書けたあと、 `:%s//<replace_word>/g`とすればそのまま置換できる
+- `/<検索キーワード>` で検索を書けたあと、 `:%s//<replace_word>/g`とすればそのまま置換で
+
+
+# vim

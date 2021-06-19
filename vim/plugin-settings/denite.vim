@@ -1,4 +1,4 @@
-
+echom "start importing " . expand('<sfile>:p')
 " show current dir & buffers
 nnoremap <silent><C-p>a :<C-u>Denite file buffer -split=floating file:new<CR>
 " show current buffers
@@ -52,3 +52,5 @@ autocmd FileType denite-filter call s:denite_filter_my_settings()
 function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
 endfunction
+
+echom "finish importing " . expand('<sfile>:p')

@@ -2,7 +2,10 @@
 repo = 'neoclide/coc.nvim'
 rev = 'release'
 on_event = 'InsertEnter'
-merged = '0'
+merged = 0
+hook_add = '''
+inoremap FM <Plug>(coc-format)
+'''
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'

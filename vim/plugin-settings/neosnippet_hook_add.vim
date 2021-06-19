@@ -1,3 +1,4 @@
+echom "start importing " . expand('<sfile>:t')
 " set user defined snippets dir
 let g:neosnippet#snippets_directory='~/.dotfiles/vim/snippets'
 let g:neosnippet#enable_completed_snippet=1
@@ -44,3 +45,4 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+echom "finish importing " . expand('<sfile>:t')

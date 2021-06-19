@@ -22,9 +22,3 @@ function! Autopep8()
     "--ignote=E501: 一行の長さの補正を無視"
     call Preserve(':silent %!autopep8 --ignore=E501 -')
 endfunction
-
-inoremap FM <Esc><C-u>:call Autopep8()<CR>
-nnoremap FM :call Autopep8()<CR>
-
-" 保存時自動フォーマット
-" autocmd BufWrite *.{py} :call Autopep8()
