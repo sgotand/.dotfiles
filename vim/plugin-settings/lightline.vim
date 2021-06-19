@@ -18,6 +18,7 @@ let g:lightline = {
       \   'fugitive': 'LightlineFugitive',
       \   'filename': 'LightlineFilename',
       \   'fileformat': 'LightlineFileformat',
+      \   'cocstatus': 'coc#status',
       \   'filetype': 'LightlineFiletype',
       \   'fileencoding': 'LightlineFileencoding',
       \   'mode': 'LightlineMode',

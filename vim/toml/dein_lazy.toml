@@ -14,14 +14,14 @@ depends = ['vim-operator-user']
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
-[[plugins]]
-repo = 'fatih/vim-go'
-merged = 0
-on_ft = 'go'
-build = 'GoInstallBinaries'
-hook_add = '''
-call Source_rc("plugin-settings/vim-go.vim")
-'''
+# [[plugins]]
+# repo = 'fatih/vim-go'
+# merged = 0
+# on_ft = 'go'
+# build = 'GoInstallBinaries'
+# hook_add = '''
+# call Source_rc("plugin-settings/vim-go.vim")
+# '''
 
 [[plugins]]
 repo = 'lighttiger2505/gtags.vim'

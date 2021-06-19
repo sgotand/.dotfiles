@@ -2,6 +2,7 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "json",
     "vim",
+    "go",
     "python", //coc-pyright
     "sh",     //coc-sh
     "bash",   //coc-sh
