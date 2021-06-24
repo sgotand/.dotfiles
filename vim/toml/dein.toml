@@ -13,7 +13,7 @@ repo = 'vim-jp/vimdoc-ja'
 repo = 'sheerun/vim-polyglot'
 merged = 0
 hook_add = '''
-let g:polyglot_disabled = []
+let g:polyglot_disabled = ['markdown']
 '''
 
 #[[plugins]] # plugin for formatexpr
@@ -118,6 +118,7 @@ let g:indentLine_char = '¦'
 
 [[plugins]] # fugitive
 repo = 'tpope/vim-fugitive'
+
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 

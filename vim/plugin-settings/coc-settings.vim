@@ -8,6 +8,7 @@ let g:coc_global_extensions = [
       \, 'coc-rust-analyzer'
       \, 'coc-pyright'
       \, 'coc-clangd'
+      \, 'coc-solargraph'
       \ ]
 echom "finish importing " . expand('<sfile>:p')
 
@@ -19,9 +20,10 @@ set shortmess+=c
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gr <Plug>(coc-references-used)
 nmap <silent> gp <Plug>(coc-diagnostic-prev)
 nmap <silent> gn <Plug>(coc-diagnostic-next)
+nmap <silent> gl <Plug>(coc-codelens-action)
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -51,3 +53,7 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+" Refactor
+nmap <silent> <space>r <Plug>(coc-refactor)
+nmap <silent> FM <Plug>(coc-format)
+vmap <silent> FM <Plug>(coc-format-selected)

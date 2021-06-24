@@ -4,31 +4,54 @@ if !has('gui_running')
   set t_Co=256
 endif
 set noshowmode
+" TODO: 一定以上の幅があるときに、pwdも表示する
+
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'mode_map': {'c': 'NORMAL'},
-      \ 'active': {
+\ }
+
+let g:lightline.active = {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'fugitive', 'filename' , 'modified', 'anzu'],
-      \           ]
-      \ },
-      \ 'component_function': {
+      \             [ 'fugitive', 'filename', 'anzu', 'cocstatus'],
+      \           ],
+      \   'right': [ [ 'lineinfo' ],
+		  \            [ 'percent' ],
+		  \            [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \}
+
+
+let g:lightline.component_function = {
       \   'modified': 'LightlineModified',
       \   'readonly': 'LightlineReadonly',
       \   'fugitive': 'LightlineFugitive',
       \   'filename': 'LightlineFilename',
       \   'fileformat': 'LightlineFileformat',
-      \   'cocstatus': 'coc#status',
+      \   'cocstatus': 'LightlineCocStatus',
       \   'filetype': 'LightlineFiletype',
       \   'fileencoding': 'LightlineFileencoding',
       \   'mode': 'LightlineMode',
-      \   'anzu': 'anzu#search_status'
-      \ }
-    \ }
+      \   'anzu': 'anzu#search_status',
+      \   'sign' : 'LightlineCocHover',
+\ }
+
+function! LightlineCocStatus()
+  let l:s = coc#status()
+  if l:s == ''
+    return 'OK'
+  else
+    return l:s
+  endif
+endfunction
+
+function! LightlineCocHover() abort
+  return CocAction("doHover")
+endfunction
 
 function! LightlineModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
+
 
 function! LightlineReadonly()
   return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
@@ -44,8 +67,8 @@ function! LightlineFilename()
 endfunction
 
 function! LightlineFugitive()
-  if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-    return fugitive#head()
+  if &ft !~? 'vimfiler\|gundo' && exists('*FugitiveHead')
+    return FugitiveHead()
   else
     return ''
   endif

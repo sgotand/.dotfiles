@@ -4,7 +4,6 @@ rev = 'release'
 on_event = 'InsertEnter'
 merged = 0
 hook_add = '''
-inoremap FM <Plug>(coc-format)
 call Source_rc("plugin-settings/coc-settings.vim")
 '''
 

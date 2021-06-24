@@ -3,6 +3,7 @@
     "json",
     "vim",
     "go",
+    "ruby",
     "python", //coc-pyright
     "sh",     //coc-sh
     "bash",   //coc-sh
@@ -21,6 +22,7 @@
   "coc.source.buffer.enable": true,
 //  "python.linting.pydocstyleEnabled": true,
   "languageserver": {
+    // ruby coc-solargraph
     // rust coc-rust-analyzer
     /*
     // use coc-pyright instead
