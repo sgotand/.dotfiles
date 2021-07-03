@@ -1,8 +1,12 @@
 # vim:set filetype=zsh nospell :
 
 [[ "$-" =~ i ]] || return
+echo "=====start scriptting $0===="
+# loadng this file is disabled by default
+# with unsetopt global_rcs
+source /etc/zshrc
 
-ZSH_RC_DIR=$(dirname $0)/zsh/
+ZSH_RC_DIR=$(dirname $0)/zsh
 bindkey -e
 autoload -Uz colors
 colors
@@ -47,4 +51,5 @@ elif [ -S "$SSH_AUTH_SOCK" ]; then
 else
   echo "no ssh-agent"
 fi
+echo "====finish scriptting $0===="
 

@@ -1,12 +1,22 @@
 # return eary for non-interactive mode (e.g scp/rsync)
 [[ "$-" =~ i ]] || return
+echo "=====start scriptting $0===="
 
 if which nvim >/dev/null 2>&1; then
   export EDITOR=nvim
 elif which vim >/dev/null 2>&1; then
   export EDITOR=vim
 fi
-export SHELL=/usr/bin/zsh
+
+
+case ${OSTYPE} in
+darwin*)
+    export SHELL=/usr/local/bin/zsh
+    ;;
+linux*)
+    export SHELL=/usr/bin/zsh
+    ;;
+esac
 
 # Colors
 default=$(tput sgr0)
@@ -91,10 +101,13 @@ exit status:               %x
 EOF
 )
 
+# unsetopt global_rcs avoid sourceing path_helper in /etc/z*
+# /etc/zprofile do "eval `/usr/libexec/path_helper -s`"
 
-unsetopt global_rcs # avoid sourceing path_helper in /etc/z*
-# PATH=/usr/bin:/bin:/usr/sbin:/sbin
+unsetopt global_rcs
 export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.bin:$PATH"
 # local
 if [ -d "$HOME/.local/bin" ] ; then
     export PATH="$HOME/.local/bin:$PATH"
@@ -104,12 +117,21 @@ if [ -e ~/.fzf ]; then
   export PAHT=$PATH:~/.fzf/bin
 fi
 
+if which starship >/dev/null 2>/dev/null; then
+  export STARSHIP_HOME=$HOME/.starship
+  [ -d "${STARSHIP_HOME}" ] || mkdir ${STARSHIP_HOME}
+  export STARSHIP_CONFIG=${STARSHIP_HOME}/config.toml
+  export STARSHIP_CACHE=${STARSHIP_HOME}/cache
+fi
+
+
 #python
 # git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-if [[ -d $HOME/.pyenv ]] ; then
+if [[ -d $HOME/.pyenv ]] || (which pyenv > /dev/null 2>/dev/null) ; then
+    echo init pyenv
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
+    eval "$(pyenv init --path)"
 fi
 if (which pipenv >/dev/null 2>/dev/null); then
     export PIPENV_VENV_IN_PROJECT=true
@@ -151,9 +173,16 @@ export N_PREFIX="$HOME/n"
 export MANPATH=/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
 if [[ -d "$HOME/.nodebrew" ]] ; then
   export PATH="$HOME/.nodebrew/current/bin:$PATH"
+  export NODEBREW_ROOT=$HOME/.nodebrew
+  export NODEBREW_ROOT=/usr/local/var/nodebrew
+  export PATH=/usr/local/var/nodebrew/current/bin:$PATH
 fi
 #npm
 export PATH=$PATH:./node_modules/.bin
+if [ -e "${KREW_ROOT:-$HOME/.krew}" ]; then
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+fi
+
 
 
 #haskell
@@ -169,3 +198,4 @@ export PATH=$PATH:./node_modules/.bin
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DOCKER_BUILDKIT=1
 export ZPLUG_HOME=~/.zplug
+echo "====finish scriptting $0===="

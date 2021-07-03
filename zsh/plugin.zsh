@@ -1,3 +1,4 @@
+echo "=====start scriptting $0===="
 autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
 ###########plugin###############
@@ -10,10 +11,7 @@ if [ ! -e "${ZPLUG_HOME}" ]; then
 fi
 
 if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
-    echo zplug init
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-    source $ZPLUG_HOME/init.zsh
-    # additional completions
     zplug "zsh-users/zsh-completions"
 
     zplug "zsh-users/zsh-history-substring-search"
@@ -47,3 +45,4 @@ if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
     zplug load --verbose
     zplug list
 fi
+echo "====finish scriptting $0===="

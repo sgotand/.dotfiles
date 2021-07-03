@@ -1,4 +1,8 @@
-
+echo "=====start scriptting $0===="
+if [[ -n ${ZSH_VERSION-} ]]; then
+  autoload -U +X bashcompinit;
+  bashcompinit
+fi
 # case insensitive
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
@@ -19,8 +23,7 @@ zstyle ':completion:*' group-name ''
 #zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*:default' menu select true
 ### colorize the completion
-#export LS_COLORS='di=34:ln=35:so=31:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-
+export LS_COLORS='di=34:ln=35:so=31:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 zstyle ':completion:*' list-colors "${LS_COLORS}"
 ### 補完候補がなければより曖昧に候補を探す。
 ### m:{a-z}={A-Z}: 小文字を大文字に変えたものでも補完する。
@@ -30,6 +33,11 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 zstyle ':completion:*' keep-prefix
 zstyle ':completion:*' recent-dirs-insert both
+
+
+fpath=(/usr/local/share/zsh/site-functions $fpath)
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 ### 補完候補
 ### _oldlist: reuse the last completion result
@@ -73,7 +81,6 @@ if (which fzf >/dev/null 2>/dev/null ); then
   #     bindkey '^O' fzf_default_completion
 fi
 
-
 if (which gcloud >/dev/null 2>/dev/null ); then
     source /usr/share/google-cloud-sdk/completion.zsh.inc
 fi
@@ -81,3 +88,7 @@ fi
 if (which pip3 >/dev/null 2>/dev/null); then
   source <(pip3 completion --zsh)
 fi
+if (which pipx >/dev/null 2>/dev/null); then
+    source <(register-python-argcomplete pipx)
+fi
+echo "====finish scriptting $0===="

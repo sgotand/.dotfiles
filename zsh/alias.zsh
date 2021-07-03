@@ -1,4 +1,4 @@
-
+echo "=====start scriptting $0===="
 ################# Aliases #######################
 alias sudo='sudo -E '
 alias l='ls'
@@ -29,6 +29,8 @@ alias m='make'
 alias mc='make clean'
 alias ma='make all'
 alias mr='make run'
+
+alias k='kubectl'
 
 alias gtime='/usr/bin/time'
 if [[ $(uname -s) =~ Linux ]]; then
@@ -110,7 +112,12 @@ case ${OSTYPE} in
 darwin*)
     #Mac
     export CLICOLOR=1
-    alias ls='ls -G -F'
+    if which gls >/dev/null 2>/dev/null; then
+      alias ls='gls -F --color=auto -h --group-directories-first'
+    else
+      alias ls='ls -G -F'
+    fi
+
     ;;
 linux*)
     #Linux
@@ -125,7 +132,6 @@ alias -g P='| peco'
 alias -g H='| head'
 alias -g T='| tail'
 alias -g S='| sed'
-echo set global alias
 
 # cf. mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
 if which pbcopy >/dev/null 2>&1; then
@@ -154,3 +160,5 @@ bindkey " " global_alias
 tmp-jupyter(){
 docker run --rm -v $PWD:/work -p 8888:8888 my-jupyter
 }
+
+echo "====finish scriptting $0===="
