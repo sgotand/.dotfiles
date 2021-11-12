@@ -56,6 +56,10 @@ set nocompatible
 set fileencoding=utf-8
 set encoding=utf-8
 scriptencoding utf-8
+
+" https://stackoverflow.com/questions/22715071/vim-and-tmux-rendering-error
+set tenc=utf8
+" set isprint=
 set mouse=a
 "==============auto file control setting=======
 set nobackup          " do not create backupfile
