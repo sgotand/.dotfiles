@@ -15,8 +15,11 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 
 # ps コマンドのプロセス名補完
+# processesタグの補完データとして、command実行結果を使う
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
+# zstyle ':completion:*' show-completer true
+zstyle ':completion:*' use-compctl true
 ### group the candidates
 zstyle ':completion:*' format '%B%F{blue}%d%f%b'
 zstyle ':completion:*' group-name ''
@@ -27,6 +30,8 @@ zstyle ':completion:*:default' menu select true
 ### colorize the completion
 export LS_COLORS='di=34:ln=35:so=31:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 zstyle ':completion:*' list-colors "${LS_COLORS}"
+zstyle ':completion:*' list-dirs-first true
+zstyle ':completion:*' list-grouped true
 ### 補完候補がなければより曖昧に候補を探す。
 ### m:{a-z}={A-Z}: 小文字を大文字に変えたものでも補完する。
 ### r:|[._-]=*: 「.」「_」「-」の前にワイルドカード「*」があるものとして補完する。
@@ -35,6 +40,12 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 zstyle ':completion:*' keep-prefix
 zstyle ':completion:*' recent-dirs-insert both
+zstyle ":completion:*:commands" rehash true
+
+# allow option completion for cd, chdir, pushd etc
+zstyle ':completion:*' complete-options true
+
+zstyle ':completion:*' remove-all-dups true
 
 # option-stackingはdocker補完独自の設定
 # docker run -i<tab>などで、
@@ -51,7 +62,7 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 ### _ignored: use invalidated candidate
 ### _approximate: use the approximate candidate
 ### _prefix: complete according up to the cursor, or ignore afterwards
-zstyle ':completion:*' completer _oldlist _complete _match _ignored _approximate _prefix
+zstyle ':completion:*' completer _menu _oldlist _complete _match _ignored _approximate _prefix
 
 ## 補完候補をキャッシュする。
 zstyle ':completion:*' use-cache yes
