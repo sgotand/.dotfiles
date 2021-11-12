@@ -66,11 +66,6 @@ on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 build = 'cd app & yarn install'
 
 [[plugins]]
-repo = 'fszymanski/fzf-quickfix'
-on_ft = 'qf'
-hook_add = 'nnoremap <Leader>q :Quickfix<CR>'
-
-[[plugins]]
 repo = 'rickhowe/diffchar.vim'
 
 [[plugins]]
