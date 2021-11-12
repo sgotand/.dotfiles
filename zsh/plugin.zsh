@@ -10,7 +10,10 @@ if [ ! -e "${ZPLUG_HOME}" ]; then
     git clone https://github.com/zplug/zplug $ZPLUG_HOME
 fi
 
-if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
+if [ -e "$ZPLUG_HOME/init.zsh" ]; then
+    echo '######### start zplug init.zsh source #########'
+    source $ZPLUG_HOME/init.zsh
+    echo '######### finish zplug init.zsh source #########'
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
     zplug "zsh-users/zsh-completions"
 
@@ -41,8 +44,13 @@ if [ -e "$ZPLUG_HOME/init.zsh" ] && source $ZPLUG_HOME/init.zsh; then
     zplug "plugins/history", from:oh-my-zsh, defer:2
     zplug "plugins/colored-man-pages", from:oh-my-zsh
 
+    echo '######### zplug check ##########'
     zplug check --verbose || zplug install
+    echo '######### zplug load ##########'
     zplug load --verbose
+    echo '######### zplug list ##########'
     zplug list
+
+# NOTE: if you encountered load duplication problem, do zplug update
 fi
 echo "====finish scriptting $0===="
