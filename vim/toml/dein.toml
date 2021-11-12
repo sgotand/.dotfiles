@@ -257,3 +257,10 @@ repo = 'pearofducks/ansible-vim'
 [[plugins]]
 repo = 'junegunn/vim-peekaboo'
 
+[[plugins]]
+repo = 'gcmt/taboo.vim'
+hook_add='''
+set guioptions-=e
+set sessionoptions+=tabpages,globals
+'''
+
