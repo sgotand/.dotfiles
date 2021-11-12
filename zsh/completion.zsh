@@ -36,6 +36,10 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' keep-prefix
 zstyle ':completion:*' recent-dirs-insert both
 
+# option-stackingはdocker補完独自の設定
+# docker run -i<tab>などで、
+# false => space区切りで次の入力を促す
+# true => -tなどの、別の設定を表示する
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
