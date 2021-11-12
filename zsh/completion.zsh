@@ -1,3 +1,8 @@
+# https://zsh.sourceforge.io/Doc/Release/Completion-System.html#Completion-System
+# for boolean 1==true==yes==on
+# for boolean 0==false==no==off
+# zstyle :completion:function:completer:command:argument:tag
+# dfault tag ":completion:*:default"
 echo "=====start scriptting $0===="
 autoload -U +X bashcompinit;
 bashcompinit
