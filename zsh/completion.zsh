@@ -1,8 +1,7 @@
 echo "=====start scriptting $0===="
-if [[ -n ${ZSH_VERSION-} ]]; then
-  autoload -U +X bashcompinit;
-  bashcompinit
-fi
+autoload -U +X bashcompinit;
+bashcompinit
+
 # case insensitive
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
