@@ -2,7 +2,7 @@
 echo "=====start scriptting $0===="
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000     # memory上のhistoryサイズ これを小さくすると、fzfで読み込めなくなるので注意
-export SAVEHIST=10000000
+export SAVEHIST=100000000
 setopt hist_ignore_dups
 # setopt hist_ignore_all_dups
 # setopt hist_ignore_space
