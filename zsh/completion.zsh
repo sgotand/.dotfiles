@@ -2,6 +2,9 @@ echo "=====start scriptting $0===="
 autoload -U +X bashcompinit;
 bashcompinit
 
+if [ -d "/usr/local/share/zsh/site-functions" ]; then
+  fpath=(/usr/local/share/zsh/site-functions $fpath)
+fi
 # case insensitive
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
@@ -33,8 +36,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' keep-prefix
 zstyle ':completion:*' recent-dirs-insert both
 
-
-fpath=(/usr/local/share/zsh/site-functions $fpath)
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
