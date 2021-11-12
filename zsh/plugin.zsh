@@ -33,6 +33,8 @@ if [ -e "$ZPLUG_HOME/init.zsh" ]; then
       zplug "kwhrtsk/docker-fzf-completion", defer:2
     fi
 
+    zplug "jonmosco/kube-ps1", defer:2, use:"*.sh"
+
     zplug "plugins/cargo", from:oh-my-zsh, defer:2
     zplug "plugins/fd", from:oh-my-zsh, defer:2
     zplug "plugins/ripgrep", from:oh-my-zsh, defer:2
