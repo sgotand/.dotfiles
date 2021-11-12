@@ -3,7 +3,6 @@ command! InsertModeLine call s:insertModeLine()
 command! EchoRuntimePath call s:echoRuntimePath()
 command! EchoPackPath call s:echoPackPath()
 command! DeinUpdate call g:dein#update()
-"command! Cheat call s:echoCheat()
 
 function! s:insertModeLine()
   put = 'vim: set ft=' . &ft . ' :'
@@ -21,13 +20,6 @@ function! s:echoPackPath()
   for path in paths
     echo path
   endfor
-endfunction
-
-function! s:echoCheat()
-  if !exists("g:pluginname_setting")
-    let g:cheat_sheet=":Capture"
-  endif
-  echo g:cheat_sheet
 endfunction
 
 command! CleanDein call s:deinClean()
