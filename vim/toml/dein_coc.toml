@@ -1,7 +1,8 @@
 [[plugins]]
 repo = 'neoclide/coc.nvim'
 rev = 'release'
-on_event = 'InsertEnter'
+#on_event = 'InsertEnter'
+build = 'yarn install --frozen-lockfile'
 merged = 0
 hook_add = '''
 call Source_rc("plugin-settings/coc-settings.vim")
