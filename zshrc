@@ -50,6 +50,8 @@ elif [ -S "$SSH_AUTH_SOCK" ]; then
     ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
 else
   echo "no ssh-agent"
+  eval $(ssh-agent)
+  ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
 fi
 echo "====finish scriptting $0===="
 
