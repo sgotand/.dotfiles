@@ -59,6 +59,10 @@ set statusline=%{anzu#search_status()}
 repo = 'reireias/vim-cheatsheet'
 hook_source = '''
 let g:cheatsheet#cheat_file = '~/.dotfiles/vim/cheatsheet.md'
+let g:cheatsheet#float_window = 1
+" you can change float window size.
+let g:cheatsheet#float_window_width_ratio = 0.6
+let g:cheatsheet#float_window_height_ratio = 0.6
 '''
 # :Cheat
 
@@ -107,7 +111,7 @@ if = '!has("nvim")'
 [[plugins]] # trailing whitespace
 repo = 'bronson/vim-trailing-whitespace'
 hook_add ='''
-let g:extra_whitespace_ignored_filetypes = ['unite', 'fzf']
+let g:extra_whitespace_ignored_filetypes = ['unite', 'fzf', 'markdown']
 '''
 
 [[plugins]] # indent line
