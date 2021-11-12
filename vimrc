@@ -5,8 +5,14 @@ runtime! ftplugin/man.vim
 
 let g:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let g:vim_dir = g:cache_home . '/vim'
-let g:python_host_prog = system('(type pyenv &>/dev/null && echo -n "$(pyenv root)/versions/$(pyenv global | grep python2)/bin/python") || echo -n $(which python2)')
-let g:python3_host_prog = system('(type pyenv &>/dev/null && echo -n "$(pyenv root)/versions/$(pyenv global | grep python3)/bin/python") || echo -n $(which python3)')
+
+
+## Python
+# see :help python3_host_prog
+let g:python_host_prog = "python2"
+let g:python3_host_prog = "python3"
+echo "python_host_prog=  " . g:python_host_prog
+echo "python3_host_prog= " . g:python3_host_prog
 
 " Set augroup.
 augroup MyAutoCmd
