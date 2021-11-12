@@ -73,3 +73,7 @@ hook_add = 'nnoremap <Leader>q :Quickfix<CR>'
 [[plugins]]
 repo = 'rickhowe/diffchar.vim'
 
+[[plugins]]
+repo = 'google/vim-jsonnet'
+on_ft = 'jsonnet'
+
