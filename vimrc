@@ -7,8 +7,8 @@ let g:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let g:vim_dir = g:cache_home . '/vim'
 
 
-## Python
-# see :help python3_host_prog
+"# Python
+" see :help python3_host_prog
 let g:python_host_prog = "python2"
 let g:python3_host_prog = "python3"
 echo "python_host_prog=  " . g:python_host_prog
