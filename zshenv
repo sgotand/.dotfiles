@@ -177,6 +177,11 @@ if [[ -d "$HOME/.nodebrew" ]] ; then
   export NODEBREW_ROOT=/usr/local/var/nodebrew
   export PATH=/usr/local/var/nodebrew/current/bin:$PATH
 fi
+
+if (which n >/dev/null 2>/dev/null); then
+  export PATH=$HOME/n/bin:$PATH
+fi
+
 #npm
 export PATH=$PATH:./node_modules/.bin
 if [ -e "${KREW_ROOT:-$HOME/.krew}" ]; then
