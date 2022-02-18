@@ -104,6 +104,11 @@ lfd(){
   locate "$1" | fzf
 }
 
+function review_pr(){
+  git fetch origin pull/$1/head:pr-$1
+  git checkout pr-$1
+}
+
 if which htop >/dev/null 2>&1; then
     alias top=htop
 fi
