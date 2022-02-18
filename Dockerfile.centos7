@@ -1,0 +1,43 @@
+FROM centos:7
+
+
+ENV TERM=xterm-256color
+ENV LANG=en_US.UTF-8
+
+RUN useradd progrunner
+RUN curl -fsSL https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz | gunzip | tar x --strip-components=1 -C /usr/local
+
+RUN yum -y install git
+
+# RUN yum -y install epel-release && \
+RUN yum -y install python3
+
+RUN yum -y install epel-release && \
+    yum -y install nodejs && \
+    npm install -g n && \
+     n stable
+
+# yarn is needed for coc
+RUN pip3 install neovim && npm install -g yarn && yarn add neovim
+# RUN npm -v && false
+
+USER progrunner:progrunner
+WORKDIR /home/progrunner
+
+
+RUN mkdir -p $HOME/.config/nvim && \
+    ln -s $HOME/.dotfiles/vimrc $HOME/.config/nvim/init.vim
+
+ADD --chown=progrunner:progrunner ./ .dotfiles/
+
+# RUN echo $HOME && ls -a $HOME/.dotfiles && false
+
+RUN curl -O https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh && \
+    chmod +x installer.sh && \
+    ./installer.sh ~/.cache/dein && \
+    rm -f ./installer.sh
+
+RUN nvim -N -u $HOME/.dotfiles/vimrc -c "try | call dein#update() | finally | qall! | endtry" -V1 -es ||:
+
+RUN .cache/dein/repos/github.com/neoclide/coc.nvim_release/
+
