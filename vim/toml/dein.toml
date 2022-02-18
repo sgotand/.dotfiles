@@ -108,10 +108,11 @@ if = '!has("nvim")'
 #nmap <silent>k <Plug>(accelerated_jk_gk)
 #'''
 
+# run :StripWhitespaces to remove trailing whitespaces
 [[plugins]] # trailing whitespace
-repo = 'bronson/vim-trailing-whitespace'
+repo = 'ntpeters/vim-better-whitespace'
 hook_add ='''
-let g:extra_whitespace_ignored_filetypes = ['unite', 'fzf', 'markdown']
+let g:better_whitespace_filetypes_blacklist=['unite', 'fzf', 'diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'fugitive']
 '''
 
 [[plugins]] # indent line
