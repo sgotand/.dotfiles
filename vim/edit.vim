@@ -7,7 +7,6 @@ set smartindent
 set autoindent
 set virtualedit+=block
 
-autocmd BufWritePre * :%s/\s\+$//ge
 
 if has('persistent_undo')
   let s:undo_dir = g:vim_dir . '/undo'
