@@ -1,14 +1,6 @@
 # return eary for non-interactive mode (e.g scp/rsync)
 [[ "$-" =~ i ]] || return
 echo "=====start scriptting $0===="
-
-if which nvim >/dev/null 2>&1; then
-  export EDITOR=nvim
-elif which vim >/dev/null 2>&1; then
-  export EDITOR=vim
-fi
-
-
 case ${OSTYPE} in
 darwin*)
     export SHELL=/usr/local/bin/zsh
@@ -111,6 +103,12 @@ export PATH="$HOME/.bin:$PATH"
 # local
 if [ -d "$HOME/.local/bin" ] ; then
     export PATH="$HOME/.local/bin:$PATH"
+fi
+
+if which nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+elif which vim >/dev/null 2>&1; then
+  export EDITOR=vim
 fi
 
 if [ -e ~/.fzf ]; then
