@@ -1,0 +1,22 @@
+FROM centos:7
+
+ENV TERM=xterm-256color
+ENV LANG=en_US.UTF-8
+RUN yum install -y git zsh
+RUN yum install -y ncurses-devel
+RUN mkdir -p /usr/local/src/zsh
+WORKDIR /usr/local/src/zsh
+RUN curl -L https://sourceforge.net/projects/zsh/files/zsh/5.8/zsh-5.8.tar.xz/download -o zsh-5.8.tar.xz
+RUN tar -xvf zsh-5.8.tar.xz
+WORKDIR /usr/local/src/zsh/zsh-5.8
+RUN yum install -y gcc make
+RUN ./configure --enable-multibyte --with-tcsetpgrp
+RUN make -j4 && make install
+RUN yum install -y vim
+
+RUN useradd progrunner
+USER progrunner:progrunner
+WORKDIR /home/progrunner
+RUN yes | sh -c "$(curl -fsSL https://git.io/zinit-install)"
+ADD --chown=progrunner:progrunner ./ .dotfiles/
+
