@@ -11,7 +11,7 @@ if [ -e "$ZPLUG_HOME/init.zsh" ]; then
     source $ZPLUG_HOME/init.zsh
     echo '######### finish zplug init.zsh source #########'
     zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-    zplug "zsh-users/zsh-completions"
+    zplug "zsh-users/zsh-completions", defer:1
 
     zplug "zsh-users/zsh-history-substring-search"
     if zplug check "zsh-users/zsh-history-substring-search"; then
@@ -25,13 +25,13 @@ if [ -e "$ZPLUG_HOME/init.zsh" ]; then
 
     zplug "zsh-users/zsh-syntax-highlighting", defer:2
     zplug "zsh-users/zsh-autosuggestions", defer:2 # 履歴を薄く表示
-    if [ -f ~/.fzf.zsh ]; then
+    if (which fzf >/dev/null 2>/dev/null ); then
       zplug "kwhrtsk/docker-fzf-completion", defer:2
     fi
 
     zplug "jonmosco/kube-ps1", defer:2, use:"*.sh"
 
-    zplug "plugins/cargo", from:oh-my-zsh, defer:2
+#     zplug "plugins/rust", from:oh-my-zsh, defer:2
     zplug "plugins/fd", from:oh-my-zsh, defer:2
     zplug "plugins/ripgrep", from:oh-my-zsh, defer:2
     zplug "plugins/ansible", from:oh-my-zsh, defer:2
@@ -40,6 +40,8 @@ if [ -e "$ZPLUG_HOME/init.zsh" ]; then
     zplug "plugins/rsync", from:oh-my-zsh, defer:2
     zplug "plugins/git", from:oh-my-zsh, defer:2
     zplug "plugins/history", from:oh-my-zsh, defer:2
+    zplug "plugins/docker", from:oh-my-zsh, defer:2
+    zplug "plugins/docker-compose", from:oh-my-zsh, defer:2
     zplug "plugins/colored-man-pages", from:oh-my-zsh
 
     echo '######### zplug check ##########'
