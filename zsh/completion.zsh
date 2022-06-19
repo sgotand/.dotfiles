@@ -111,4 +111,13 @@ fi
 if (which pipx >/dev/null 2>/dev/null); then
     source <(register-python-argcomplete pipx)
 fi
+
+if (which gh >/dev/null 2>/dev/null); then
+  source <(gh completion -s zsh)
+fi
+
+if (which kubectl >/dev/null 2>/dev/null); then
+  source <(kubectl completion zsh)
+fi
+
 echo "====finish scriptting $0===="
