@@ -41,6 +41,7 @@ alias apti='apt install'
 alias apts='apt search'
 alias aptu='apt update'
 alias aptug='apt upgrade'
+alias tmux='tmux -u'
 
 alias bat=bat --theme zenburn
 
