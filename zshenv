@@ -180,8 +180,14 @@ if (which n >/dev/null 2>/dev/null); then
   export PATH=$HOME/n/bin:$PATH
 fi
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 #npm
 export PATH=$PATH:./node_modules/.bin
+
+
 if [ -e "${KREW_ROOT:-$HOME/.krew}" ]; then
   export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
