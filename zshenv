@@ -6,7 +6,11 @@ darwin*)
     export SHELL=/usr/local/bin/zsh
     ;;
 linux*)
-    export SHELL=/usr/bin/zsh
+    if [ -e "/usr/local/bin/zsh" ]; then
+      export SHELL=/usr/local/bin/zsh
+    else
+      export SHELL=/usr/bin/zsh
+    fi
     ;;
 esac
 
@@ -34,64 +38,6 @@ export LESS_TERMCAP_ue=$default
 # Begin underline
 export LESS_TERMCAP_us=$green
 export MANPAGER=less
-export TIMEFMT=$(cat <<-EOF
-
-%J
-user (cpu):       %U
-system (cpu):     %S
-elapsed (cpu):    %E
-cpu usage:        %P
-
-swap: %W
-shared text:      %XKB
-unshared data:    %DKB
-total:            %KKB
-max:              %MKB
-
-major page faults:%F
-minor page faults:%R
-filesystem inputs:         %I
-filesystem outputs:        %O
-received socket msg:       %r
-sent     socket msg:       %s
-delivered signal:          %k
-forced context switch:     %c
-voluntal context switch:   %w
-EOF
-)
-
-export TIME=$(cat <<-EOF
-
-%C
-user (cpu):                %Us
-system (cpu):              %Ss
-elapsed (cpu):             %Es
-elapsed (real):            %es
-cpu usage:                 %P
-
-system page size:          %ZB
-major page faults:         %F
-minor page faults:         %M
-
-forced context switch:     %c
-voluntal context switch:   %w
-swap out:                  %W
-filesystem inputs:         %I
-filesystem outputs:        %O
-received socket msg:       %r
-sent     socket msg:       %s
-delivered signal:          %k
-
-shared text size avg:      %XKB
-unshared size avg:         %DKB
-unshared stack size avg:   %pKB
-max resident size:         %MKB
-avg rss:                   %tKB
-total avg size:            %KKB
-
-exit status:               %x
-EOF
-)
 
 # unsetopt global_rcs avoid sourceing path_helper in /etc/z*
 # /etc/zprofile do "eval `/usr/libexec/path_helper -s`"
