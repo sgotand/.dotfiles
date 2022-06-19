@@ -1,4 +1,6 @@
 # vim:set filetype=zsh nospell :
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 [[ "$-" =~ i ]] || return
 echo "=====start scriptting $0===="
