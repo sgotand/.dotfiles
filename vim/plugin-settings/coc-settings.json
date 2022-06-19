@@ -8,8 +8,9 @@
     "python", //coc-pyright
     "sh",     //coc-sh
     "bash",   //coc-sh
-    "c",      //coc-clangd
+    "c"      //coc-clangd
   ],
+  "json.format.enable": true,
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "python.linting.enabled": true, // coc-pyright, coc-python
