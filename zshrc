@@ -3,7 +3,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 [[ "$-" =~ i ]] || return
-echo "=====start scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "=====start scriptting $0===="
 # loadng this file is disabled by default
 # with unsetopt global_rcs
 #source /etc/zshrc
@@ -55,5 +55,5 @@ else
   eval $(ssh-agent)
   ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
 fi
-echo "====finish scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====finish scriptting $0===="
 

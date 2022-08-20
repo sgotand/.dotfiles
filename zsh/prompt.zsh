@@ -1,4 +1,4 @@
-echo "=====start scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====start scriptting $0===="
 autoload -Uz colors; colors
 autoload -Uz add-zsh-hook
 if [ -e "/usr/local/opt/kube-ps1/share/kube-ps1.sh" ]; then
@@ -23,4 +23,4 @@ $ "
 add-zsh-hook precmd _update_vcs_info_msg
 fi
 
-echo "====finish scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====finish scriptting $0===="

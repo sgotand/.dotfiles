@@ -1,6 +1,6 @@
 # return eary for non-interactive mode (e.g scp/rsync)
 [[ "$-" =~ i ]] || return
-echo "=====start scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====start scriptting $0===="
 case ${OSTYPE} in
 darwin*)
     export SHELL=/usr/local/bin/zsh
@@ -72,7 +72,7 @@ fi
 #python
 # git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 if [[ -d $HOME/.pyenv ]] || (which pyenv > /dev/null 2>/dev/null) ; then
-    echo init pyenv
+    [ -n "${SHOW_SOURCE:-}" ] && echo init pyenv
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init --path)"
@@ -153,4 +153,4 @@ fi
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DOCKER_BUILDKIT=1
 export ZPLUG_HOME=~/.zplug
-echo "====finish scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====finish scriptting $0===="

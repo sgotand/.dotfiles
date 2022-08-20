@@ -1,5 +1,5 @@
 # vim: set ft=zsh:
-echo "=====start scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====start scriptting $0===="
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000     # memory上のhistoryサイズ これを小さくすると、fzfで読み込めなくなるので注意
 export SAVEHIST=100000000
@@ -41,4 +41,4 @@ setopt extended_glob
 #    fi
 #}
 #precmd_functions+=(__update_history)
-echo "====finish scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====finish scriptting $0===="

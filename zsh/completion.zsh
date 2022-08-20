@@ -3,7 +3,7 @@
 # for boolean 0==false==no==off
 # zstyle :completion:function:completer:command:argument:tag
 # dfault tag ":completion:*:default"
-echo "=====start scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====start scriptting $0===="
 autoload -U +X bashcompinit;
 bashcompinit
 
@@ -120,4 +120,4 @@ if (which kubectl >/dev/null 2>/dev/null); then
   source <(kubectl completion zsh)
 fi
 
-echo "====finish scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====finish scriptting $0===="

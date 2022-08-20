@@ -1,4 +1,4 @@
-echo "=====start scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====start scriptting $0===="
 ################# Aliases #######################
 alias sudo='sudo -E '
 alias l='ls'
@@ -167,4 +167,4 @@ tmp-jupyter(){
 docker run --rm -v $PWD:/work -p 8888:8888 my-jupyter
 }
 
-echo "====finish scriptting $0===="
+[ -n "${SHOW_SOURCE:-}" ] && echo "====finish scriptting $0===="
