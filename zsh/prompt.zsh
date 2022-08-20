@@ -4,7 +4,7 @@ autoload -Uz add-zsh-hook
 if [ -e "/usr/local/opt/kube-ps1/share/kube-ps1.sh" ]; then
   source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
 fi
-if which starship >/dev/null 2>&1; then
+if false && which starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
   #RPROMPT="%{$fg[green]%} %D{%Y/%m/%d} %* %{$reset_color%}"
   RPROMPT='$(kube_ps1)'
