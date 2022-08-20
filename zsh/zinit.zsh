@@ -1,4 +1,6 @@
 ZINIT_LOAD=load
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+source "${ZINIT_HOME}/zinit.zsh"
 
 # zinit ice wait lucid atload'_zsh_autosuggest_start'
 zinit ${ZINIT_LOAD} "zsh-users/zsh-autosuggestions"
@@ -8,7 +10,7 @@ zinit ${ZINIT_LOAD} "zsh-users/zsh-completions"
 zinit ice wait lucid blockf
 zinit ${ZINIT_LOAD} "zsh-users/zsh-syntax-highlighting"
 # ! suppress
-zinit ice lucid mv"kube-ps1.sh -> kube_ps1"
+zinit ice lucid mv"kube-ps1.sh -> kube_ps1" pick"kube_ps1"
 zinit ${ZINIT_LOAD} "jonmosco/kube-ps1"
 
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/rsync/rsync.plugin.zsh
