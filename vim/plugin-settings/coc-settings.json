@@ -4,6 +4,7 @@
     "vim",
     "go",
     "ruby",
+    "rust",
     "jsonnet",
     "python", //coc-pyright
     "sh",     //coc-sh
