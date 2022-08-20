@@ -10,7 +10,7 @@
     "bash",   //coc-sh
     "c"      //coc-clangd
   ],
-  "json.format.enable": true,
+  "json.format.enable": false,
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "python.linting.enabled": true, // coc-pyright, coc-python
@@ -24,6 +24,10 @@
   "coc.source.buffer.enable": true,
 //  "python.linting.pydocstyleEnabled": true,
   "languageserver": {
+    "jsonnet": {
+      "command": "jsonnet-language-server",
+      "filetypes" :[ "jsonnet" ]
+    },
     // ruby coc-solargraph
     // rust coc-rust-analyzer
     /*

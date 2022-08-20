@@ -68,7 +68,10 @@ build = 'cd app & yarn install'
 [[plugins]]
 repo = 'rickhowe/diffchar.vim'
 
-[[plugins]]
-repo = 'google/vim-jsonnet'
-on_ft = 'jsonnet'
+# disabled because this conflicts with fugitive
+# [[plugins]]
+# repo = 'google/vim-jsonnet'
+# merged = 0
+# on_event = 'InsertEnter'
+# on_ft = 'jsonnet'
 

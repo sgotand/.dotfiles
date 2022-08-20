@@ -6,6 +6,8 @@ set expandtab
 set smartindent
 set autoindent
 set virtualedit+=block
+set spell
+set spellfile=~/.config/nvim/en.utf-8.add
 
 
 if has('persistent_undo')

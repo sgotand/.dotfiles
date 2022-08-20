@@ -109,11 +109,11 @@ if = '!has("nvim")'
 #'''
 
 # run :StripWhitespaces to remove trailing whitespaces
-[[plugins]] # trailing whitespace
-repo = 'ntpeters/vim-better-whitespace'
-hook_add ='''
-let g:better_whitespace_filetypes_blacklist=['unite', 'fzf', 'diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'fugitive']
-'''
+# [[plugins]] # trailing whitespace
+# repo = 'ntpeters/vim-better-whitespace'
+# hook_add ='''
+# let g:better_whitespace_filetypes_blacklist=['unite', 'fzf', 'diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'fugitive']
+# '''
 
 [[plugins]] # indent line
 repo = 'Yggdroot/indentLine'
@@ -123,6 +123,7 @@ let g:indentLine_char = '¦'
 
 [[plugins]] # fugitive
 repo = 'tpope/vim-fugitive'
+merged = 0
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -182,8 +183,8 @@ nmap ga <Plug>(EasyAlign)
 [[plugins]]
 repo = 'mhinz/vim-startify'
 
-[[plugins]]
-repo = 'kshenoy/vim-signature'
+# [[plugins]]
+# repo = 'kshenoy/vim-signature'
 
 [[plugins]]
 repo = 'Dimercel/todo-vim'
