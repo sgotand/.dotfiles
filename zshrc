@@ -6,7 +6,7 @@ export LANG=en_US.UTF-8
 echo "=====start scriptting $0===="
 # loadng this file is disabled by default
 # with unsetopt global_rcs
-source /etc/zshrc
+#source /etc/zshrc
 
 ZSH_RC_DIR=$(dirname $0)/zsh
 bindkey -e
