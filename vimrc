@@ -104,10 +104,19 @@ set wrapscan
 "================================
 set wildmode=list:longest
 set wildchar=<Tab>
-"================================
+"====clipboard settings==========
 set clipboard&
 set clipboard^=unnamedplus
-" TODO: paste mode control
+function! OSCYankReg(reg)
+    let reg_contents = getreg(a:reg)
+    let escaped_reg_contents = escape(reg_contents, '\\')
+    let base64_contents = system("echo  . escaped_reg_contents .  | base64 | tr -d \"\\n\"")
+    let osc52 = "\<Esc>]52;c;" . base64_contents . "\<Esc>\\"
+"   $TTY env var is unset by vim, so _TTY should be set in your .bashrc/.zshrc
+    let current_tty = $_TTY
+    call writefile([osc52], current_tty, "b")
+endfunction
+autocmd TextYankPost * call OSCYankReg(v:event.regname)
 "================================
 call Source_rc("map.vim")
 call Source_rc("command.vim")
