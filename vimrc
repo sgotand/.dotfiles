@@ -112,6 +112,7 @@ function! OSCYankReg(reg)
     let reg_contents = escape(reg_contents, '\\')
     let reg_contents = escape(reg_contents, '"')
     let reg_contents = escape(reg_contents, '$')
+    let reg_contents = escape(reg_contents, '`')
 "   TODO: encode contents without shell call to avoid shell escape issue
     let base64_contents = system('echo -n "'. reg_contents .'" | base64 |' .  "tr -d '\\n'")
     let osc52 = "\<Esc>]52;c;" . base64_contents . "\<Esc>\\"
