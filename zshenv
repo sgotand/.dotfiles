@@ -1,6 +1,7 @@
 # return eary for non-interactive mode (e.g scp/rsync)
 [[ "$-" =~ i ]] || return
 [ -n "${SHOW_SOURCE:-}" ] && echo "====start scriptting $0===="
+export _TTY=$TTY # for vim yank
 case ${OSTYPE} in
 darwin*)
     export SHELL=/usr/local/bin/zsh
