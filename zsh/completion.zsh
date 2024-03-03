@@ -4,7 +4,8 @@
 # zstyle :completion:function:completer:command:argument:tag
 # dfault tag ":completion:*:default"
 [ -n "${SHOW_SOURCE:-}" ] && echo "====start scriptting $0===="
-autoload -U +X bashcompinit;
+autoload -Uz compinit; compinit
+autoload -Uz +X bashcompinit;
 bashcompinit
 
 if [ -d "/usr/local/share/zsh/site-functions" ]; then

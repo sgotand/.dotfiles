@@ -2,6 +2,8 @@
 [[ "$-" =~ i ]] || return
 [ -n "${SHOW_SOURCE:-}" ] && echo "====start scriptting $0===="
 export _TTY=$TTY # for vim yank
+[[ $PATH =~ "(:|^)/usr/sbin(:|$)" ]] || export PATH="$PATH:/usr/sbin"
+[[ $PATH =~ "(:|^)/usr/local/bin(:|$)" ]] || export PATH="/usr/local/bin:$PATH"
 case ${OSTYPE} in
 darwin*)
     export SHELL=/usr/local/bin/zsh
@@ -44,8 +46,7 @@ export MANPAGER=less
 # /etc/zprofile do "eval `/usr/libexec/path_helper -s`"
 
 unsetopt global_rcs
-export PATH="/usr/local/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
+# export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.bin:$PATH"
 # local
 if [ -d "$HOME/.local/bin" ] ; then
@@ -127,9 +128,11 @@ if (which n >/dev/null 2>/dev/null); then
   export PATH=$HOME/n/bin:$PATH
 fi
 
+if ! [[ :$PATH: == *".nvm"* ]]; then
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 
 #npm
 export PATH=$PATH:./node_modules/.bin
@@ -155,3 +158,4 @@ export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DOCKER_BUILDKIT=1
 export ZPLUG_HOME=~/.zplug
 [ -n "${SHOW_SOURCE:-}" ] && echo "====finish scriptting $0===="
+
