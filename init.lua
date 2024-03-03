@@ -144,6 +144,7 @@ require("edit")
 -- source_rc("edit.vim")
 -- require("dein.rc")
 source_rc("dein.rc.vim")
+-- require('lazy-config')
 
 
 vim.cmd('filetype on')
