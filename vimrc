@@ -13,19 +13,6 @@ let g:python3_host_prog = "python3"
 echo "python_host_prog=  " . g:python_host_prog
 echo "python3_host_prog= " . g:python3_host_prog
 
-" Set augroup.
-augroup MyAutoCmd
-  autocmd!
-  " autocmd FileType,Syntax,BufNewFile,BufNew,BufRead *?
-        \ call vimrc#on_filetype()
-  " autocmd CursorHold *.toml syntax sync minlines=300
-  " autocmd BufWinLeave * mkview
-  " autocmd BufWinEnter * silent loadview
-  " autocmd QuickFixCmdPost vim* cwindow
-augroup END
-"augroup filetypedetect
-"augroup END
-
 function! Source_rc(path, ...) abort
   let use_global = get(a:000, 0, !has('vim_starting'))
   let abspath = resolve(expand('~/.dotfiles/vim/' . a:path))
