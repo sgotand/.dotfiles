@@ -1,5 +1,8 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
+  "coc.preferences.formatOnSave": true,
+//   "coc.preferences.formatOnSaveFiletypes": [
+  /*
+  "coc.preferences.formatOnSave": [
     "json",
     "vim",
     "go",
@@ -11,6 +14,7 @@
     "bash",   //coc-sh
     "c"      //coc-clangd
   ],
+  */
   "json.format.enable": false,
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
@@ -23,6 +27,7 @@
   "coc.source.file.enable": true,
   "coc.source.around.enable": true,
   "coc.source.buffer.enable": true,
+//   "go.goplsUseDaemon": false,
 //  "python.linting.pydocstyleEnabled": true,
   "languageserver": {
     "jsonnet": {
@@ -41,13 +46,14 @@
       }
     },
     */
-    /*
     // use coc-go instead
     // https://github.com/josa42/coc-go
     "golang": {
       "command": "gopls",
       "rootPatterns": [
+        "go.work",
         "go.mod",
+        "go.sum",
         ".vim/",
         ".git/",
         ".hg/"
@@ -56,7 +62,6 @@
         "go"
       ]
     },
-    */
     "terraform": {
       "command": "terraform-lsp",
       "filetypes": [
@@ -71,5 +76,58 @@
       "filetypes": ["dockerfile"],
       "args": ["--stdio"]
     }
-  }
+  },
+  /*
+  "cSpell.dictionaryDefinitions": [
+      { "name": "nvim", "path": "~/.config/cspell/nvim.txt"}
+  ],
+  "cSpell.dictionaries": [
+    "nvim"
+  ],
+  "cSpell.userWords": [
+    "",
+    "alpha",
+    "apiserverconfigv",
+    "argconv",
+    "beta",
+    "capi",
+    "capibs",
+    "capibsv",
+    "capiclient",
+    "capicpv",
+    "capimeta",
+    "capiv",
+    "capv",
+    "cmdb",
+    "corev",
+    "deref",
+    "eventf",
+    "get",
+    "infrav",
+    "k",
+    "kubeadm",
+    "kubeapi",
+    "kubebuilder",
+    "kubelet",
+    "kubernetes",
+    "lico",
+    "metav",
+    "networks",
+    "owner",
+    "ptrutils",
+    "schedulable",
+    "serrors",
+    "sigs",
+    "staticip",
+    "string",
+    "syaml",
+    "unmarshall",
+    "verda",
+    "verdamachinetemplates",
+    "verdav",
+    "vlog",
+    "w",
+    "warnf"
+  ]
+  */
 }

@@ -34,7 +34,7 @@ depends = ['context_filetype.vim']
 repo = 'cocopon/iceberg.vim'
 merged = 0
 hook_add = '''
-au MyAutoCmd VimEnter * nested colorscheme iceberg
+au VimEnter * nested colorscheme iceberg
 '''
 
 
@@ -69,7 +69,7 @@ let g:cheatsheet#float_window_height_ratio = 0.6
 [[plugins]] # plugin for lightline
 repo = 'itchyny/lightline.vim'
 depends = ['osyo-manga/vim-anzu']
-hook_add ='''
+hook_add = '''
 call Source_rc("plugin-settings/lightline.vim")
 '''
 
@@ -129,16 +129,15 @@ merged = 0
 repo = 'airblade/vim-gitgutter'
 
 
+[[plugins]]
+repo = 'preservim/nerdcommenter'
+hook_add = '''
+let g:NERDSpaceDelims = 1
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+" let g:NERDCreateDefaultMappings = 0
+'''
 
-#[[plugins]]
-#repo = 'preservim/nerdcommenter'
-#hook_add = '''
-#let g:NERDSpaceDelims = 1
-#let g:NERDCommentEmptyLines = 1
-#let g:NERDTrimTrailingWhitespace = 1
-#" let g:NERDCreateDefaultMappings = 0
-#'''
-#
 [[plugins]] # comment/uncomment
 repo = 'tyru/caw.vim'
 hook_add = '''
@@ -147,7 +146,6 @@ hook_add = '''
 nmap <C-_> <Plug>(caw:zeropos:toggle)
 vmap <C-_> <Plug>(caw:zeropos:toggle)
 '''
-
 
 
 [[plugins]]
@@ -219,23 +217,23 @@ xnoremap <leader>t :<C-u>TODOToggle<CR>
 
 [[plugins]]
 repo = 'junegunn/fzf'
-hook_post_update  = 'call fzf#install()'
+hook_post_update = 'call fzf#install()'
 merged = 0
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 merged = 0
 on_cmd = [
-    'Files',
-    'ProjectFiles',
-    'Buffers',
-    'BLines',
-    'History',
-    'Tags',
-    'BTags',
-    'GFiles',
-    'Ag',
-    'Rg',
+  'Files',
+  'ProjectFiles',
+  'Buffers',
+  'BLines',
+  'History',
+  'Tags',
+  'BTags',
+  'GFiles',
+  'Ag',
+  'Rg',
 ]
 hook_add = '''
 nnoremap <silent> ,a :<C-u>Ag<CR>
@@ -244,7 +242,7 @@ nnoremap <silent> ,b :<C-u>Buffers<CR>
 nnoremap <silent> ,m :<C-u>History<CR>
 set rtp+=$XDG_CACHE_HOME/fzf "$XDG_CACHE_HOMEの下にインストールした場合
 '''
-hook_source='call Source_rc("plugin-settings/fzf_vim_hook_source.vim")'
+hook_source = 'call Source_rc("plugin-settings/fzf_vim_hook_source.vim")'
 
 
 # [[plugins]]
@@ -261,8 +259,7 @@ repo = 'junegunn/vim-peekaboo'
 
 [[plugins]]
 repo = 'gcmt/taboo.vim'
-hook_add='''
+hook_add = '''
 set guioptions-=e
 set sessionoptions+=tabpages,globals
 '''
-

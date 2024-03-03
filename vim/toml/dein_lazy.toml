@@ -74,4 +74,3 @@ repo = 'rickhowe/diffchar.vim'
 # merged = 0
 # on_event = 'InsertEnter'
 # on_ft = 'jsonnet'
-
