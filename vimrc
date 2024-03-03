@@ -4,7 +4,7 @@ filetype plugin indent off
 runtime! ftplugin/man.vim
 let g:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let g:vim_dir = g:cache_home . '/vim'
-
+" g:vim_dir is now used for path to store undo
 
 "# Python
 " see :help python3_host_prog

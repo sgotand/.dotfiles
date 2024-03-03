@@ -50,6 +50,8 @@ nnoremap gj j
 nnoremap gk k
 
 " multi line paste
+" https://vim-jp.org/vimdoc-en/motion.html#%60]
+" `] is the motion To the last character of the previously changed or yanked text.
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
@@ -93,6 +95,7 @@ if has('terminal') || has('nvim')
   endif
 endif
 
+" serach text for selected string
 vnoremap / "zy:let @/ = @z<CR>n
 
 
