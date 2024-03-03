@@ -20,7 +20,7 @@ let g:echodoc#enable_at_startup = 1
 
 [[plugins]] #deompleteのためのsyntax
 repo = 'Shougo/neco-syntax'
-on_source = ['deoplete'] #rdepends的なやつ
+on_source = ['deoplete']    #rdepends的なやつ
 # on_ftにした方が良さそう
 
 
@@ -32,13 +32,25 @@ depends = ['deoplete.nvim']
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
-[[plugins]]# deoplete source & snippetter
+[[plugins]] # deoplete source & snippetter
 repo = "Shougo/neosnippet.vim"
 on_event = 'InsertEnter'
 depends = ['neosnippet-snippets', 'deoplete.nvim']
 hook_source = "call deoplete#custom#source('neosnippet','rank', 2000)"
-source_add = 'call Source_rc("plugin-settings/neosnippet_source_add.vim")'
-hook_add = 'call Source_rc("plugin-settings/neosnippet_hook_add.vim")'
+source_add = '''
+try
+  call Source_rc("plugin-settings/neosnippet_source_add.vim")
+catch
+  call luaeval('_G.source_rc("plugin-settings/neosnippet_source_add.vim")')
+endtry
+'''
+hook_add = '''
+try
+  call Source_rc("plugin-settings/neosnippet_source_add.vim")
+catch
+  call luaeval('_G.source_rc("plugin-settings/neosnippet_source_add.vim")')
+endtry
+'''
 
 [[plugins]]
 repo = 'zchee/deoplete-zsh'
@@ -52,7 +64,7 @@ hook_add = '''
 let g:deoplete#sources#jedi#python_path = '/usr/bin/python3'
 '''
 
-[[plugins]]  # go completion
+[[plugins]] # go completion
 repo = 'zchee/deoplete-go'
 build = 'make'
 on_ft = 'go'

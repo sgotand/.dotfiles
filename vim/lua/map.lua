@@ -1,0 +1,127 @@
+
+-- Helper function to set keymap
+local function map(mode, lhs, rhs, opts)
+  local options = {noremap = true}
+  if opts then options = vim.tbl_extend('force', options, opts) end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+print("start importing " .. debug.getinfo(1).short_src)
+-- print("start importing " .. vim.fn.expand('<sfile>:t'))
+
+vim.g.mapleader = ","
+
+map('n', 's', '<Nop>', {})
+
+map('n', vim.g.mapleader .. '<S-n>', ':<C-u>set relativenumber!<CR>', {})
+map('n', vim.g.mapleader .. 'n', ':<C-u>set number!<CR>', {})
+
+-- go to
+map('n', 'sj', '<C-w>j', {})
+map('n', 'sk', '<C-w>k', {})
+map('n', 'sl', '<C-w>l', {})
+map('n', 'sh', '<C-w>h', {})
+map('n', 'sr', '<C-w>w', {})
+
+-- move pane to
+map('n', 'sJ', '<C-w>J', {})
+map('n', 'sK', '<C-w>K', {})
+map('n', 'sL', '<C-w>L', {})
+map('n', 'sH', '<C-w>H', {})
+map('n', 'sR', '<C-w>r', {})
+
+-- pane size changer
+map('n', 's=', '<C-w>=', {})
+map('n', 's_', '<C-w>_', {})
+map('n', 's\\|', '<C-w>\\|', {})
+map('n', 'sa', '<C-w>_<C-w>\\|', {})
+
+-- split the pane
+map('n', 'ss', ':<C-u>sp<CR>', {})
+map('n', 'sv', ':<C-u>vs<CR>', {})
+map('n', 'sq', ':<C-u>q<CR>', {})
+
+-- tab handling
+map('n', 'st', ':<C-u>tabnew<CR>', {})
+-- move pane to new tab
+map('n', 'sT', '<C-w>T', {})
+map('n', 'sn', 'gt', {})
+map('n', 'sp', 'gT', {})
+map('n', 'sN', ':<C-u>tabmove +1<CR>', {})
+map('n', 'sP', ':<C-u>tabmove -1<CR>', {})
+
+map('n', 'tn', ':<C-u>tabnew<CR>', {})
+map('n', 'tl', 'gt', {})
+map('n', 'th', 'gT', {})
+
+-- exchange line movement commands
+map('n', 'j', 'gj', {})
+map('n', 'k', 'gk', {})
+map('n', 'gj', 'j', {})
+map('n', 'gk', 'k', {})
+
+-- multi line paste
+-- https://vim-jp.org/vimdoc-en/motion.html#%60]
+-- `] is the motion To the last character of the previously changed or yanked text.
+--
+map('v', 'y', 'y`]', { silent = true})
+map('v', 'p', 'p`]', { silent = true})
+map('n', 'p', 'p`]', { silent = true})
+
+
+-- switch ; and :
+map('n', ';', ':', {})
+map('n', ':', ';', {})
+map('v', ';', ':', {})
+map('v', ':', ';', {})
+
+map('i', 'jk', '<ESC>', {})
+map('i', '<C-c>', '<ESC>', {})
+map('n', '<S-h>', '^', {})
+map('n', '<S-l>', '$', {})
+
+--format indent
+map('n', '==', 'gg=G')
+
+-- discard yank got with x(s)
+map('n', 'x', '"_x')
+map('n', 's', '"_s')
+
+map('n', '<ESC><ESC>', ':nohlsearch<CR>', {silent = true})
+
+-- vim as terminal multiplexer
+map('t', '<ESC>', '<C-\\><C-n>', {silent = true})
+map('t', 'jj', '<C-\\><C-n>')
+map('t', 'jk', '<C-\\><C-n>')
+
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
+augroup('nvim-as-tmux', { clear = true })
+autocmd({'TermOpen'},{
+    pattern = {'*'},
+    group = 'nvim-as-tmux',
+    callback = function()
+      vim.o.number = false
+      vim.o.spell = false
+      vim.cmd("startinsert")
+    end
+  })
+
+-- search text for selected string
+map('v', '/', '"zy:let @/ = @z<CR>n')
+
+-- Function HasQuickFix
+local function HasQuickFix()
+  print("check quickfix")
+  local ret = #vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix && !v:val.loclist')
+  print(ret > 0)
+  return ret > 0
+end
+
+map('n', 'n', HasQuickFix() and ':<C-u>cn<CR>' or 'n', {silent = true, expr = true})
+map('n', 'N', HasQuickFix() and ':<C-u>cp<CR>' or 'N', {silent = true, expr = true})
+
+print("finish importing " .. debug.getinfo(1).short_src)
+
+

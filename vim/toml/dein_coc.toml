@@ -5,16 +5,26 @@ rev = 'release'
 build = 'yarn install --frozen-lockfile'
 merged = 0
 hook_add = '''
-call Source_rc("plugin-settings/coc-settings.vim")
+try
+  call Source_rc("plugin-settings/coc-settings.vim")
+catch
+  call luaeval('_G.source_rc("plugin-settings/coc-settings.vim")')
+endtry
 '''
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
-[[plugins]]# deoplete source & snippetter
+[[plugins]] # deoplete source & snippetter
 repo = "Shougo/neosnippet.vim"
 on_event = 'InsertEnter'
 depends = ['neosnippet-snippets']
 # hook_source = "call deoplete#custom#source('neosnippet','rank', 2000)"
 # source_add = 'call Source_rc("plugin-settings/neosnippet_source_add.vim")'
-hook_add = 'call Source_rc("plugin-settings/neosnippet_hook_add.vim")'
+hook_add = '''
+try
+  call Source_rc("plugin-settings/neosnippet_hook_add.vim")
+catch
+  call luaeval('_G.source_rc("plugin-settings/neosnippet_hook_add.vim")')
+endtry
+'''

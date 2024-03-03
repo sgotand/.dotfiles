@@ -70,8 +70,13 @@ let g:cheatsheet#float_window_height_ratio = 0.6
 repo = 'itchyny/lightline.vim'
 depends = ['osyo-manga/vim-anzu']
 hook_add = '''
-call Source_rc("plugin-settings/lightline.vim")
+try
+  call Source_rc("plugin-settings/lightline.vim") 
+catch 
+  call luaeval('_G.source_rc("plugin-settings/lightline.vim")')
+endtry
 '''
+#hooks_file = 'plugin-settings/lightline.vim'
 
 [[plugins]] # plugin for quickrun
 repo = 'thinca/vim-quickrun'
@@ -83,7 +88,11 @@ let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++14'}
 [[plugins]] # plugin for denite
 repo = 'Shougo/denite.nvim'
 hook_add = '''
-call Source_rc("plugin-settings/denite.vim")
+try
+  call Source_rc("plugin-settings/denite.vim")
+catch
+  call luaeval('_G.source_rc("plugin-settings/denite.vim")')
+endtry
 '''
 
 [[plugins]] # plugin for multi cursors
@@ -242,7 +251,14 @@ nnoremap <silent> ,b :<C-u>Buffers<CR>
 nnoremap <silent> ,m :<C-u>History<CR>
 set rtp+=$XDG_CACHE_HOME/fzf "$XDG_CACHE_HOMEの下にインストールした場合
 '''
-hook_source = 'call Source_rc("plugin-settings/fzf_vim_hook_source.vim")'
+hook_source = '''
+
+try
+  call Source_rc("plugin-settings/fzf_vim_hook_source.vim")
+catch
+  call luaeval('_G.source_rc("plugin-settings/fzf_vim_hook_source.vim")')
+endtry
+'''
 
 
 # [[plugins]]

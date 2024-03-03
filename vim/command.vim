@@ -1,13 +1,11 @@
 echom "start importing " . expand('<sfile>:t')
-command! InsertModeLine call s:insertModeLine()
-command! EchoRuntimePath call s:echoRuntimePath()
-command! EchoPackPath call s:echoPackPath()
-command! DeinUpdate call g:dein#update()
 
+command! InsertModeLine call s:insertModeLine()
 function! s:insertModeLine()
   put = 'vim: set ft=' . &ft . ' :'
 endfunction
 
+command! EchoRuntimePath call s:echoRuntimePath()
 function! s:echoRuntimePath()
   let paths = split(&runtimepath, ',')
   for path in paths
@@ -15,6 +13,7 @@ function! s:echoRuntimePath()
   endfor
 endfunction
 
+command! EchoPackPath call s:echoPackPath()
 function! s:echoPackPath()
   let paths = split(&packpath, ',')
   for path in paths
@@ -22,38 +21,13 @@ function! s:echoPackPath()
   endfor
 endfunction
 
+command! DeinUpdate call g:dein#update()
 command! CleanDein call s:deinClean()
 command! DeinClean call s:deinClean()
 function! s:deinClean()
   call map(dein#check_clean(), "delete(v:val, 'rf')")
   call dein#recache_runtimepath()
 endfunction
-
-
-
-function! ProfileCursorMove() abort
-  let profile_file = expand('~/log/vim-profile.log')
-  if filereadable(profile_file)
-    call delete(profile_file)
-  endif
-
-  normal! gg
-  normal! zR
-
-  execute 'profile start ' . profile_file
-  profile func *
-  profile file *
-
-  augroup ProfileCursorMove
-    autocmd!
-    autocmd CursorHold <buffer> profile pause | q
-  augroup END
-
-  for i in range(100)
-    call feedkeys('j')
-  endfor
-endfunction
-
 
 " インポート済みのプラグイン一覧の表示
 echom "finish importing " . expand('<sfile>:t')
