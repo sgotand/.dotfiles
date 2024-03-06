@@ -25,6 +25,14 @@ else
 end
 vim.g.vim_dir = vim.g.cache_home .. '/vim' -- this is now used to store undo history
 
+
+if vim.env.DOTFILES_ROOT == nil or vim.env.DOTFILES_ROOT == '' then
+  vim.g.dotfiles_root = os.getenv("HOME") .. '/.dotfiles'
+else
+  vim.g.dotfiles_root = vim.env.DOTFILES_ROOT
+end
+vim.g.dotfiles_vim_root = vim.g.dotfiles_root .. '/vim'
+
 -- python
 vim.g.python_host_prog = "python2"
 vim.g.python3_host_prog = "python3"
@@ -35,7 +43,7 @@ print("python3_host_prog: " .. vim.g.python3_host_prog)
 local function source_rc(path, use_global)
   print("sourcing " .. path)
   use_global = use_global or not vim.v.vim_did_enter
-  local abspath = vim.fn.resolve(vim.fn.expand('~/.dotfiles/vim/' .. path))
+  local abspath = vim.fn.resolve(vim.fn.expand(vim.g.dotfiles_vim_root .. "/".. path))
   if not use_global then
     vim.cmd('source ' .. vim.fn.fnameescape(abspath))
     return
@@ -133,7 +141,8 @@ end
 vim.cmd('autocmd TextYankPost * lua OSCYankReg(vim.v.event.regname)')
 
 -- This line must be before require
-vim.o.runtimepath = vim.o.runtimepath .. ',~/.dotfiles/vim/'
+vim.o.runtimepath = vim.o.runtimepath .. ',' .. vim.g.dotfiles_vim_root
+print("RUNTIME_PATH==")
 print(vim.o.runtimepath)
 
 require('map')
