@@ -102,7 +102,6 @@ vnoremap / "zy:let @/ = @z<CR>n
 function! HasQuickFix()
   echom "check quickfix"
   let s:ret = len(filter(getwininfo(), 'v:val.quickfix && !v:val.loclist'))
-  echom s:ret > 0
   return s:ret > 0
 endfunction
 

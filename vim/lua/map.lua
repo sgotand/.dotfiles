@@ -119,8 +119,18 @@ local function HasQuickFix()
   return ret > 0
 end
 
-map('n', 'n', HasQuickFix() and ':<C-u>cn<CR>' or 'n', {silent = true, expr = true})
-map('n', 'N', HasQuickFix() and ':<C-u>cp<CR>' or 'N', {silent = true, expr = true})
+local function has_quick_fix()
+  print("check quickfix")
+  local win_info = vim.fn.getwininfo()
+  local filtered = vim.tbl_filter(function(v) return v.quickfix and not v.loclist end, win_info)
+  return #filtered > 0
+end
+
+-- Make the function globally accessible
+_G.has_quick_fix = has_quick_fix
+
+map('n', 'n', 'v:lua.has_quick_fix() and ":<C-u>cnext<CR>" or "n"', {expr = true, noremap = true, silent = true})
+map('n', 'N', 'v:lua.has_quick_fix() and ":<C-u>cprevious<CR>" or "N"', {expr = true, noremap = true, silent = true})
 
 print("finish importing " .. debug.getinfo(1).short_src)
 

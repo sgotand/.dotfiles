@@ -65,7 +65,6 @@ local function source_rc(path, use_global)
     vim.fn.delete(tempfile)
   end
 end
--- vim.function('Source_rc', Source_rc)
 _G.source_rc = source_rc
 
 vim.cmd('syntax on') -- enable syntax highlight

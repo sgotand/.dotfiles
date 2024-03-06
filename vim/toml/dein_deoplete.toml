@@ -38,18 +38,10 @@ on_event = 'InsertEnter'
 depends = ['neosnippet-snippets', 'deoplete.nvim']
 hook_source = "call deoplete#custom#source('neosnippet','rank', 2000)"
 source_add = '''
-try
-  call Source_rc("plugin-settings/neosnippet_source_add.vim")
-catch
-  call luaeval('_G.source_rc("plugin-settings/neosnippet_source_add.vim")')
-endtry
+call v:lua.source_rc("plugin-settings/neosnippet_source_add.vim")
 '''
 hook_add = '''
-try
-  call Source_rc("plugin-settings/neosnippet_source_add.vim")
-catch
-  call luaeval('_G.source_rc("plugin-settings/neosnippet_source_add.vim")')
-endtry
+call v:lua.source_rc("plugin-settings/neosnippet_source_add.vim")
 '''
 
 [[plugins]]
