@@ -111,14 +111,6 @@ autocmd({'TermOpen'},{
 -- search text for selected string
 map('v', '/', '"zy:let @/ = @z<CR>n')
 
--- Function HasQuickFix
-local function HasQuickFix()
-  print("check quickfix")
-  local ret = #vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix && !v:val.loclist')
-  print(ret > 0)
-  return ret > 0
-end
-
 local function has_quick_fix()
   print("check quickfix")
   local win_info = vim.fn.getwininfo()
@@ -129,8 +121,8 @@ end
 -- Make the function globally accessible
 _G.has_quick_fix = has_quick_fix
 
-map('n', 'n', 'v:lua.has_quick_fix() and ":<C-u>cnext<CR>" or "n"', {expr = true, noremap = true, silent = true})
-map('n', 'N', 'v:lua.has_quick_fix() and ":<C-u>cprevious<CR>" or "N"', {expr = true, noremap = true, silent = true})
+map('n', 'n', '<expr> v:lua.has_quick_fix() and ":<C-u>cnext<CR>" or "n"', {expr = true, noremap = true, silent = true})
+map('n', 'N', '<expr> v:lua.has_quick_fix() and ":<C-u>cprevious<CR>" or "N"', {expr = true, noremap = true, silent = true})
 
 print("finish importing " .. debug.getinfo(1).short_src)
 
