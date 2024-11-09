@@ -121,9 +121,21 @@ end
 -- Make the function globally accessible
 _G.has_quick_fix = has_quick_fix
 
-map('n', 'n', '<expr> v:lua.has_quick_fix() and ":<C-u>cnext<CR>" or "n"', {expr = true, noremap = true, silent = true})
-map('n', 'N', '<expr> v:lua.has_quick_fix() and ":<C-u>cprevious<CR>" or "N"', {expr = true, noremap = true, silent = true})
+local function nMap()
+  if has_quick_fix() then
+    return ":<C-u>cnext<CR>"
+  else 
+    return "n"
+  end
+end
 
+_G.nMap = nMap
+
+-- map('n', 'n', 'call v:lua.has_quick_fix() and ":cnext<CR>" or "n"', {expr = true, noremap = true, silent = true})
+-- map('n', 'n', 'call v:lua.nMap()', {expr = true, noremap = true, silent = true})
+-- map('n', 'n', 'call v:lua.nMap()', {noremap = true, silent = true})
+-- map('n', 'N', 'v:lua.has_quick_fix() and ":cprevious<CR>" or "N"', {expr = true, noremap = true, silent = true})
+-- 
 print("finish importing " .. debug.getinfo(1).short_src)
 
 

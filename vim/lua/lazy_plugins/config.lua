@@ -1,3 +1,4 @@
+-- https://zenn.dev/yuucu/articles/lazy_nvim_tuning
 return {
   -- https://github.com/vim-jp/vimdoc-ja/issues/279
   --   {
@@ -21,8 +22,8 @@ return {
   },
   {
     "cocopon/iceberg.vim",
--- hook_add = '''
--- au VimEnter * nested colorscheme iceberg
--- '''
+    -- hook_add = '''
+    -- au VimEnter * nested colorscheme iceberg
+    -- '''
   }
 }
