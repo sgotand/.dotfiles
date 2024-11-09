@@ -60,10 +60,10 @@ hook_add = '''
 let g:rufo_auto_formatting = 1
 '''
 
-[[plugins]]
-repo = 'iamcco/markdown-preview.nvim'
-on_ft = ['markdown', 'pandoc.markdown', 'rmd']
-build = 'cd app & yarn install'
+# [[plugins]]
+# repo = 'iamcco/markdown-preview.nvim'
+# on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+# build = 'cd app & yarn install'
 
 [[plugins]]
 repo = 'rickhowe/diffchar.vim'

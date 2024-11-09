@@ -74,7 +74,7 @@ vim.o.fileencoding = 'utf-8'
 vim.o.encoding = 'utf-8'
 -- vim.cmd('scriptencoding utf-8')
 
-vim.opt.tenc = 'utf8'
+-- vim.opt.tenc = 'utf8'
 vim.opt.mouse = 'a'
 
 -- auto file control settings
