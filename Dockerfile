@@ -9,7 +9,7 @@ RUN dnf install -y glibc-langpack-en
 ENV LANG=en_US.utf8
 ENV LC_ALL=en_US.utf8
 
-RUN useradd progrunner
+RUN useradd sgotand
 
 RUN dnf -y install git
 
@@ -48,15 +48,16 @@ RUN make install
 RUN dnf -y install zsh
 
 RUN dnf -y install sudo
-RUN echo 'progrunner ALL=(ALL) NOPASSWD:ALL' | tee -a /etc/sudoers
+RUN echo 'sgotand ALL=(ALL) NOPASSWD:ALL' | tee -a /etc/sudoers
 
-USER progrunner:progrunner
-WORKDIR /home/progrunner
+USER sgotand:sgotand
+WORKDIR /home/sgotand
 
 
-ADD --chown=progrunner:progrunner ./ .dotfiles/
+ADD --chown=sgotand:sgotand ./ .dotfiles/
 RUN mkdir -p $HOME/.config/nvim
 RUN ln -s $HOME/.dotfiles/init.lua $HOME/.config/nvim/init.lua
+RUN ln -s $HOME/.dotfiles/tmux.conf $HOME/.tmux.conf
 RUN echo "source ~/.dotfiles/zshrc" > ~/.zshrc
 RUN echo "source ~/.dotfiles/zshenv" > ~/.zshenv
 

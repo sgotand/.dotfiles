@@ -8,5 +8,5 @@ wget https://raw.githubusercontent.com/progrunner17/.dotfiles/master/init.sh -q 
 
 ```bash
 docker build . -t dotfiles-test
-docker run  -v $PWD:/home/progrunner/.dotfiles -it --rm dotfiles-test
+docker run  -v $PWD:/home/sgotand/.dotfiles -it --rm dotfiles-test
 ```
