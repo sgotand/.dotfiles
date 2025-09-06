@@ -23,6 +23,9 @@ zinit ${ZINIT_LOAD} "zsh-users/zsh-syntax-highlighting"
 zinit ice lucid mv"kube-ps1.sh -> kube_ps1" pick"kube_ps1"
 zinit ${ZINIT_LOAD} "jonmosco/kube-ps1"
 
+
+zinit ${ZINIT_LOAD} "popstas/zsh-command-time"
+
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/rsync/rsync.plugin.zsh
 # add aliases like rsync-copy
 # zinit snippet OMZ::plugins/rsync/rsync.plugin.zsh

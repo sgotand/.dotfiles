@@ -6,10 +6,16 @@ export _TTY=$TTY # for vim yank
 [[ $PATH =~ "(:|^)/usr/local/bin(:|$)" ]] || export PATH="/usr/local/bin:$PATH"
 case ${OSTYPE} in
 darwin*)
-    export SHELL=/usr/local/bin/zsh
+    if [ -f "/opt/homebrew/bin/zsh" ]; then
+      export SHELL=/opt/homebrew/bin/zsh
+    elif [ -f "/usr/local/bin/zsh" ]; then
+      export SHELL=/usr/local/bin/zsh
+    else
+      export SHELL=/usr/bin/zsh
+    fi
     ;;
 linux*)
-    if [ -e "/usr/local/bin/zsh" ]; then
+    if [ -f "/usr/local/bin/zsh" ]; then
       export SHELL=/usr/local/bin/zsh
     else
       export SHELL=/usr/bin/zsh
@@ -48,6 +54,7 @@ export MANPAGER=less
 unsetopt global_rcs
 # export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # local
 if [ -d "$HOME/.local/bin" ] ; then
     export PATH="$HOME/.local/bin:$PATH"
@@ -82,6 +89,7 @@ fi
 if (which pipenv >/dev/null 2>/dev/null); then
     export PIPENV_VENV_IN_PROJECT=true
 fi
+export PATH="$PATH:/opt/homebrew/opt/python/libexec/bin"
 
 # ruby
 # git clone https://github.com/rbenv/rbenv.git ~/.rbenv

@@ -1,8 +1,7 @@
 {
   "coc.preferences.formatOnSave": true,
-//   "coc.preferences.formatOnSaveFiletypes": [
   /*
-  "coc.preferences.formatOnSave": [
+  "coc.preferences.formatOnSaveFiletypes": [
     "json",
     "vim",
     "go",
@@ -15,7 +14,14 @@
     "c"      //coc-clangd
   ],
   */
+  "json.validate.enable": true,
   "json.format.enable": false,
+  "yaml.enable": true,
+  "yaml.completion": true,
+  "yaml.format.enable": true,
+  "yaml.schemas": {
+    "kubernetes": "/manifest*.yaml"
+  },
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "python.linting.enabled": true, // coc-pyright, coc-python
@@ -34,6 +40,10 @@
       "command": "jsonnet-language-server",
       "filetypes" :[ "jsonnet" ]
     },
+//     "yaml": {
+//       "command": "yaml-language-server --stdio",
+//       "filetypes": ["yaml", "yml"],
+//     },
     // ruby coc-solargraph
     // rust coc-rust-analyzer
     /*

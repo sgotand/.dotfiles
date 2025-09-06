@@ -3,7 +3,7 @@
 repo = "Shougo/deoplete.nvim"
 on_event = 'InsertEnter'
 hook_source = """
-set completeopt=menu ",preview
+set completeopt=menu,fuzzy
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('smart_case', v:true)
 "let g:deoplete#enable_refresh_always = 1
