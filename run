@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -eu
-
-
-docker run  -v $HOME/.dotfiles:/home/sgotand/.dotfiles -it --rm dotfiles-test

@@ -1,0 +1,35 @@
+services:
+  dotfiles:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        USERNAME: ${USERNAME:-devuser}
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
+    image: dotfiles:${WORKTREE_NAME:-main}
+    container_name: dotfiles-${WORKTREE_NAME:-main}
+    hostname: dotfiles-${WORKTREE_NAME:-main}
+    stdin_open: true
+    tty: true
+
+    volumes:
+      # dotfiles bind mount (read-only for safety)
+      - ${DOTFILES_PATH:-.}:/home/${USERNAME:-devuser}/.dotfiles:ro
+
+      # Home directory persistence (isolated per worktree)
+      - dotfiles-home:/home/${USERNAME:-devuser}
+
+      # Optional: workspace mount
+      - ${WORKSPACE:-/tmp}:/workspace
+
+    environment:
+      - TERM=xterm-256color
+      - LANG=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+
+    network_mode: bridge
+
+volumes:
+  dotfiles-home:
+    name: dotfiles-${WORKTREE_NAME:-main}-home

@@ -1,0 +1,158 @@
+#!/bin/bash
+set -eu
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOCKER_DIR="$(dirname "${SCRIPT_DIR}")"
+DOTFILES_ROOT="$(dirname "${DOCKER_DIR}")"
+
+# Get worktree name from directory
+get_worktree_name() {
+    local dir="${1:-${DOTFILES_ROOT}}"
+    local name
+
+    if git -C "${dir}" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        # Use directory name for git worktree
+        name=$(basename "$(git -C "${dir}" rev-parse --show-toplevel)")
+    else
+        name="main"
+    fi
+
+    # Replace slash with hyphen, lowercase
+    echo "${name}" | tr '/' '-' | tr '[:upper:]' '[:lower:]'
+}
+
+# Setup environment variables
+setup_env() {
+    export WORKTREE_NAME=$(get_worktree_name "${DOTFILES_ROOT}")
+    export DOTFILES_PATH="${DOTFILES_ROOT}"
+    export USERNAME="${USER:-devuser}"
+    export USER_UID=$(id -u)
+    export USER_GID=$(id -g)
+    export COMPOSE_PROJECT_NAME="dotfiles-${WORKTREE_NAME}"
+}
+
+# Command: build
+cmd_build() {
+    setup_env
+    docker compose -f "${DOCKER_DIR}/docker-compose.yml" build "$@"
+    echo "Built image: dotfiles:${WORKTREE_NAME}"
+}
+
+# Command: start
+cmd_start() {
+    setup_env
+    docker compose -f "${DOCKER_DIR}/docker-compose.yml" up -d "$@"
+    echo "Started container: dotfiles-${WORKTREE_NAME}"
+}
+
+# Command: shell (attach to running container)
+cmd_shell() {
+    setup_env
+    local container="dotfiles-${WORKTREE_NAME}"
+
+    if ! docker ps --format '{{.Names}}' | grep -q "^${container}$"; then
+        echo "Container not running. Starting..."
+        cmd_start
+    fi
+
+    docker exec -it "${container}" zsh
+}
+
+# Command: run (temporary, removed after exit)
+cmd_run() {
+    setup_env
+    docker compose -f "${DOCKER_DIR}/docker-compose.yml" run --rm dotfiles zsh
+}
+
+# Command: stop
+cmd_stop() {
+    setup_env
+    docker compose -f "${DOCKER_DIR}/docker-compose.yml" down "$@"
+    echo "Stopped container: dotfiles-${WORKTREE_NAME}"
+}
+
+# Command: clean (remove container and volume)
+cmd_clean() {
+    setup_env
+    docker compose -f "${DOCKER_DIR}/docker-compose.yml" down -v "$@"
+    echo "Removed container and volume for: ${WORKTREE_NAME}"
+}
+
+# Command: status
+cmd_status() {
+    setup_env
+    echo "=== Worktree: ${WORKTREE_NAME} ==="
+    echo ""
+    echo "Containers:"
+    docker ps -a --filter "name=dotfiles-" --format "table {{.Names}}\t{{.Status}}\t{{.Image}}"
+    echo ""
+    echo "Volumes:"
+    docker volume ls --filter "name=dotfiles-" --format "table {{.Name}}\t{{.Driver}}"
+}
+
+# Command: list (all dotfiles containers)
+cmd_list() {
+    echo "=== All dotfiles containers ==="
+    docker ps -a --filter "name=dotfiles-" --format "table {{.Names}}\t{{.Status}}\t{{.Image}}\t{{.Ports}}"
+}
+
+# Command: clean-all (remove all containers and volumes)
+cmd_clean_all() {
+    echo "This will remove ALL dotfiles containers and volumes. Continue? [y/N]"
+    read -r response
+    if [[ "${response}" =~ ^[Yy]$ ]]; then
+        docker ps -a --filter "name=dotfiles-" -q | xargs -r docker rm -f
+        docker volume ls --filter "name=dotfiles-" -q | xargs -r docker volume rm
+        docker images "dotfiles:*" -q | xargs -r docker rmi
+        echo "Cleaned all dotfiles containers and volumes."
+    fi
+}
+
+# Help
+cmd_help() {
+    cat << EOF
+dotfiles-dev - Docker development environment manager for dotfiles
+
+Usage: dotfiles-dev <command> [options]
+
+Commands:
+    build       Build Docker image for current worktree
+    start       Start container in background
+    shell       Attach to running container (starts if not running)
+    run         Run container interactively (removed after exit)
+    stop        Stop container
+    clean       Remove container and volume for current worktree
+    status      Show status of current worktree's container
+    list        List all dotfiles containers
+    clean-all   Remove ALL dotfiles containers and volumes
+    help        Show this help message
+
+Current worktree: $(get_worktree_name)
+EOF
+}
+
+# Main
+main() {
+    local cmd="${1:-help}"
+    shift || true
+
+    case "${cmd}" in
+        build)     cmd_build "$@" ;;
+        start)     cmd_start "$@" ;;
+        shell)     cmd_shell "$@" ;;
+        run)       cmd_run "$@" ;;
+        stop)      cmd_stop "$@" ;;
+        clean)     cmd_clean "$@" ;;
+        status)    cmd_status "$@" ;;
+        list)      cmd_list "$@" ;;
+        clean-all) cmd_clean_all "$@" ;;
+        help|--help|-h) cmd_help ;;
+        *)
+            echo "Unknown command: ${cmd}"
+            cmd_help
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"

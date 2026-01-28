@@ -1,35 +1,33 @@
+.PHONY: build start shell run stop clean status list clean-all help
 
-.PHONY:build_neovim run_neovim
+DOCKER_SCRIPT := ./docker/scripts/dotfiles-dev
 
-build_zsh:
-	docker build -f Dockerfile.zsh.centos7 -t dotfiles-test:centos7-zsh .
+build:
+	@$(DOCKER_SCRIPT) build
 
-build_neovim:
-	docker build -f Dockerfile.neovim.centos7 -t dotfiles-test:centos7-neovim .
+start:
+	@$(DOCKER_SCRIPT) start
 
-build_tmux:
-	docker build -f Dockerfile.tmux.centos7 -t dotfiles-test:centos7-tmux .
+shell:
+	@$(DOCKER_SCRIPT) shell
 
-run_neovim:
-	docker run \
-	 --name dotfiles-neovim \
-	 --rm \
-	 --workdir=/home/progrunner \
-	 -it dotfiles-test:neovim bash
+run:
+	@$(DOCKER_SCRIPT) run
 
-run_zsh:
-	docker run \
-	 --name dotfiles-zsh \
-	 --rm \
-	 --workdir=/home/progrunner \
-	 -it dotfiles-test:centos7-zsh bash
+stop:
+	@$(DOCKER_SCRIPT) stop
 
+clean:
+	@$(DOCKER_SCRIPT) clean
 
+status:
+	@$(DOCKER_SCRIPT) status
 
-run_tmux:
-	docker run \
-	 --name dotfiles-tmux \
-	 --rm \
-	 --workdir=/home/progrunner \
-	 -it dotfiles-test:centos7-tmux bash
+list:
+	@$(DOCKER_SCRIPT) list
 
+clean-all:
+	@$(DOCKER_SCRIPT) clean-all
+
+help:
+	@$(DOCKER_SCRIPT) help
